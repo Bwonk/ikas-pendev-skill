@@ -19,7 +19,7 @@ Q|Q18|prop-mismatch|ProductList.applyFiltersText|Planda TEXT, canvas'ta prop yok
 Q|Q19|prop-mismatch|ProductList.clearFiltersText|Planda TEXT, canvas'ta prop yok
 Q|Q20|missing-section|Timeline|Planda var, canvas'ta `C/Section/Timeline@desktop` / `C/Section/Timeline@mobile` kök frame'i yok (anim hedefleri: C-TML-01, C-TML-02)|BLOCKING
 Q|Q21|anim-missing-on-canvas|C-PDP-03|Plandaki hedef (ProductDetail · pdp-image) canvas'ta hiçbir kök frame'de yok (metadata.anim / context)|BLOCKING
-FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port-broken/port-manifest.json
-FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port-broken/port-manifest.md
-FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port-broken/globals-runbook.md
+FILE|/Users/yigitozen/.claude/skills/ikas-pendev/tests/out/port-broken/port-manifest.json
+FILE|/Users/yigitozen/.claude/skills/ikas-pendev/tests/out/port-broken/port-manifest.md
+FILE|/Users/yigitozen/.claude/skills/ikas-pendev/tests/out/port-broken/globals-runbook.md
 MANIFEST|sections=31|overlays=3|subs=20|pages=16|anims=115|open=21|blocking=2
