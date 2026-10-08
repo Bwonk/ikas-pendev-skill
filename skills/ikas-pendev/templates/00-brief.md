@@ -16,8 +16,9 @@ Bu dosya tüm fazların başlangıç noktasıdır. Her oturum önce bunu okur; e
 
 | Alan | Değer |
 |---|---|
-| Marka adı | … |
-| Slug | … |
+| Tema adı (marka adı, ilk soru) | … |
+| Slug | … (tema adından: Türkçe harfler sadeleşir, boşluk → `-`) |
+| Marka adının geçtiği yerler | logo + işaret (`P/DS/Icons`), header, footer + telif satırı, iletişim e-postası (`destek@<slug>.com.tr`), mağaza adları, giriş/hesap metinleri (02-contract §11) |
 | Sektör | … |
 | Ton (3 sıfat) | … · … · … |
 

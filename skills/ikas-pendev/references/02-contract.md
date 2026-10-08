@@ -16,6 +16,7 @@ The fixed agreement between the plan, the pen.dev canvas and the ikas port. Scri
 8. Design-system frames
 9. Required subs, overlays and states
 10. Contrast gate
+11. Theme name and brand placements
 
 ---
 
@@ -280,3 +281,20 @@ WCAG 2.1 ratios, computed on the variable values **in every declared mode**. `li
 | `color-accent` on `color-bg` (non-text) | 3.0 | WARN | `color-accent` only if it carries meaning alone |
 
 Fix the foreground variable, keep hue, step lightness until it passes; never move `color-bg` to rescue one pair. Example: gizem muted light `#77736A` on `#EFEBE2` = 3.97 → `#6B675F` = 4.73.
+
+## 11. Theme name and brand placements
+
+The theme name is asked first in intake (07 §1 precondition) and recorded in `docs/00-brief.md` §2. It is the only brand name on the canvas. Every place below uses it exactly, with Turkish glyphs and the brief's uppercase policy:
+
+| Where | Layer / root | Port |
+|---|---|---|
+| Logo wordmark + mark | `P/DS/Icons` (`logo`, `logo-mark`), `Generate("svg")` with the exact name; check `İ Ş Ğ Ü Ö Ç` | `logo` SVG prop (Header, Footer, ready-made pages' logo scope) |
+| Header (desktop, mobile, transparent state) and mobile menu | `logo` instance | Header `logo` SVG |
+| Footer | `logo` instance + `copyright` (`© <yıl> <Tema adı>. Tüm hakları saklıdır.`) + about text if it names the brand | `logo` SVG · `copyrightText` TEXT |
+| Contact, store and support texts | e-mail `destek@<slug>.com.tr`, store names (`<Tema adı> Kadıköy`), channel cards | TEXT props |
+| Auth / account / e-mail verification copy that names the store | e.g. `<Tema adı> hesabına giriş yap` | TEXT props |
+| Blog author, newsletter and campaign copy that names the store | `<Tema adı> Ekibi` | TEXT props / data |
+| Plan §1 identity, DS frame titles | plan text, `P/DS/*` headers | — |
+
+Never use placeholder brand text (`Marka`, `Logo`, `Brand`, `Store`), the reference's name, or a different name in copy. The slug and prefix follow from the name (lowercase ASCII slug; prefix letter = first letter unless taken). If the user renames the theme later: change the brief, regenerate the logo with `Generate("svg")`, update every placement above, and re-run `--js all`.
+
