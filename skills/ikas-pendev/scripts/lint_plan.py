@@ -868,7 +868,10 @@ MERCHANT_LAYERS = collections.OrderedDict([
     ("Account", ["order-detail", "order-packages", "return-form", "account-settings", "orders-error"]),
     ("ProductReviews", ["merchant-reply", "reviews-pagination"]),
 ])
-MERCHANT_LAYERS["ProductDetail"] += ["pdp-video", "pdp-variant-swatches", "pdp-stock-locations"]
+MERCHANT_LAYERS["ProductDetail"] += ["pdp-video", "pdp-variant-swatches", "pdp-stock-locations",
+                                     "option-text", "option-textarea", "option-select", "option-box", "option-swatch",
+                                     "option-image", "option-checkbox", "option-color", "option-date", "option-file",
+                                     "option-child", "option-limit"]
 COMPLETENESS_OVERLAYS = ["CookieBar", "ImagePreview", "LocaleSwitcher"]
 ACCOUNT_OVERLAYS = []  # AddressModal, ConfirmModal, Toast, AccountMenu are conditional (asked in intake)
 COMPLETENESS_SECTIONS = ["RichText", "OrderTracking"]

@@ -97,7 +97,9 @@ Do not add an eyebrow above the name.
 
 ### 3b. ikas merchant blocks on the product page and in the cart (required)
 
-The merchant switches these on in ikas admin (campaigns, campaign offers, bundles, option sets, back-in-stock, reviews), but ikas renders none of them inside a theme section. The theme must draw every one, so each design includes them even when the reference shows none. Draw the blocks in the section component; blocks that depend on store data stay hidden (`enabled:false`, with a `fill_container(<column width>)` fallback width) and are switched on in their own state frames.
+The merchant switches these on in ikas admin (campaigns, campaign offers, bundles, option sets, back-in-stock, reviews), but ikas renders none of them inside a theme section.
+
+**Always in the theme's own style.** Every ikas-driven block (this section and §3c) is built from the theme's Subs (Button, FormField, VariantChip, VariantSwatch, Checkbox, Badge), tokens (`$color-*`, `$radius-*`, `$space-*`, `$text-*`, `$font-*`) and spacing rhythm. Fields share one height, radius and stroke; labels use the theme's label style; prices use `$font-price`. A block that looks like a stock form or a default widget fails review (`08-quality.md` §2). The theme must draw every one, so each design includes them even when the reference shows none. Draw the blocks in the section component; blocks that depend on store data stay hidden (`enabled:false`, with a `fill_container(<column width>)` fallback width) and are switched on in their own state frames.
 
 **Product detail (`ProductDetail`), layer names fixed:**
 
@@ -109,7 +111,7 @@ The merchant switches these on in ikas admin (campaigns, campaign offers, bundle
 | `pdp-pay` | Pay with ikas ("Hızlı Öde") slot, neutral 48 px frame (ikas draws the iframe) | `PayWithIkas` | yes | — |
 | `pdp-bundle` | **Set içeriği**: BundleItem ×N (variant, editable or fixed quantity, added price, sold out) | `hasBundleSettings`, `initBundleProducts`, `isBundleProductQuantityEditable`, `getBundleProductFormattedFinalPrice` | no | `— set ürün` |
 | `pdp-tiers` | **Kademeli indirim** table: quantity range → unit price, current tier highlighted | `getProductVariantTieredDiscountProducts` | no | `— kademeli indirim` |
-| `pdp-options` | **Kişiselleştirme**: text field, choice chips, file upload, option prices | `getProductOptionSet`, `initIkasProductOptionSet`, `getDisplayedOptions`, `productOptionFileUpload` | no | `— kişiselleştirme` |
+| `pdp-options` | **Kişiselleştirme**: every `IkasProductOptionType`, drawn in the theme style.<br>Layers:<br>• `option-text` (short text)<br>• `option-textarea` (long text + counter)<br>• `option-select` (dropdown)<br>• `option-box` (VariantChip boxes)<br>• `option-swatch` (VariantSwatch)<br>• `option-image` (image tiles)<br>• `option-checkbox` (+ price)<br>• `option-color` (colour picker)<br>• `option-date` (date picker)<br>• `option-file` (upload)<br>• `option-child` (a dependent option revealed by its parent)<br>• `option-limit` (min/max selection hint)<br>Each label carries its price. | `getProductOptionSet`, `initIkasProductOptionSet`, `getDisplayedOptions`, `getDisplayedChildOptions`, `isChoiceOptionSwatchType` / `…BoxType` / `…SelectType`, `productOptionFileUpload` | no | `— kişiselleştirme` |
 | `pdp-group` | **Ürün grubu**: sibling products as image swatches (replaces the colour chips) | `product.productGroup` | no | `— ürün grubu` |
 | `pdp-back-in-stock` | **Gelince haber ver**: e-mail field + button, saved message, login-required branch | `getProductVariantIsBackInStockEnabled`, `initBackInStockNotificationForm`, `submitBackInStockNotificationForm`, `variant.isBackInStockReminderSaved` | in `— stok yok` | `— haber ver kaydedildi` · `— haber ver giriş gerekli` |
 
@@ -162,7 +164,7 @@ The ikas MCP expects these pieces in every custom theme (templates, child compon
 
 **Required subs:** `VariantSwatch` (varsayılan · seçili · hover · stok yok), `PriceRange`, `SocialLoginButton` (Google · Facebook · hover), `Skeleton`.
 
-**Conditional: asked in intake (07 §1), drawn only on "evet":** Toast, ConfirmModal, AddressModal, AccountMenu (fallbacks above), loyalty program (points in account and cart), raffle pages, brand page, technical spec table, the remaining option-set types (checkbox, colour picker, date, long text, image), extra customer fields at register, blog tags and author, product-list column toggle (3/4 desktop, 1/2 mobile).
+**Conditional: asked in intake (07 §1), drawn only on "evet":** Toast, ConfirmModal, AddressModal, AccountMenu (fallbacks above), loyalty program (points in account and cart), raffle pages, brand page, technical spec table, extra customer fields at register, blog tags and author, product-list column toggle (3/4 desktop, 1/2 mobile).
 
 **Not designed (decided in code):** search within a list, "load previous page", numbered pagination as well as load-more (pick one), unit price.
 
