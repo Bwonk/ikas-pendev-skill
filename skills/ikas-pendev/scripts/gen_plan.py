@@ -418,6 +418,8 @@ def validate(d, origins, cat):
                 err(path + '.props', 'contract 2 sections must list the `backgroundColor` COLOR prop')
     if c2 and keys.get('FilterDrawer') != 'overlay':
         err('$.sections', 'contract 2 requires overlay "FilterDrawer" (P/Overlay/FilterDrawer@mobile)')
+    if c2 and keys.get('QuickBuy') != 'overlay':
+        err('$.sections', 'contract 2 requires overlay "QuickBuy" (P/Overlay/QuickBuy@desktop + @mobile, see 06-page-coverage.md §3a)')
 
     pages = need(d, 'pages', '$', list) or []
     for i, p in enumerate(pages):

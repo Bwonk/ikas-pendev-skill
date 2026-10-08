@@ -155,13 +155,13 @@ Component targets get ids `<P>-CMP-NN` (numbered across all components) and sect
 | Variables | 37 | 41 (`color-transparent`, `size-logo`, `color-danger`, `color-success`) |
 | §4 | prop metadata | + `textClass` (`prop`/`data`/`code`), `source`, root `contract:2` + `backgroundColor` prop, `context` must carry anim ids, `{data:}`/`{code:}` legend |
 | §6.0 | 5 DS frames | + `P/DS/Imagery` |
-| §6.1 | | required: Button states `eklendi`, `stok yok`; overlay `FilterDrawer` (mobile) |
+| §6.1 | | required: Button states `eklendi`, `stok yok`; overlays `FilterDrawer` (mobile) and `QuickBuy` (both devices) |
 | §6.3 | 2 columns | + ikas page type column |
 | §9 | prose checklist | one line per CHK id: vars, hardcoded, sections, pages, overlays, anim, textclass, clip, rootmeta, bgprop, placeholder, refassets, ds |
 | YAML `what:` | `"%s"` | JSON-escaped string |
 | Extra validation | | font not in `fontCheck.invalid`; `{x:TYPE}` types; `{data:}` source shape; header shows locale/currency |
 
-Contract 2 data that lacks the `FilterDrawer` overlay or the Button states fails validation on purpose (the bare skeleton in this folder does).
+Contract 2 data that lacks the `FilterDrawer` or `QuickBuy` overlay or the Button states fails validation on purpose (the bare skeleton in this folder does).
 
 ## Templates
 
