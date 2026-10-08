@@ -247,21 +247,27 @@ Each sub is a reusable root; each state is its own root `P/Sub/<Name> — <state
 | `FormField` | boş · dolu · odak · **hata (+ mesaj, `$color-danger`)** · pasif | always |
 | `Checkbox` | işaretli · boş | always |
 | `AccordionItem` | açık · kapalı | always |
-| `QuantitySelector` | varsayılan · alt sınır | always |
+| `QuantitySelector` | varsayılan · alt sınır · üst sınır | always |
 | `SectionHeading` | açıklamalı · açıklamasız | always |
 | `IconButton` | varsayılan · hover | always |
 | `Spinner` | — | always |
-| `CartLineItem` | varsayılan · güncelleniyor · **indirimli** · **hediye** · **set** · **kişiselleştirilmiş** | always |
+| `CartLineItem` | varsayılan · güncelleniyor · **indirimli** · **hediye** · **set** · **kişiselleştirilmiş** · **adet sınırı** | always |
 | `OfferCard` | seçili değil · seçili · sepette · tükendi | always (Birlikte al) |
 | `BundleItem` | adet düzenlenebilir · adet sabit · tükendi | always (set ürün) |
 | `RatingStars` | puanlı · yorumsuz | always |
-| `ReviewCard` | doğrulanmış alıcı · doğrulanmamış | always |
+| `ReviewCard` | doğrulanmış alıcı · doğrulanmamış · görselli · mağaza yanıtlı | always |
+| `VariantSwatch` | varsayılan · seçili · hover · stok yok | always |
+| `PriceRange` | varsayılan · değer girilmiş | always (price filter) |
+| `SocialLoginButton` | Google · Facebook · hover | custom auth |
+| `Skeleton` | — | always (loading states) |
 
 Theme-specific subs (gizem: `Sticker`, `ScrambleText`) are added by the plan.
 
 Required overlays (`P/Overlay/…`): mobile menu — açık; `CartDrawer` — boş · dolu · yükleniyor; `SearchOverlay` — boş · yazarken · sonuçsuz; **`FilterDrawer@mobile` — açık**; **`QuickBuy` — açık · seçim eksik · ekleniyor** (`@desktop` centred window, `@mobile` bottom sheet; content in `06-page-coverage.md` §3a); plus any panel the plan defines (size guide, info drawer).
 
 Required merchant blocks (`06-page-coverage.md` §3b, lint L21): ProductDetail layers `pdp-rating`, `pdp-campaign`, `pdp-offers`, `pdp-pay`, `pdp-bundle`, `pdp-tiers`, `pdp-options`, `pdp-group`, `pdp-back-in-stock` (hidden ones get their own `— <state>` frames); a `ProductReviews` section; CartPage layers `cart-adjustments`, `coupon-applied`, `cart-recommendations`; CartDrawer layers `drawer-adjustments`, `coupon-toggle`, `drawer-recommend`.
+
+Required storefront completeness (`06-page-coverage.md` §3c, lint L21): the overlays `Toast`, `CookieBar`, `ImagePreview`, `LocaleSwitcher`, `AccountMenu` (+ `AddressModal`, `ConfirmModal` with a custom Account); the sections `RichText` and `OrderTracking`; filter-type layers in ProductList; video, swatch and stock-location layers in ProductDetail; Header pager, locale and sticky state; social, SMS and consent layers in AuthForms; order-detail, return, settings and error panels in a custom Account.
 
 ## 10. Contrast gate
 

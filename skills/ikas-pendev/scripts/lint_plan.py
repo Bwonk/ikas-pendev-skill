@@ -34,7 +34,7 @@ Checks
   L17 contract 2: every Section's Prop'lar line has backgroundColor COLOR
   L18 §6.3 pages reference Sections only
   L19 contract 2 required extras: DS/Imagery, Button eklendi + stok yok, FilterDrawer, QuickBuy
-  L21 contract 2 ikas merchant blocks (06-page-coverage §3b) when ProductDetail / CartPage / CartDrawer exist
+  L21 contract 2 ikas merchant blocks and storefront completeness (06-page-coverage §3b, §3c) for full store plans
   L20 --globals / --components integrity (tables, catalogue, prop types, defaults)
 
 Stdlib only; PyYAML is used, when installed, as an extra YAML syntax check.
@@ -81,7 +81,10 @@ MERCHANT_TYPES = {
 PAGE_TYPES = {
     "INDEX", "CATEGORY", "PRODUCT_DETAIL", "CART", "ACCOUNT", "LOGIN", "REGISTER",
     "FORGOT_PASSWORD", "RECOVER_PASSWORD", "NOT_FOUND", "BLOG", "BLOG_POST", "SEARCH",
-    "FAVORITES", "CUSTOMER_EMAIL_VERIFICATION", "COLLECTION",
+    "FAVORITES", "CUSTOMER_EMAIL_VERIFICATION", "COLLECTION", "CUSTOM",
+    # remaining IkasThemePageType values
+    "PRODUCT", "BRAND", "ADDRESSES", "ORDERS", "ORDER_DETAIL", "FAVORITE_PRODUCTS", "BLOG_INDEX",
+    "BLOG_CATEGORY", "CHECKOUT", "RAFFLE", "RAFFLE_DETAIL", "RAFFLE_ACCOUNT", "ACTIVATE_CUSTOMER",
 }
 REQ_KEYS = ["id", "section", "layer", "recipe", "trigger", "what", "from", "to", "timing",
             "impl", "mobile", "reducedMotion", "done"]
@@ -854,7 +857,21 @@ MERCHANT_LAYERS = collections.OrderedDict([
                        "pdp-options", "pdp-group", "pdp-back-in-stock"]),
     ("CartPage", ["cart-adjustments", "coupon-applied", "cart-recommendations"]),
     ("CartDrawer", ["drawer-adjustments", "coupon-toggle", "drawer-recommend"]),
+    # storefront completeness (06-page-coverage §3c)
+    ("ProductList", ["filter-category-list", "filter-swatch-values", "filter-box-values", "filter-range",
+                     "filter-range-list", "filter-clear-all"]),
+    ("Header", ["announcement-pager", "locale-button"]),
+    ("MenuOverlay", ["menu-auth"]),
+    ("AuthForms", ["social-login", "sms-login", "register-consents"]),
+    ("EmailVerification", ["resend-form"]),
+    ("Account", ["order-detail", "order-packages", "return-form", "account-settings", "orders-error"]),
+    ("ProductReviews", ["merchant-reply", "reviews-pagination"]),
 ])
+MERCHANT_LAYERS["ProductDetail"] += ["pdp-video", "pdp-variant-swatches", "pdp-stock-locations"]
+COMPLETENESS_OVERLAYS = ["Toast", "CookieBar", "ImagePreview", "LocaleSwitcher", "AccountMenu"]
+ACCOUNT_OVERLAYS = ["AddressModal", "ConfirmModal"]
+COMPLETENESS_SECTIONS = ["RichText", "OrderTracking"]
+COMPLETENESS_SUBS = ["VariantSwatch", "PriceRange", "Skeleton"]
 MERCHANT_SUBS = ["OfferCard", "BundleItem", "RatingStars", "ReviewCard"]
 CARTLINE_STATES = ["indirimli", "hediye", "set", "kişiselleştirilmiş"]
 
@@ -869,9 +886,18 @@ def lint_merchant_blocks(plan, rep):
         for name in layers:
             if not re.search(r"(?<![\w-])" + re.escape(name) + r"(?![\w-])", hay):
                 rep.add("§6.2", "ERROR", "%s/%s" % (e["kind"], sec), "L21",
-                        "tree lacks `%s` (ikas merchant block, 06-page-coverage §3b)" % name)
+                        "tree lacks `%s` (ikas block, 06-page-coverage §3b/§3c)" % name)
     if "ProductDetail" not in plan.entries:
         return
+    for key in COMPLETENESS_OVERLAYS + (ACCOUNT_OVERLAYS if "Account" in plan.entries else []):
+        if key not in plan.entries or plan.entries[key]["kind"] != "Overlay":
+            rep.add("§6.2", "ERROR", "Overlay/" + key, "L21", "#### Overlay/%s missing (06-page-coverage §3c)" % key)
+    for key in COMPLETENESS_SECTIONS:
+        if key not in plan.entries or plan.entries[key]["kind"] != "Section":
+            rep.add("§6.2", "ERROR", "Section/" + key, "L21", "#### Section/%s missing (06-page-coverage §3c)" % key)
+    for name in COMPLETENESS_SUBS + (["SocialLoginButton"] if "AuthForms" in plan.entries else []):
+        if name not in plan.components:
+            rep.add("§6.1", "ERROR", name, "L21", "sub `%s` missing (06-page-coverage §3c)" % name)
     if "ProductReviews" not in plan.entries or plan.entries["ProductReviews"]["kind"] != "Section":
         rep.add("§6.2", "ERROR", "Section/ProductReviews", "L21", "#### Section/ProductReviews missing (required with ProductDetail)")
     for name in MERCHANT_SUBS:

@@ -53,7 +53,10 @@ PROP_TYPES = {'TEXT', 'RICH_TEXT', 'NUMBER', 'NUMBER_RANGE', 'BOOLEAN', 'IMAGE',
               'BLOG_CATEGORY', 'BLOG_CATEGORY_LIST', 'TYPE', 'ENUM', 'COMPONENT', 'COMPONENT_LIST'}
 PAGE_TYPES = {'INDEX', 'CATEGORY', 'PRODUCT_DETAIL', 'CART', 'ACCOUNT', 'LOGIN', 'REGISTER', 'FORGOT_PASSWORD',
               'RECOVER_PASSWORD', 'NOT_FOUND', 'BLOG', 'BLOG_POST', 'SEARCH', 'FAVORITES',
-              'CUSTOMER_EMAIL_VERIFICATION', 'COLLECTION', 'CUSTOM'}
+              'CUSTOMER_EMAIL_VERIFICATION', 'COLLECTION', 'CUSTOM',
+              # remaining IkasThemePageType values
+              'PRODUCT', 'BRAND', 'ADDRESSES', 'ORDERS', 'ORDER_DETAIL', 'FAVORITE_PRODUCTS', 'BLOG_INDEX',
+              'BLOG_CATEGORY', 'CHECKOUT', 'RAFFLE', 'RAFFLE_DETAIL', 'RAFFLE_ACCOUNT', 'ACTIVATE_CUSTOMER'}
 ANIM_KEYS = {'layer', 'recipe', 'trigger', 'what', 'frm', 'to', 'timing', 'impl', 'mobile', 'rm', 'via'}
 RECIPE_FIELDS = ('frm', 'to', 'timing', 'impl', 'mobile', 'rm')
 FORBIDDEN_IMPL = re.compile(r'\b(gsap|lenis|framer-motion)\b', re.I)
