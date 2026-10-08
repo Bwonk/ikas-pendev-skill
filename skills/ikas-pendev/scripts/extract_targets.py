@@ -16,12 +16,17 @@ Usage:
                build-unit band: DS | Sub | Page | Overlays | Motion (aliases ds, subs, pages,
                overlays, motion).
 --mode-only    embed only the expectations the chosen mode needs (smaller snippet).
+--checks IDS   comma list of CHK ids to run (default: all of the mode). Use when one execute
+               call times out on a large canvas, e.g. --checks anim, then --checks parity.
+--part K/N     node-walk checks (hardcoded, textclass, clip, refassets) visit only every N-th
+               root starting at K; run K=1..N and add the counts.
 
 Everything is derived from the plan: variables from the §3 SetVariables keys, sections and
 overlays from the §6.2 `#### Section/X` / `#### Overlay/X` headings, pages from the §6.3 table
 (`Auth (×4)` expands to Login/Register/ForgotPassword/RecoverPassword unless names are given as
 `Auth (×4: A, B, C, D)`), slug from the §4 metadata example (`type:"<slug>"`), prefix from the
-ids, reference host from the URL in the header lines, DS frame count 5 (contract 1) / 6 (contract 2).
+ids, reference host from the URL in the header lines, DS frame count 5 (contract 1) / 6 (contract 2),
+parity exceptions from the §6.2 `- **Yalnız masaüstü katmanlar:**` / `- **Yalnız masaüstü durumlar:**` lines.
 """
 import argparse
 import json
@@ -33,6 +38,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import lint_plan as L  # noqa: E402
 
+CHK_IDS = ("vars", "ds", "sections", "overlays", "pages", "anim", "hardcoded", "textclass", "clip",
+           "rootmeta", "bgprop", "parity", "placeholder", "refassets")
 BANDS = {"DS": "DS", "ds": "DS", "Sub": "Sub", "sub": "Sub", "subs": "Sub", "Page": "Page",
          "page": "Page", "pages": "Page", "Overlays": "Overlays", "overlays": "Overlays",
          "Motion": "Motion", "motion": "Motion"}
@@ -67,9 +74,12 @@ def build_exp(plan, mode, mode_only):
         page_expand[base] = max(1, len(expanded))
     ids = [t.get("id") for t in plan.targets if isinstance(t.get("id"), str)]
     odev = overlay_devices(plan, P, overlays)
+    parity = {k: dict(layers=e.get("desktop_only") or [], states=e.get("desktop_only_states") or [])
+              for k, e in plan.entries.items() if e.get("desktop_only") or e.get("desktop_only_states")}
     exp = dict(prefix=P, slug=slug, contract=contract, referenceHost=plan.reference_host() or "",
                vars=variables, ds=list(L.DS_C2 if contract >= 2 else L.DS_C1),
-               sections=sections, overlays=overlays, overlayDevices=odev, pages=pages, pageExpand=page_expand, ids=ids)
+               sections=sections, overlays=overlays, overlayDevices=odev, pages=pages, pageExpand=page_expand, ids=ids,
+               parity=parity)
     if mode.startswith("section:"):
         key = mode.split(":", 1)[1]
         band = BANDS.get(key)
@@ -92,10 +102,11 @@ def build_exp(plan, mode, mode_only):
             elif band == "Page":
                 keep.update(pages=pages)
             elif band == "Overlays":
-                keep.update(overlays=overlays, overlayDevices=odev)
+                keep.update(overlays=overlays, overlayDevices=odev, parity={k: v for k, v in parity.items() if k in overlays})
             elif not band:
                 keep.update(sections=[key] if key in sections else [], overlays=[key] if key in overlays else [],
-                            overlayDevices={key: odev[key]} if key in odev else {})
+                            overlayDevices={key: odev[key]} if key in odev else {},
+                            parity={key: parity[key]} if key in parity else {})
             exp = keep
     elif mode == "manifest" and mode_only:
         exp = dict(prefix=P, slug=slug, contract=contract)
@@ -145,6 +156,8 @@ def main(argv=None):
     ap.add_argument("--format", choices=["tsv", "json", "ids"], default="tsv")
     ap.add_argument("--js", metavar="MODE")
     ap.add_argument("--mode-only", action="store_true")
+    ap.add_argument("--checks", metavar="IDS")
+    ap.add_argument("--part", metavar="K/N")
     args = ap.parse_args(argv)
     plan = L.Plan(args.plan, open(args.plan, encoding="utf-8").read())
     if args.js:
@@ -152,6 +165,17 @@ def main(argv=None):
         if not (mode in ("all", "manifest") or re.match(r"^section:[A-Za-z][A-Za-z0-9]*$", mode)):
             ap.error("--js must be all, manifest or section:<Key>")
         exp, P, slug, contract = build_exp(plan, mode, args.mode_only)
+        if args.checks:
+            ids = [x.strip() for x in args.checks.split(",") if x.strip()]
+            unknown = [x for x in ids if x not in CHK_IDS]
+            if unknown:
+                ap.error("unknown CHK ids: %s (known: %s)" % (", ".join(unknown), " ".join(CHK_IDS)))
+            exp["only"] = ids
+        if args.part:
+            mm = re.match(r"^(\d+)/(\d+)$", args.part)
+            if not mm or not (1 <= int(mm.group(1)) <= int(mm.group(2))):
+                ap.error("--part must be K/N with 1 <= K <= N")
+            exp["part"] = [int(mm.group(1)), int(mm.group(2))]
         sys.stdout.write(render_js(exp, P, slug, contract, mode))
         return 0
     rows = target_rows(plan)

@@ -21,6 +21,7 @@
 | `clip` | … | … | … |
 | `rootmeta` | … | … | … |
 | `bgprop` | … | … | … |
+| `parity` | … | … | … |
 | `placeholder` | … | … | … |
 | `refassets` | … | … | … |
 | `ds` | … | … | … |

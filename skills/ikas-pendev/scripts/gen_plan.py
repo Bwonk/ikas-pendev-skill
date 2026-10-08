@@ -398,6 +398,12 @@ def validate(d, origins, cat):
             err(path + '.mode', 'must be one of $.modes')
         if 'devices' in s and not (isinstance(s['devices'], list) and s['devices'] and set(s['devices']) <= {'desktop', 'mobile'}):
             err(path + '.devices', 'subset of ["desktop","mobile"]')
+        for f in ('desktopOnly', 'desktopOnlyStates'):
+            if f in s and not (isinstance(s[f], list) and all(isinstance(x, str) and x.strip() and '`' not in x for x in s[f])):
+                err(path + '.' + f, 'expected a list of non-empty strings without backticks')
+        for x in s.get('desktopOnly') or []:
+            if isinstance(x, str) and not re.match(r'^[a-z][a-z0-9-]*$', x):
+                err(path + '.desktopOnly', 'layer name "%s" must be kebab-case' % x)
         tree = s.get('tree')
         if not (isinstance(tree, list) and tree and all(isinstance(x, str) for x in tree)):
             err(path + '.tree', 'required array of lines')
@@ -661,6 +667,10 @@ class Plan:
                 out.append('- **Mod:** `mode: "%s"`' % sec['mode'])
             out.append('- **Desktop:** %s' % text_of(sec['desktop']).strip())
             out.append('- **Mobil:** %s' % text_of(sec['mobile']).strip())
+            if sec.get('desktopOnly'):
+                out.append('- **Yalnız masaüstü katmanlar:** %s' % ', '.join('`%s`' % x for x in sec['desktopOnly']))
+            if sec.get('desktopOnlyStates'):
+                out.append('- **Yalnız masaüstü durumlar:** %s' % ', '.join('`%s`' % x for x in sec['desktopOnlyStates']))
             out.append('\n```\n' + '\n'.join(sec['tree']).strip('\n') + '\n```\n')
             if sec.get('checks'):
                 out.append('Kontrol: ' + ' · '.join(sec['checks']) + '\n')

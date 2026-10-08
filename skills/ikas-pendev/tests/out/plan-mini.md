@@ -318,6 +318,7 @@ Kontrol: başlık kendi clip maskesinde
 - **Mod:** `mode: "dark"`
 - **Desktop:** 1440; başlık satırı + 4 sütun ızgara (kart 344×460), aralık $space-grid.
 - **Mobil:** 2 sütun; "FİLTRE" butonu FilterDrawer'ı açar.
+- **Yalnız masaüstü katmanlar:** `filter-button`
 
 ```
 product-grid-section

@@ -32,6 +32,7 @@ fi
 # 3. gen_plan: contract-2 mini dataset renders with marker
 python3 "$S/gen_plan.py" "$FX/mini-plandata" --stdout > "$OUT/plan-mini.md" 2>"$OUT/gen-mini.log" && ok "gen_plan mini renders" || bad "gen_plan mini renders" "$(cat "$OUT/gen-mini.log")"
 sed -n 2p "$OUT/plan-mini.md" | grep -q "ikas-pendev contract:2" && ok "mini has contract-2 marker on line 2" || bad "mini has contract-2 marker on line 2"
+grep -q '^- \*\*Yalnız masaüstü katmanlar:\*\* `filter-button`' "$OUT/plan-mini.md" && ok "mini renders desktopOnly line" || bad "mini renders desktopOnly line"
 
 # 4. lint: plan-C passes with globals; mini passes; broken fails with snapshot
 python3 "$S/lint_plan.py" "$OUT/plan-C.md" --globals "$EX/globals.md" > "$OUT/lint-C.txt" 2>&1 && ok "lint plan-C OK" || bad "lint plan-C OK" "$(tail -3 "$OUT/lint-C.txt")"
@@ -51,6 +52,10 @@ diff -q "$OUT/targets-C.tsv" "$EXP/targets-C.tsv" >/dev/null && ok "extract tsv 
 python3 "$S/extract_targets.py" "$OUT/plan-C.md" --js all > "$OUT/checks-all.js" && ok "extract --js all renders" || bad "extract --js all renders"
 grep -q "__" "$OUT/checks-all.js" && bad "checks js has no unfilled placeholders" "$(grep -o '__[A-Z]*__' "$OUT/checks-all.js" | sort -u | tr '\n' ' ')" || ok "checks js has no unfilled placeholders"
 if command -v node >/dev/null; then node --check "$OUT/checks-all.js" 2>"$OUT/node.log" && ok "checks js parses (node --check)" || bad "checks js parses (node --check)" "$(head -3 "$OUT/node.log")"; fi
+python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks parity,clip --part 2/3 > "$OUT/checks-mini-split.js" 2>"$OUT/split.log" && ok "extract --checks/--part renders" || bad "extract --checks/--part renders" "$(cat "$OUT/split.log")"
+grep -q '"parity":{"ProductGrid":{"layers":\["filter-button"\]' "$OUT/checks-mini-split.js" && grep -q '"only":\["parity","clip"\],"part":\[2,3\]' "$OUT/checks-mini-split.js" && ok "checks js carries parity, only and part" || bad "checks js carries parity, only and part"
+if command -v node >/dev/null; then node --check "$OUT/checks-mini-split.js" 2>"$OUT/node2.log" && ok "split checks js parses" || bad "split checks js parses" "$(head -3 "$OUT/node2.log")"; fi
+python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks bogus >/dev/null 2>&1 && bad "extract rejects unknown CHK id" || ok "extract rejects unknown CHK id"
 
 # 6. analyze_site on offline fixture
 if [ -f "$FX/site/axm-snapshot.html" ]; then

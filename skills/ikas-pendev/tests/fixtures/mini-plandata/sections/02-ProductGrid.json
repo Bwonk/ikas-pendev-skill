@@ -8,6 +8,7 @@
  "mode": "dark",
  "desktop": "1440; başlık satırı + 4 sütun ızgara (kart 344×460), aralık $space-grid.",
  "mobile": "2 sütun; \"FİLTRE\" butonu FilterDrawer'ı açar.",
+ "desktopOnly": ["filter-button"],
  "tree": [
   "product-grid-section",
   "├─ grid-header",

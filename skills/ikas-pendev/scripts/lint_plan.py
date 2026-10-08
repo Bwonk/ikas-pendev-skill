@@ -507,12 +507,17 @@ class Plan:
             if lv == 4 and mm:
                 a, b = md.heading_range(idx)
                 props = None
+                only, only_states = [], []
                 for k in range(a, b):
-                    if re.match(r"^- \*\*Prop", md.lines[k - 1]):
+                    if props is None and re.match(r"^- \*\*Prop", md.lines[k - 1]):
                         props = (k, md.lines[k - 1])
-                        break
+                    if md.lines[k - 1].startswith("- **Yalnız masaüstü katmanlar:**"):
+                        only = re.findall(r"`([^`]+)`", md.lines[k - 1])
+                    if md.lines[k - 1].startswith("- **Yalnız masaüstü durumlar:**"):
+                        only_states = re.findall(r"`([^`]+)`", md.lines[k - 1])
                 trees = [f for f in md.fences if a < f["start"] < b and f["lang"] == ""]
-                self.entries[mm.group(2)] = dict(kind=mm.group(1), line=ln, end=b, props=props, trees=trees)
+                self.entries[mm.group(2)] = dict(kind=mm.group(1), line=ln, end=b, props=props, trees=trees,
+                                                 desktop_only=only, desktop_only_states=only_states)
         # anim-target blocks
         for i, l in enumerate(md.lines, 1):
             if "<!-- anim-targets:start -->" in l and i not in md.in_fence:

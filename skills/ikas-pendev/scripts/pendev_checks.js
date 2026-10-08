@@ -10,9 +10,17 @@
 //
 // Output: CHK|<id>|PASS|FAIL|WARN|<n>|<detail<=200>  ...  SUMMARY|pass=..|fail=..|warn=..|mode=..
 // CHK ids: vars ds sections overlays pages anim hardcoded textclass clip rootmeta bgprop
-//          placeholder refassets
+//          parity placeholder refassets
+// parity: every kebab-case layer name of the @desktop component also exists in @mobile, and every
+// "@desktop — <state>" root has its "@mobile — <state>" twin. Exempt: wrappers named *-row,
+// *-column, *-wrap, *-body, *-main; states containing "hover"; the plan's "Yalnız masaüstü" lists
+// (EXP.parity[<Key>] = {layers, states}; a listed layer exempts its whole subtree).
 // textclass skips text inside <P>/DS/* and <P>/Motion/* roots (legend/specimen text).
 // One execute call = one scope: the whole file is a single snippet; nothing persists.
+// anim scans Section/Sub component roots and every Overlay root (Section state frames only hold refs);
+// the resolveInstances pass runs only when ids are still missing.
+// Large canvases: EXP.only (list of CHK ids) runs a subset; EXP.part = [k, n] limits the node walk
+// of hardcoded/textclass/clip/refassets to every n-th root starting at k (counts add up over parts).
 const P = "__PREFIX__", SLUG = "__SLUG__", CONTRACT = __CONTRACT__, EXP = __EXP__, MODE = "__MODE__";
 let pass = 0, fail = 0, warn = 0;
 const cut = s => { s = String(s).replace(/[|\n]/g, "/"); return s.length > 200 ? s.slice(0, 197) + "..." : s; };
@@ -66,7 +74,7 @@ if (MODE === "manifest") {
   };
   const U = roots.filter(inUnit);
   if (unit && !isBand && (EXP.sections || []).indexOf(unit) < 0 && (EXP.overlays || []).indexOf(unit) < 0) chk("sections", "FAIL", 0, "unknown unit key " + unit + " (not a plan Section/Overlay)");
-  const run = id => { if (!unit) return true; if (unit === "DS") return ["vars", "ds", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Page") return ["pages", "rootmeta", "placeholder"].indexOf(id) >= 0; if (unit === "Motion") return ["hardcoded", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Sub") return ["anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Overlays") return ["overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; return ["sections", "overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "bgprop", "placeholder", "refassets"].indexOf(id) >= 0; };
+  const run = id => { if (EXP.only && EXP.only.indexOf(id) < 0) return false; if (!unit) return true; if (unit === "DS") return ["vars", "ds", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Page") return ["pages", "rootmeta", "placeholder"].indexOf(id) >= 0; if (unit === "Motion") return ["hardcoded", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Sub") return ["anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Overlays") return ["overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "parity", "placeholder", "refassets"].indexOf(id) >= 0; return ["sections", "overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "bgprop", "parity", "placeholder", "refassets"].indexOf(id) >= 0; };
   const find = nm => roots.find(r => r.name === nm);
   const findPre = pre => roots.filter(r => r.name === pre || r.name.indexOf(pre + " ") === 0);
 
@@ -122,10 +130,9 @@ if (MODE === "manifest") {
   if (run("anim")) {
     const want = unit ? ((EXP.unit && EXP.unit.ids) || []) : (EXP.ids || []);
     const found = new Set();
-    U.filter(r => ["Section", "Overlay", "Sub"].indexOf(band(r)) >= 0).forEach(r => {
-      Get(r.id, n => { scanNode(n, found); return undefined; });
-      Get(r.id, n => { scanNode(n, found); return undefined; }, { resolveInstances: true });
-    });
+    const scope = U.filter(r => ["Section", "Overlay", "Sub"].indexOf(band(r)) >= 0 && !(band(r) === "Section" && r.name.indexOf(" \u2014 ") >= 0));
+    scope.forEach(r => { Get(r.id, n => { scanNode(n, found); return undefined; }); });
+    if (want.some(x => !found.has(x))) scope.filter(r => r.name.indexOf(" \u2014 ") < 0).forEach(r => { Get(r.id, n => { scanNode(n, found); return undefined; }, { resolveInstances: true }); });
     const miss = want.filter(x => !found.has(x)), extra = Array.from(found).filter(x => want.indexOf(x) < 0);
     const ok = want.length - miss.length;
     chk("anim", miss.length ? "FAIL" : (extra.length && !unit ? "WARN" : "PASS"), ok, ok + "/" + want.length + (miss.length ? " missing:" + miss.join(",") : "") + (extra.length ? " extra:" + extra.join(",") : ""));
@@ -136,7 +143,7 @@ if (MODE === "manifest") {
   const host = EXP.referenceHost || "";
   const excl = /mask|track|marquee|ticker|pin|stage|curtain|hover|scroll|(^|-)(top|bottom|next|prev)$/i;
   if (["hardcoded", "textclass", "clip", "refassets"].some(run)) {
-    U.forEach(r => Get(r.id, (n, c) => {
+    U.filter((r, i) => !EXP.part || i % EXP.part[1] === EXP.part[0] - 1).forEach(r => Get(r.id, (n, c) => {
       const k = [];
       if (lit(n.fill)) k.push("fill");
       if (lit(n.stroke)) k.push("stroke");
@@ -198,10 +205,31 @@ if (MODE === "manifest") {
       chk("bgprop", bad.length ? "FAIL" : "PASS", secs.length - bad.length, (secs.length - bad.length) + "/" + secs.length + (bad.length ? " missing:" + bad.join(",") : ""));
     }
   }
+  if (run("parity")) {
+    const PAR = EXP.parity || {}, kebab = /^[a-z][a-z0-9-]*$/, STRUCT = /-(row|column|wrap|body|main)$/;
+    const keys = unit === "Overlays" ? (EXP.overlays || []) : (unit && !isBand ? [unit] : (EXP.sections || []).concat(EXP.overlays || []));
+    const names = (id, allow) => { const s = new Set(); Get(id, (n, c) => { const nm = n.name || ""; if (n.id !== id && kebab.test(nm)) { if (allow.indexOf(nm) >= 0) { c.skipChildren(); return undefined; } if (!STRUCT.test(nm)) s.add(nm); } return undefined; }); return s; };
+    const badL = [], badS = [], badK = new Set(); let checked = 0;
+    keys.forEach(k => {
+      const kind = (EXP.sections || []).indexOf(k) >= 0 ? "Section" : "Overlay";
+      if (kind === "Overlay" && ((EXP.overlayDevices || {})[k] || ["desktop", "mobile"]).length < 2) return;
+      const al = (PAR[k] && PAR[k].layers) || [], as = (PAR[k] && PAR[k].states) || [];
+      const pre = P + "/" + kind + "/" + k + "@", dsk = roots.filter(r => r.name.indexOf(pre + "desktop \u2014 ") === 0);
+      let d = find(pre + "desktop"), m = find(pre + "mobile");
+      if (!(d && m)) { const tw = dsk.map(r => [r, find(r.name.replace("@desktop \u2014 ", "@mobile \u2014 "))]).find(x => x[1]); if (tw) { d = tw[0]; m = tw[1]; } }
+      if (!(d && m)) return;
+      checked++;
+      const M = names(m.id, []);
+      names(d.id, al).forEach(x => { if (!M.has(x)) { badK.add(k); badL.push(k + ">" + x); } });
+      dsk.forEach(r => { const st = r.name.slice((pre + "desktop \u2014 ").length); if (/hover/i.test(st) || as.indexOf(st) >= 0) return; if (!find(pre + "mobile \u2014 " + st)) { badK.add(k); badS.push(k + " \u2014 " + st); } });
+    });
+    const okK = checked - badK.size;
+    chk("parity", badK.size ? "FAIL" : "PASS", okK, okK + "/" + checked + (badS.length ? " mobile state missing:" + badS.join(",") : "") + (badL.length ? " desktop-only layers:" + badL.join(",") : ""));
+  }
   if (run("placeholder")) {
     const ph = U.filter(r => r.placeholder).map(rest);
     chk("placeholder", ph.length ? "FAIL" : "PASS", ph.length, ph.length ? "still placeholder:" + ph.join(",") : "none");
   }
   if (run("refassets")) chk("refassets", W.ref ? "FAIL" : "PASS", W.ref, W.ref ? "reference-host image fills: " + W.refx.join(",") : "no reference-host image fills" + (host ? " (" + host + ")" : ""));
-  Print("SUMMARY|pass=" + pass + "|fail=" + fail + "|warn=" + warn + "|mode=" + MODE + "|roots=" + U.length);
+  Print("SUMMARY|pass=" + pass + "|fail=" + fail + "|warn=" + warn + "|mode=" + MODE + "|roots=" + U.length + (EXP.only ? "|only=" + EXP.only.join(",") : "") + (EXP.part ? "|part=" + EXP.part.join("/") : ""));
 }

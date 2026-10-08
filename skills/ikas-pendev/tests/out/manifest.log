@@ -17,7 +17,7 @@ Q|Q16|prop-mismatch|ProductList.countSuffixText|Planda TEXT, canvas'ta prop yok
 Q|Q17|prop-mismatch|ProductList.viewToggleAriaLabel|Planda TEXT, canvas'ta prop yok
 Q|Q18|prop-mismatch|ProductList.applyFiltersText|Planda TEXT, canvas'ta prop yok
 Q|Q19|prop-mismatch|ProductList.clearFiltersText|Planda TEXT, canvas'ta prop yok
-FILE|/Users/yigitozen/.claude/skills/ikas-pendev/tests/out/port/port-manifest.json
-FILE|/Users/yigitozen/.claude/skills/ikas-pendev/tests/out/port/port-manifest.md
-FILE|/Users/yigitozen/.claude/skills/ikas-pendev/tests/out/port/globals-runbook.md
+FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port/port-manifest.json
+FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port/port-manifest.md
+FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port/globals-runbook.md
 MANIFEST|sections=31|overlays=3|subs=20|pages=16|anims=115|open=19|blocking=0
