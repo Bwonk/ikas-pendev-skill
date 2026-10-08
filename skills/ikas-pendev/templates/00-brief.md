@@ -64,8 +64,8 @@ ikas hazır sayfalar (06 §2a):
 | Özel sayfalar | [ ] | … |
 
 Zorunlu overlay'ler: CartDrawer · SearchOverlay · MenuOverlay · QuickBuy (hızlı al) · FilterDrawer@mobile.
-Koşullu özellikler (intake'te sorulur, yalnız işaretlenenler çizilir): [ ] sadakat programı · [ ] çekiliş · [ ] marka sayfası · [ ] teknik özellik tablosu · [ ] kişiselleştirmenin ek tipleri · [ ] kayıtta ek müşteri alanları · [ ] blog etiket ve yazar · [ ] ürün listesinde sütun seçimi.
-Zorunlu tamamlama (06-page-coverage §3c): filtre tipleri, renk swatch'ları, galeride video, toast, çerez çubuğu, görsel önizleme, dil/para birimi seçici, hesap menüsü, sosyal + SMS giriş, iki ayrı kayıt onayı, sipariş detayı + iade, adres penceresi + silme onayı, hesap ayarları (veri dışa aktarma, hesap silme), sipariş takibi, metin sayfası, yükleniyor iskeletleri.
+Koşullu özellikler (intake'te sorulur, yalnız işaretlenenler çizilir): [ ] bildirim (toast) · [ ] onay penceresi · [ ] adres penceresi · [ ] hesap menüsü · [ ] sadakat programı · [ ] çekiliş · [ ] marka sayfası · [ ] teknik özellik tablosu · [ ] kişiselleştirmenin ek tipleri · [ ] kayıtta ek müşteri alanları · [ ] blog etiket ve yazar · [ ] ürün listesinde sütun seçimi.
+Zorunlu tamamlama (06-page-coverage §3c): filtre tipleri, renk swatch'ları, galeride video, çerez çubuğu, görsel önizleme, footer'dan açılan dil/para birimi seçici, sosyal + SMS giriş, iki ayrı kayıt onayı, sipariş detayı + iade, hesap ayarları (veri dışa aktarma, hesap silme), sipariş takibi, metin sayfası, yükleniyor iskeletleri.
 Zorunlu mağaza blokları (ikas hazır tasarım vermez, her temada özel çizilir): ürün detayda birlikte al · set içeriği · kademeli indirim · kişiselleştirme · ürün grubu · gelince haber ver · Hızlı Öde · puan; ProductReviews bölümü; sepette kampanya/kupon/hediye çeki satırları · uygulanan kupon · hediye satırı · öneri şeridi. Header ve Footer her sayfada.
 
 ## 6. Yerel ayarlar

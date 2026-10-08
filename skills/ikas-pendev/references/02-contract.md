@@ -267,7 +267,7 @@ Required overlays (`P/Overlay/…`): mobile menu — açık; `CartDrawer` — bo
 
 Required merchant blocks (`06-page-coverage.md` §3b, lint L21): ProductDetail layers `pdp-rating`, `pdp-campaign`, `pdp-offers`, `pdp-pay`, `pdp-bundle`, `pdp-tiers`, `pdp-options`, `pdp-group`, `pdp-back-in-stock` (hidden ones get their own `— <state>` frames); a `ProductReviews` section; CartPage layers `cart-adjustments`, `coupon-applied`, `cart-recommendations`; CartDrawer layers `drawer-adjustments`, `coupon-toggle`, `drawer-recommend`.
 
-Required storefront completeness (`06-page-coverage.md` §3c, lint L21): the overlays `Toast`, `CookieBar`, `ImagePreview`, `LocaleSwitcher`, `AccountMenu` (+ `AddressModal`, `ConfirmModal` with a custom Account); the sections `RichText` and `OrderTracking`; filter-type layers in ProductList; video, swatch and stock-location layers in ProductDetail; Header pager, locale and sticky state; social, SMS and consent layers in AuthForms; order-detail, return, settings and error panels in a custom Account.
+Required storefront completeness (`06-page-coverage.md` §3c, lint L21): the overlays `CookieBar`, `ImagePreview`, `LocaleSwitcher` (Toast, ConfirmModal, AddressModal, AccountMenu are conditional, asked in intake); the sections `RichText` and `OrderTracking`; filter-type layers in ProductList; video, swatch and stock-location layers in ProductDetail; Header pager and sticky state; the Footer `locale-button`; social, SMS and consent layers in AuthForms; order-detail, return, settings and error panels in a custom Account.
 
 ## 10. Contrast gate
 

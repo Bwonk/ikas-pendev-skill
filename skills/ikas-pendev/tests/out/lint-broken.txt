@@ -55,5 +55,4 @@
 §6.2|ERROR|Overlay/CartDrawer|L21 tree lacks `coupon-toggle` (ikas block, 06-page-coverage §3b/§3c)
 §6.2|ERROR|Overlay/CartDrawer|L21 tree lacks `drawer-recommend` (ikas block, 06-page-coverage §3b/§3c)
 §6.2|ERROR|Section/Header|L21 tree lacks `announcement-pager` (ikas block, 06-page-coverage §3b/§3c)
-§6.2|ERROR|Section/Header|L21 tree lacks `locale-button` (ikas block, 06-page-coverage §3b/§3c)
-LINT FAIL (48 errors, 10 warnings)
+LINT FAIL (47 errors, 10 warnings)

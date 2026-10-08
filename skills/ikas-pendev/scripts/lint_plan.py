@@ -860,7 +860,8 @@ MERCHANT_LAYERS = collections.OrderedDict([
     # storefront completeness (06-page-coverage §3c)
     ("ProductList", ["filter-category-list", "filter-swatch-values", "filter-box-values", "filter-range",
                      "filter-range-list", "filter-clear-all"]),
-    ("Header", ["announcement-pager", "locale-button"]),
+    ("Header", ["announcement-pager"]),
+    ("Footer", ["locale-button"]),
     ("MenuOverlay", ["menu-auth"]),
     ("AuthForms", ["social-login", "sms-login", "register-consents"]),
     ("EmailVerification", ["resend-form"]),
@@ -868,8 +869,8 @@ MERCHANT_LAYERS = collections.OrderedDict([
     ("ProductReviews", ["merchant-reply", "reviews-pagination"]),
 ])
 MERCHANT_LAYERS["ProductDetail"] += ["pdp-video", "pdp-variant-swatches", "pdp-stock-locations"]
-COMPLETENESS_OVERLAYS = ["Toast", "CookieBar", "ImagePreview", "LocaleSwitcher", "AccountMenu"]
-ACCOUNT_OVERLAYS = ["AddressModal", "ConfirmModal"]
+COMPLETENESS_OVERLAYS = ["CookieBar", "ImagePreview", "LocaleSwitcher"]
+ACCOUNT_OVERLAYS = []  # AddressModal, ConfirmModal, Toast, AccountMenu are conditional (asked in intake)
 COMPLETENESS_SECTIONS = ["RichText", "OrderTracking"]
 COMPLETENESS_SUBS = ["VariantSwatch", "PriceRange", "Skeleton"]
 MERCHANT_SUBS = ["OfferCard", "BundleItem", "RatingStars", "ReviewCard"]

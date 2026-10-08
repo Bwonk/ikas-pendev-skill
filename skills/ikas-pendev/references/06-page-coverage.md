@@ -143,19 +143,26 @@ The ikas MCP expects these pieces in every custom theme (templates, child compon
 | ProductCard / QuickBuy | `card-swatches` colour dots + `+N`; QuickBuy colour row uses VariantSwatch | — | CardProductVariants |
 | ProductReviews / ReviewCard | `review-images`, `merchant-reply`, `reviews-pagination` | ReviewCard `görselli`, `mağaza yanıtlı` | `review.images`, merchant reply, Pagination |
 | CartPage / CartLineItem / QuantitySelector | `cart-skeleton`; line `cart-line-limit` | CartPage `— yükleniyor`; CartLineItem `adet sınırı`; QuantitySelector `üst sınır` | `maxQuantityPerCart`, `MAX_QUANTITY_PER_CART_LIMIT_REACHED` |
-| Header | `announcement-pager` (more than one announcement), `locale-button` (more than one locale/currency) | `— yapışkan`, `— çok dilli`, `— duyurular` | `stickyEnabled`, Announcements COMPONENT_LIST, `baseStore.localeOptions` |
+| Header | `announcement-pager` (more than one announcement) | `— yapışkan`, `— duyurular` | `stickyEnabled`, Announcements COMPONENT_LIST |
+| Footer | `locale-button` in the bottom row (globe icon + current language/currency + caret). It is always the LocaleSwitcher trigger; the header never carries one | — | `baseStore.localeOptions`, `setLocalization` |
 | MenuOverlay (mobile) | `menu-auth` (login / register, or name + logout) | — | customer auth state |
 | AuthForms | `social-login` (SocialLoginButton ×2 + divider + phone-login link), `sms-login` (phone → code + resend), `register-consents` (two separate checkboxes: marketing, agreement/KVKK) | `— SMS telefon`, `— SMS kod`; the register state shows both consents | `showGoogleLogin`/`showFacebookLogin`, `submitSmsLoginForm`, `marketingConsentText`/`agreementConsentText` |
 | EmailVerification | `resend-form` | error state shows it; `— tekrar gönderildi` | `resendTitle`, `resendCustomerActivationMail` |
-| Account (when custom) | `order-detail` (packages, cargo + tracking with copy, items, addresses, payment, summary), `return-form`, `account-settings` (phone, marketing toggle, data export, delete account), `orders-error`, `account-skeleton` | `— sipariş detayı`, `— iade talebi`, `— hesap ayarları`, `— yükleniyor`, `— hata` | AccountOrderDetail, `refundOrder`, `DeactivateCustomerForm`, `exportCustomerPersonalData` |
+| Account (when custom) | `order-detail` (packages, cargo + tracking with copy, items, addresses, payment, summary), `return-form`, `account-settings` (phone, marketing toggle, data export, delete account with a confirmation step), `orders-error`, `account-skeleton` | `— sipariş detayı`, `— iade talebi`, `— hesap ayarları`, `— yükleniyor`, `— hata` | AccountOrderDetail, `refundOrder`, `DeactivateCustomerForm`, `exportCustomerPersonalData` |
 
-**Required overlays in addition to §3:** `Toast` (başarılı · hata · bilgi), `CookieBar` (açık; KVKK), `ImagePreview` (açık; gallery zoom and review images), `LocaleSwitcher` (açık), `AccountMenu` (desktop: misafir · üye). With a custom Account, also `AddressModal` (ekle · yükleniyor · hata; country → city → district cascade, corporate invoice fields) and `ConfirmModal` (açık).
+**Required overlays in addition to §3:** `CookieBar` (açık; KVKK), `ImagePreview` (açık; gallery zoom and review images), `LocaleSwitcher` (açık; opens from the Footer `locale-button`, desktop panel above the footer, mobile bottom sheet).
+
+**Conditional overlays, asked in intake:**
+- **`Toast`** (başarılı · hata · bilgi). Without it, feedback comes from the Button `eklendi` state and the CartDrawer opening.
+- **`ConfirmModal`** (açık). Without it, destructive actions (delete address, delete account) use an inline confirmation row.
+- **`AddressModal`** (ekle · yükleniyor · hata; country → city → district cascade, corporate invoice fields). Without it, the address form opens inline in the Account addresses panel.
+- **`AccountMenu`** (desktop: misafir · üye). Without it, the header account button links to the account or login page.
 
 **Required sections and pages:** `RichText` (about, KVKK and policy pages; page `Policy`, type `CUSTOM`) and `OrderTracking` (guest order lookup with result and not-found states; page `OrderTracking`, type `CUSTOM`). With a custom Account, also page `OrderDetail` (type `ORDER_DETAIL`).
 
 **Required subs:** `VariantSwatch` (varsayılan · seçili · hover · stok yok), `PriceRange`, `SocialLoginButton` (Google · Facebook · hover), `Skeleton`.
 
-**Conditional: asked in intake (07 §1), drawn only on "evet":** loyalty program (points in account and cart), raffle pages, brand page, technical spec table, the remaining option-set types (checkbox, colour picker, date, long text, image), extra customer fields at register, blog tags and author, product-list column toggle (3/4 desktop, 1/2 mobile).
+**Conditional: asked in intake (07 §1), drawn only on "evet":** Toast, ConfirmModal, AddressModal, AccountMenu (fallbacks above), loyalty program (points in account and cart), raffle pages, brand page, technical spec table, the remaining option-set types (checkbox, colour picker, date, long text, image), extra customer fields at register, blog tags and author, product-list column toggle (3/4 desktop, 1/2 mobile).
 
 **Not designed (decided in code):** search within a list, "load previous page", numbered pagination as well as load-more (pick one), unit price.
 
