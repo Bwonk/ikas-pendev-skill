@@ -7,6 +7,7 @@
 4. Final checklist (plan §9)
 5. verify-report format
 6. build-log format
+7. Options workflow (temp frame → real design)
 
 ## 1. Phase gates 0–5
 
@@ -102,3 +103,33 @@ Port side (done later by the port, listed so the handoff carries it): theme glob
 Then one line per finished root frame: `| <root> | <nodeId> | <CHK summary> | <screenshot note> |`, e.g.
 `| P/Section/Hero@desktop | 4kT9x | sections PASS · anim 8/8 · textclass 0 · clip 0 | masaüstü hero, başlık maskeleri doğru |`.
 Fixes after the fact get a new line with the same root and `düzeltme:` in the note; never edit old lines.
+
+## 7. Options workflow (temp frame → real design)
+
+Use this whenever the user asks for options, alternatives, proposals, motion ideas, or "what else could we do". It applies in every phase, including revisions after verify.
+
+**1. Open the temp frame.**
+- Reuse the open temp frame, or create one root frame named `<Konu> önerileri (geçici)`.
+- Do not give it the `P/` prefix: CHK ignores it, and nothing in it is a contract node.
+- Place it with `FindEmptySpace`, right of the band it concerns. Use `fill: $color-surface`, vertical layout, `gap: 56`, `padding: 64`.
+
+**2. Draw numbered options.** Each option is:
+- an `opt-label`, holding an `opt-title` ("N · Ad") and an `opt-desc`. For motion the description gives values, duration and easing, implementation (`css-transition` / `animejs` / `io-hook` …), mobile behaviour and reduced motion; for layout it gives sizes and what changes.
+- the option itself: a full-width mock of the block, or a `motion-row` of 2–3 `motion-frame`s. Each motion frame is a `motion-stage` (a scaled replica built from real canvas images) plus a `note` (start → middle → end).
+- Start the block with one `opt-label` that says which options can be combined (e.g. one entrance + one hover).
+
+**3. Do not touch the real design while options are open.**
+- No plan ids, no anim metadata, no root metadata in the temp frame.
+- No reference assets, no eyebrows (rule 11).
+
+**4. Iterate in the temp frame.** When the user asks for more ideas, a change, or a combination ("1 ile 4 bir olsun"), add a new numbered option to the temp frame. Do not edit the real unit.
+
+**5. Transfer only on a pick**, e.g. "N asıl tasarıma aktar", "bunu kullan", "sadece bu olsun":
+1. Plan data first: tree, props, anims; a local `<P>-M-NN` recipe for new motion. Then `gen_plan.py` and `lint_plan.py` → `LINT OK`.
+2. Canvas: build the option inside the real Section/Sub. Put anim ids in `metadata` at creation, or in `context`. Add a `— <state>` frame if the layout changes.
+3. Motion frames: `Move` the option's `motion-frame`s from the temp frame into a new `P/Motion/<recipe> <Section>` root, which carries motion metadata and is placed in the Motion band. Update their notes to the real values. Add a legend note to `P/DS/Motion`.
+4. Delete the transferred option's label and row from the temp frame. Leave the other options.
+5. Run the unit checks (`--js section:<Key>`), then a full `--js all` when bands moved. Then append to the build-log and verify-report, and update `globals.md` / `components.md`.
+
+**6. Delete the temp frame only when the user says so.** Before `handoff`, ask whether the remaining options should go. Phase 5 does not start while a temp frame still holds undecided options, unless the user lists them as open questions.
+

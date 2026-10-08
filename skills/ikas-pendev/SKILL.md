@@ -23,6 +23,7 @@ Turns a reference (screenshots and/or a live site) into an original ikas theme d
 9. **Verify every unit.** `placeholder: true` while a root frame is being built. When a root pair is done: run `extract_targets.py --js section:<Key>`, execute the printed read-only checks, take one `TakeScreenshot`, fix in place, append to `docs/pendev/build-log.md`, then move on. Never delete-and-rebuild a frame to fix it.
 10. **Language.** These instructions are English. Every generated document and every string on the canvas is Turkish (check `İ Ş Ğ Ü Ö Ç` render in the chosen fonts). Identifiers — frame, layer, prop, variable names, CHK ids — stay English. Measured values are tagged `[ölçüldü]`, estimates `[tahmini]`.
 11. **No eyebrow labels above headings.** Never put a small label, kicker, index or category line directly above a title (`01 / YENİ GELENLER`, `04 / BÜLTEN`, `KOLEKSİYON · 24 ÜRÜN`, `HESAP`, a coordinate over a store name). Headings open the block on their own. This holds in every design, for every strategy, even when the reference uses them; data that belongs with content (blog category and date, price, badges on media) is not an eyebrow.
+12. **Options go to a temp frame first.** Whenever the user asks for options, alternatives, proposals or "what else could we do" (seçenek, opsiyon, öneri, alternatif, "nasıl olur"), draw them as numbered options in a temporary frame (`<Konu> önerileri (geçici)`, no `P/` prefix) and leave the real design untouched. Only the option the user picks is transferred into the real unit (plan data → plan → lint → canvas → checks → build-log), and that option is then removed from the temp frame. Follow `references/07-checklists.md` §7.
 
 ## Arguments
 
@@ -65,7 +66,7 @@ Order: `ds` → `subs` → each Section in plan §6.2 order (desktop then mobile
 `python3 ${CLAUDE_SKILL_DIR}/scripts/extract_targets.py <plan> --js all` → execute → paste the `CHK|…` lines into `templates/verify-report.md`. Add the two manual checks (Turkish glyph screenshot of `P/DS/Typography`; contrast pairs from 02 §10). Every FAIL either gets fixed or a one-line reasoned exception the user accepts.
 
 ### 5 · handoff
-`extract_targets.py <plan> --js manifest` → execute → save the `ROOT|…` lines to `docs/port/canvas-dump.txt`. Run `python3 ${CLAUDE_SKILL_DIR}/scripts/build_manifest.py --plandata docs/pendev/plandata --plan <plan> --dump docs/port/canvas-dump.txt -o docs/port/`. Read `references/09-handoff.md` §3 for the globals runbook the port will follow. The handoff ends with the open questions list, not with code.
+`extract_targets.py <plan> --js manifest` → execute → save the `ROOT|…` lines to `docs/port/canvas-dump.txt`. Run `python3 ${CLAUDE_SKILL_DIR}/scripts/build_manifest.py --plandata docs/pendev/plandata --plan <plan> --dump docs/port/canvas-dump.txt -o docs/port/`. Read `references/09-handoff.md` §3 for the globals runbook the port will follow. Before starting, ask whether the temp options frame (rule 12) can be deleted; undecided options either go or become open questions. The handoff ends with the open questions list, not with code.
 
 ## When to read which reference
 
@@ -77,7 +78,7 @@ Order: `ds` → `subs` → each Section in plan §6.2 order (desktop then mobile
 | Unsure whether a construct ports (prop type, font, package, responsive) | `references/04-ikas-constraints.md` |
 | About to execute on the canvas; something went wrong on the canvas | `references/05-pendev-pitfalls.md` (+ official `execute.md`) |
 | Deciding which pages, overlays and states are in scope | `references/06-page-coverage.md` |
-| Intake questions, per-unit loop, CHK ids, verify-report format | `references/07-checklists.md` |
+| Intake questions, per-unit loop, CHK ids, verify-report format, options in a temp frame | `references/07-checklists.md` |
 | The design looks generic; writing Turkish copy; self-critique before "done" | `references/08-quality.md` |
 | Producing the port package or planning theme globals | `references/09-handoff.md` |
 | Writing plandata | `templates/plandata/README.md` |
