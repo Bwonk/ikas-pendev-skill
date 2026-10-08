@@ -34,6 +34,7 @@ Checks
   L17 contract 2: every Section's Prop'lar line has backgroundColor COLOR
   L18 §6.3 pages reference Sections only
   L19 contract 2 required extras: DS/Imagery, Button eklendi + stok yok, FilterDrawer, QuickBuy
+  L22 contract 2 with --globals: globals.md has colour schemes (§1a), ikas text styles with four breakpoints (§2a) and in-between breakpoint behaviour (§4a)
   L21 contract 2 ikas merchant blocks and storefront completeness (06-page-coverage §3b, §3c) for full store plans
   L20 --globals / --components integrity (tables, catalogue, prop types, defaults)
 
@@ -1255,6 +1256,23 @@ def lint_components(path, rep):
         rep.add(S, "WARN", "-", "L20", "§1 page composition not found")
 
 
+def lint_globals_c2(path, rep):
+    """L22: port-ready theme globals (contract 2)."""
+    txt = open(path, encoding="utf-8").read()
+    md = MD(txt)
+    heads = [t.lower() for _, lv, t in md.heads]
+    def has(*words):
+        return any(any(w in h for w in words) for h in heads)
+    if not has("renk şema", "colorscheme", "color scheme"):
+        rep.add("globals", "ERROR", "§1a", "L22", "no colour-scheme section (ikas colorScheme: slot → token → value per scheme)")
+    if not has("metin stil", "text style"):
+        rep.add("globals", "ERROR", "§2a", "L22", "no ikas text-style section")
+    elif not re.search(r"^\|.*≥\s?1200.*992.*768.*<\s?768.*\|\s*$", txt, re.M):
+        rep.add("globals", "ERROR", "§2a", "L22", "text-style table lacks the four breakpoint columns (≥1200 · 992–1199 · 768–991 · <768)")
+    if not has("ara kırılım", "in-between", "intermediate breakpoint"):
+        rep.add("globals", "ERROR", "§4a", "L22", "no in-between breakpoint behaviour table (laptop, tablet per section)")
+
+
 # ---------------------------------------------------------------- main
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0],
@@ -1282,6 +1300,8 @@ def main(argv=None):
             rep.add("§5", "INFO", "-", "L04", "no catalogue found; using built-in M-01..M-28")
         plan = Plan(args.plan, open(args.plan, encoding="utf-8").read())
         contract, P = lint_plan(plan, args, rep, cat)
+        if contract >= 2 and args.globals_md:
+            lint_globals_c2(args.globals_md, rep)
         n = len(plan.targets)
         meta = dict(contract=contract, prefix=P, catalogue=cat[3])
     e, w = rep.count("ERROR"), rep.count("WARN")

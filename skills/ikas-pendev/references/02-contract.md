@@ -218,8 +218,8 @@ Contract 2: `lint_plan.py` fails any quoted literal (`"SEARCH"`, `"01 / 03"`) on
 
 | Root | Content |
 |---|---|
-| `P/DS/Colors` | swatch + name + hex for every colour variable, per mode; the contrast pairs of §10 rendered as text on fill with their ratio |
-| `P/DS/Typography` | the 11 presets at desktop and mobile size, each with a Turkish sample line ("GÖLGE İÇİNDE ŞIK ÇÖZÜM 1.850 TL") |
+| `P/DS/Colors` | swatch + name + hex for every colour variable, per mode; the contrast pairs of §10 rendered as text on fill with their ratio; **colour-scheme block**: one card per ikas colorScheme (e.g. light default, dark, transparent-over-image), each rendered in its own mode with a sample (heading, body, Button, Badge, muted price), the slot → token → hex table, and the sections that default to it (mirrors `globals.md` §1a) |
+| `P/DS/Typography` | the 11 presets at desktop and mobile size, each with a Turkish sample line ("GÖLGE İÇİNDE ŞIK ÇÖZÜM 1.850 TL"); **ikas text-style table**: ikas style name, token, family · weight, size at ≥1200 / 992–1199 / 768–991 / <768, line height, letter spacing (mirrors `globals.md` §2a) |
 | `P/DS/Spacing` | spacing scale bars; 1440 and 390 grid diagrams (margin, columns, gutter); line thickness |
 | `P/DS/Icons` | every icon at 20×20 (search, account, cart, menu, close, arrow, caret, plus, minus, check) + logo and mark |
 | `P/DS/Motion` | the legend: recipe ids used, one-line description, trigger symbol, as `note` nodes |

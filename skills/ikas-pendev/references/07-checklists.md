@@ -75,6 +75,7 @@ Design side — every item maps to a CHK or a manual check:
 - [ ] No clipped-content warning on any frame, masks and tracks excepted (`clip`).
 - [ ] Turkish characters (`İ Ş Ğ Ü Ö Ç ı`) render correctly in every chosen font — screenshot of `P/DS/Typography` (manual).
 - [ ] No reference images, copy or logo used; no fill URL from the reference host (`refassets` + manual look).
+- [ ] `P/DS/Colors` shows the colour-scheme cards and `P/DS/Typography` the ikas text-style table with four breakpoints; `globals.md` §1a, §2a and §4a match them.
 - [ ] Desktop/mobile parity: every ikas block, account panel and confirmation exists in both device components; mobile states exist for account settings, delete confirmations, return, error and loading.
 - [ ] The theme name from the brief sits in every brand placement (`02-contract.md` §11): logo/mark in `P/DS/Icons`, Header and Footer logos, copyright, contact e-mail, legal/e-mail texts. No placeholder brand text (`Marka`, `Logo`, `Brand`) and no other brand name on the canvas.
 - [ ] `P/DS/Imagery` exists with the generated photography direction (`ds`).

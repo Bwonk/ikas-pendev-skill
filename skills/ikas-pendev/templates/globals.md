@@ -34,6 +34,22 @@ ikas notu: …
 
 ---
 
+
+### 1a. Renk şemaları (ikas colorScheme)
+
+| ikas slot | pen.dev token | <Şema 1 (varsayılan)> | <Şema 2> | <Şema 3> |
+|---|---|---|---|---|
+| background | `color-bg` | … | … | … |
+| text | `color-text` | … | … | … |
+| muted | `color-muted` | … | … | … |
+| line | `color-line` | … | … | … |
+| surface | `color-surface` | … | … | … |
+| button-bg | `color-inverse-bg` | … | … | … |
+| button-text | `color-inverse-text` | … | … | … |
+| accent | `color-accent` | … | … | … |
+
+Varsayılan şema eşleşmesi: her şemayı varsayılan olarak kullanan bölümler.
+
 ## 2. Tipografi
 
 Referans font: …
@@ -68,6 +84,13 @@ Notlar:
 **Açık soru (font yükleme):** …
 
 ---
+
+
+### 2a. ikas metin stilleri (kırılım değerleri)
+
+| ikas stil | Token | Aile · ağırlık | ≥1200 | 992–1199 | 768–991 | <768 | Satır | Harf |
+|---|---|---|---|---|---|---|---|---|
+| … | `text-display` | … | … | … | … | … | … | … |
 
 ## 3. Boşluk, grid, ölçü
 
@@ -105,6 +128,13 @@ Mobil (<768):
 CSS'te `@media (max-width: bp(<breakpointId>))` yazılır; `var()` medya sorgusunda çalışmaz.
 
 ---
+
+
+### 4a. Ara kırılım davranışı
+
+| Bölüm | ≥1200 (masaüstü) | 992–1199 (laptop) | 768–991 (tablet) | <768 (mobil) |
+|---|---|---|---|---|
+| … | … | … | … | … |
 
 ## 5. Katman sırası
 

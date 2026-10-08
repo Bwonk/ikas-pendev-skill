@@ -105,7 +105,9 @@ Follows the geeny `prompts/00-globals.md` pattern: read → table → **user app
    ```
    - Breakpoints first (laptop/tablet/mobile from `globals.md` §4), so CSS can use `bp(<id>)`.
    - `mode` axis → one colour scheme per palette; the second palette targets the slots created by the first via `slotId` (re-list in between).
-   - Typography tokens carry the desktop size; smaller widths are component CSS under `@media (max-width: bp(<id>))`. No `text-transform`.
+   - Colour schemes from `globals.md` §1a: slots first (names), then one palette per scheme; record each section's default scheme.
+   - Typography tokens carry the desktop size; the laptop / tablet / mobile values of `globals.md` §2a are applied with `update_text_style` + `breakpoint_id`. No `text-transform`.
+   - Layout at 992–1199 and 768–991 follows `globals.md` §4a, written in component CSS under `@media (max-width: bp(<id>))`.
    - Spacing, sizes, opacity and transition strings go to `src/global.css` (listed in the runbook as a code block) or `globalVariable TEXT`; there is no spacing/radius kind.
 5. **Verify.** `list_theme_globals` again; every row is present once; fill the live table (§4). The runbook is consumed once — re-running it duplicates tokens.
 
