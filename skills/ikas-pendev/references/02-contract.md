@@ -231,7 +231,7 @@ Each sub is a reusable root; each state is its own root `P/Sub/<Name> — <state
 
 | Sub | States | When |
 |---|---|---|
-| `ProductCard` | varsayılan · hover · stok yok · indirimli · widths per grid; its cart button opens `QuickBuy` | always |
+| `ProductCard` | varsayılan · hover · stok yok · indirimli · widths per grid | always |
 | `ProductCardSmall` | varsayılan · hover | search, cart, mini lists |
 | `BlogCard` | varsayılan · hover | BLOG in scope |
 | `Button` | varsayılan · hover · pasif · yükleniyor · **eklendi** · **stok yok** | always |
@@ -252,7 +252,7 @@ Each sub is a reusable root; each state is its own root `P/Sub/<Name> — <state
 
 Theme-specific subs (gizem: `Sticker`, `ScrambleText`) are added by the plan.
 
-Required overlays (`P/Overlay/…`): mobile menu — açık; `CartDrawer` — boş · dolu · yükleniyor; `SearchOverlay` — boş · yazarken · sonuçsuz; **`FilterDrawer@mobile` — açık**; **`QuickBuy` — açık · seçim eksik · ekleniyor** (`@desktop` centred window, `@mobile` bottom sheet; content in `06-page-coverage.md` §3a); plus any panel the plan defines (size guide, info drawer).
+Required overlays (`P/Overlay/…`): mobile menu — açık; `CartDrawer` — boş · dolu · yükleniyor; `SearchOverlay` — boş · yazarken · sonuçsuz; **`FilterDrawer@mobile` — açık**; plus any panel the plan defines (size guide, info drawer).
 
 ## 10. Contrast gate
 

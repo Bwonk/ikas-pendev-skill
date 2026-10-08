@@ -62,7 +62,7 @@ ikas hazır sayfalar (06 §2a):
 | hesap | hesabım, siparişler, sipariş detayı, adresler, favoriler | ikas hazır / özel tasarım |
 | Özel sayfalar | [ ] | … |
 
-Zorunlu overlay'ler: CartDrawer · SearchOverlay · MenuOverlay · QuickBuy (hızlı al) · FilterDrawer@mobile. Header ve Footer her sayfada.
+Zorunlu overlay'ler: CartDrawer · SearchOverlay · MenuOverlay · FilterDrawer@mobile. Header ve Footer her sayfada.
 
 ## 6. Yerel ayarlar
 

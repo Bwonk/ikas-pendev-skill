@@ -33,7 +33,7 @@ Checks
   L16 contract 2: quoted literal on a tree line without {name:TYPE}/{data:}/{code:}
   L17 contract 2: every Section's Prop'lar line has backgroundColor COLOR
   L18 §6.3 pages reference Sections only
-  L19 contract 2 required extras: DS/Imagery, Button eklendi + stok yok, FilterDrawer, QuickBuy
+  L19 contract 2 required extras: DS/Imagery, Button eklendi + stok yok, FilterDrawer
   L20 --globals / --components integrity (tables, catalogue, prop types, defaults)
 
 Stdlib only; PyYAML is used, when installed, as an extra YAML syntax check.
@@ -842,8 +842,6 @@ def lint_plan(plan, args, rep, cat):
                     rep.add("§6.1", "ERROR", loc_of("Button", plan.components["Button"][0]), "L19", "Button states lack '%s'" % w)
         if "FilterDrawer" not in plan.entries or plan.entries["FilterDrawer"]["kind"] != "Overlay":
             rep.add("§6.2", "ERROR", "Overlay/FilterDrawer", "L19", "#### Overlay/FilterDrawer missing")
-        if "QuickBuy" not in plan.entries or plan.entries["QuickBuy"]["kind"] != "Overlay":
-            rep.add("§6.2", "ERROR", "Overlay/QuickBuy", "L19", "#### Overlay/QuickBuy missing")
     return contract, P
 
 

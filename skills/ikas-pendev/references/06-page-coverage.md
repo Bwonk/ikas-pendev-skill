@@ -24,8 +24,8 @@ A reference site rarely shows every page an ikas store needs (gizem's reference 
 
 | Page type | ikas template | Required sections (between Header and Footer) | Overlays | States to draw | Default |
 |---|---|---|---|---|---|
-| `INDEX` | `hero-slider-section`, `product-slider-section`, `category-images-section`, `features-section` or `(özel)` | hero · ≥1 product row (carousel or grid) · category entry · ≥1 brand/editorial block | Cart, Search, Menu, QuickBuy | hero slide n of N; product card states via Subs | ✓ |
-| `CATEGORY` | `category-list-section` | ProductList (title, filter/sort bar, grid, pagination or load-more) | Cart, Search, Menu, QuickBuy, **FilterDrawer@mobile** | empty (no products), loading (skeleton / load-more spinner), filter applied | ✓ |
+| `INDEX` | `hero-slider-section`, `product-slider-section`, `category-images-section`, `features-section` or `(özel)` | hero · ≥1 product row (carousel or grid) · category entry · ≥1 brand/editorial block | Cart, Search, Menu | hero slide n of N; product card states via Subs | ✓ |
+| `CATEGORY` | `category-list-section` | ProductList (title, filter/sort bar, grid, pagination or load-more) | Cart, Search, Menu, **FilterDrawer@mobile** | empty (no products), loading (skeleton / load-more spinner), filter applied | ✓ |
 | `PRODUCT_DETAIL` | `product-detail-section` (+ `variant-selection`, `add-to-cart`, `product-pricing`, `image-handling`), `product-reviews-section` ○, `product-slider-section` | ProductDetail (gallery, name, price, variants, add-to-cart, description) · ≥1 ProductCarousel (related) | Cart (after add), size guide / info drawer if designed | variant selected / unavailable / out of stock · add-to-cart loading / added · discounted price | ✓ |
 | `CART` | `cart-section` | CartPage (lines, quantity, remove, coupon, summary, checkout) | — | empty · filled · line updating (loading) · coupon error | ✓ |
 | `ACCOUNT` | `account-info-section` | Account (tabs: info, orders, addresses, favorites, order detail) | ConfirmModal (delete address) ○ | each tab · orders empty · form saving / success / error | ✓ |
@@ -58,7 +58,7 @@ The answer is recorded per group in `docs/00-brief.md` §5. A ready-made page st
 
 ## 3. Required overlays
 
-Every theme designs these five, each as its own root frame per state (`P/Overlay/<Name>@desktop — <state>` 1440×900, `@mobile — <state>` 390×844), panel on a flat `$color-scrim` background, never on a copy of a page:
+Every theme designs these four, each as its own root frame per state (`P/Overlay/<Name>@desktop — <state>` 1440×900, `@mobile — <state>` 390×844), panel on a flat `$color-scrim` background, never on a copy of a page:
 
 | Overlay | Owner section | States (minimum) |
 |---|---|---|
@@ -66,34 +66,8 @@ Every theme designs these five, each as its own root frame per state (`P/Overlay
 | `SearchOverlay` | Header | open empty · typing with results · no results |
 | `MenuOverlay` / `MobileMenu` | Header | open (desktop may be a mega menu; mobile is required) |
 | `FilterDrawer` | ProductList | `@mobile` open (desktop only if filters are a drawer there too) |
-| `QuickBuy` (hızlı al) | Header (global host; opened by every `ProductCard` cart button and any list row cart button) | açık (varyant seçili) · seçim eksik · ekleniyor — `@desktop` and `@mobile` |
 
-Optional, when the reference or brief has them: Megamenu, InfoDrawer / size guide (ProductDetail), ConfirmModal, Toast, cookie bar (Header child), newsletter popup. Overlays port as sub-components rendered by the owner section (`04-ikas-constraints.md` §6).
-
-### 3a. QuickBuy — the standard quick-buy popup
-
-QuickBuy is designed on every canvas, whether or not the reference has one. It is the popup that opens when a shopper presses the cart button on a product card, so they can pick a variant and add to cart without leaving the list. The ikas MCP has no ready-made QuickBuy component; it is built from the storefront APIs the product detail page already uses (`get_section_template("variant-selection")`, `("add-to-cart")`, `("product-pricing")`, `("image-handling")`).
-
-| Part | Layer | ikas source |
-|---|---|---|
-| Image (4:5 on desktop; small thumbnail on mobile), badge, image counter + arrows | `qb-media` | `getProductVariantMainImage` / variant images; `{code:index}` |
-| Name, price, compare price | `qb-head`, `qb-price` | `product.name`, `getProductVariantFormattedFinalPrice` + `getProductVariantFormattedSellPrice` (compare) |
-| One group per variant type: label + `VariantChip` row; a sold-out value uses the chip's `stok yok` state | `qb-variant-group` | `getDisplayedProductVariantTypes`, `selectVariantValue`, `hasProductVariantStock` |
-| Validation message when a required option is missing (`$color-danger`) | `qb-variant-error` | TEXT prop (`chooseOptionText`) |
-| `QuantitySelector` + `Button` (Sepete ekle · Ekleniyor… · Tükendi) + `FavoriteButton` | `qb-actions` | `addItemToCart(variant, product, qty)`, `isAddToCartEnabled`, min/max per cart (`add-to-cart` template's `utils/cartLimits.ts`) |
-| "Hızlı Öde" slot, drawn as a neutral 48 px frame because ikas renders the iframe | `qb-pay` | `PayWithIkas` (renders nothing when the merchant has not enabled it); BOOLEAN prop `showPayWithIkas` |
-| Stock note + `ArrowLink` to the product page | `qb-foot` | `variant.stockCount`, `getProductHref` |
-
-Layout:
-- **`@desktop`:** a centred window of about 960 × 600 on `$color-scrim`, `radius-card`, clipped. The image is on the left (half the width). The details column on the right is padded with `$space-panel`, and the actions are pinned to its bottom.
-- **`@mobile`:** a bottom sheet with a grabber and top corners `radius-card`. The thumbnail, name, price and close button share one row, followed by the chips, actions, pay slot and footer.
-
-Behaviour:
-- After a successful add the popup closes and `CartDrawer` opens in its `dolu` state.
-- Motion: the panel uses `M-20`. On desktop the window scales in from 0.96 with opacity; on mobile the sheet slides up with `y 100% → 0`. Chips use `M-28`, the button `M-11` and the link `M-10`.
-- Every label is a TEXT prop with a Turkish default: `addText`, `addingText`, `soldOutText`, `chooseOptionText`, `detailLinkText`, `closeAriaLabel`.
-
-Do not add an eyebrow above the name.
+Optional, when the reference or brief has them: Megamenu, InfoDrawer / size guide (ProductDetail), QuickView, ConfirmModal, Toast, cookie bar (Header child), newsletter popup. Overlays port as sub-components rendered by the owner section (`04-ikas-constraints.md` §6).
 
 ## 4. States
 

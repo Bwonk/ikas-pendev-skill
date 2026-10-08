@@ -207,7 +207,6 @@ Her bileşen `reusable` kök frame; durumlar yanında ayrı frame. Önce bunlar,
 Sözleşme 2 zorunlu ekleri (lint ve `pendev_checks.js` arar):
 - `Button` durumları arasında `eklendi` ve `stok yok` var (sepete ekle akışı; ProductDetail ve hızlı ekle bunları kullanır).
 - `K/Overlay/FilterDrawer@mobile` (mobil filtre çekmecesi) 6.2'de Overlay olarak tanımlı ve 6.4'te çizili.
-- `K/Overlay/QuickBuy@desktop` ve `@mobile` (hızlı al penceresi: açık · seçim eksik · ekleniyor) 6.2'de Overlay olarak tanımlı ve 6.4'te çizili; ProductCard'ın sepet düğmesi açar.
 - Her section kök frame'i `backgroundColor` COLOR prop'unu taşır; her metin node'u `textClass` taşır.
 
 Bileşen animasyon hedefleri (bölümlerde `via` ile anılır, kodu bileşenin içinde yazılır):
@@ -411,44 +410,6 @@ Kontrol: açık ve seçimli halleri ayrı frame
 ```
 <!-- anim-targets:end -->
 
-#### Overlay/QuickBuy
-- **Kullanıldığı yer:** Header (ProductCard sepet düğmesi açar)
-- **ikas:** Header sub-component (variant-selection + add-to-cart + PayWithIkas)
-- **Desktop:** Ortada pencere; solda görsel, sağda ad, fiyat, varyant çipleri, adet + Sepete ekle, Hızlı Öde yuvası.
-- **Mobil:** Alttan açılan alt sayfa; küçük görsel + ad + fiyat, altında çipler ve eylemler.
-
-```
-quickbuy-overlay
-├─ scrim
-└─ quickbuy-panel
-    ├─ qb-media                      {data:product.image}
-    └─ qb-details
-        ├─ qb-head                   {data:product.name} + close-button {closeAriaLabel:TEXT}
-        ├─ qb-variant-group ×2       {data:variant.name} + variant-chip ×N
-        ├─ qb-variant-error          {chooseOptionText:TEXT}
-        └─ qb-actions                add-to-cart-button {addText:TEXT} / {addingText:TEXT}
-```
-
-Kontrol: açık · seçim eksik · ekleniyor halleri ayrı frame
-
-<!-- anim-targets:start -->
-```yaml
-- id: K-QB-01
-  section: QuickBuy
-  layer: quickbuy-panel
-  recipe: M-20
-  trigger: click
-  what: "Pencere açılır, scrim belirir"
-  from: { opacity: 0, scale: 0.96 }
-  to: { opacity: 1, scale: 1 }
-  timing: { spring: spring-drawer, scrim.duration: 0.4, rows.stagger: [0.2, 0.3, 0.4, 0.5] }
-  impl: css-transition + animejs
-  mobile: tam genişlik
-  reducedMotion: anında
-  done: false
-```
-<!-- anim-targets:end -->
-
 ### 6.3 Sayfalar
 
 Her sayfa için `K/Page/<Ad>@desktop` ve `@mobile`: dikey layout, `clip: true`, çocukları yalnızca section instance'ları.
@@ -464,8 +425,6 @@ Her sayfa için `K/Page/<Ad>@desktop` ve `@mobile`: dikey layout, `clip: true`, 
 
 Çizilecek overlay kök frame'leri (her durum ayrı frame, ad sonuna ` — <durum>`):
 - `K/Overlay/FilterDrawer@mobile — <durum>`
-- `K/Overlay/QuickBuy@desktop — <durum>`
-- `K/Overlay/QuickBuy@mobile — <durum>`
 
 ### 6.5 Motion States
 
@@ -482,14 +441,13 @@ Aşağıdaki tariflerin her biri için **bir** örnek üzerinde 2–3 kare çizi
 
 ## 7. Animasyon hedefleri özeti
 
-Toplam **10 hedef**. Ayrıntılar 6.1 ve 6.2'deki `anim-targets` bloklarında.
+Toplam **9 hedef**. Ayrıntılar 6.1 ve 6.2'deki `anim-targets` bloklarında.
 
 | Bölüm | Hedef | Tarifler | ID aralığı |
 |---|---|---|---|
 | HeroBanner | 3 | M-03, M-11, K-M-01 | `K-HERO-01` … `K-HERO-03` |
 | ProductGrid | 2 | M-01, M-09 | `K-GRID-01` … `K-GRID-02` |
 | FilterDrawer | 2 | M-20, M-22 | `K-FILT-01` … `K-FILT-02` |
-| QuickBuy | 1 | M-20 | `K-QB-01` … `K-QB-01` |
 | Sub/Button | 1 | M-11 | `K-CMP-01` … `K-CMP-01` |
 | Sub/ArrowLink | 1 | M-10 | `K-CMP-02` … `K-CMP-02` |
 
@@ -500,7 +458,7 @@ Toplam **10 hedef**. Ayrıntılar 6.1 ve 6.2'deki `anim-targets` bloklarında.
 | M-09 | 1 | css-transition |
 | M-10 | 1 | css-transition |
 | M-11 | 2 | css-transition |
-| M-20 | 2 | css-transition + animejs |
+| M-20 | 1 | css-transition + animejs |
 | M-22 | 1 | css-transition |
 | K-M-01 | 1 | scroll-scrub |
 

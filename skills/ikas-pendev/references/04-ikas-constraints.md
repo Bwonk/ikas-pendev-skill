@@ -116,7 +116,7 @@ Design → ikas mapping *(project rule, see `02-contract.md` for names)*: `mode:
 
 **Container sections** (Header, Footer, ProductDetail, AccountInfo) host children through a `COMPONENT_LIST` prop restricted by `filteredComponentIds` (opaque ids). Always three steps: create each child → create the parent section without the filter → `update-prop --filteredComponentIds`. In the plan, list the children per slot so the port can run the recipe; ids never appear in design docs.
 
-Overlays (`P/Overlay/<Name>…`) are not a tier: they port as sub-components rendered inside the owning section (CartDrawer, SearchOverlay and QuickBuy inside Header, InfoDrawer inside ProductDetail). QuickBuy is opened from `ProductCard` through a shared UI store or window event and hands over to CartDrawer after a successful add.
+Overlays (`P/Overlay/<Name>…`) are not a tier: they port as sub-components rendered inside the owning section (CartDrawer and SearchOverlay inside Header, InfoDrawer inside ProductDetail).
 
 ## 7. Responsive
 
