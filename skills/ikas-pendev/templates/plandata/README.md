@@ -155,7 +155,7 @@ Component targets get ids `<P>-CMP-NN` (numbered across all components) and sect
 | Variables | 37 | 41 (`color-transparent`, `size-logo`, `color-danger`, `color-success`) |
 | §4 | prop metadata | + `textClass` (`prop`/`data`/`code`), `source`, root `contract:2` + `backgroundColor` prop, `context` must carry anim ids, `{data:}`/`{code:}` legend |
 | §6.0 | 5 DS frames | + `P/DS/Imagery` |
-| §6.1 | | required: Button states `eklendi`, `stok yok`; overlays `FilterDrawer` (mobile) and `QuickBuy` (both devices) |
+| §6.1 | | required: Button states `eklendi`, `stok yok`; overlays `FilterDrawer` (mobile) and `QuickBuy` (both devices); if `ProductDetail` / `CartPage` / `CartDrawer` exist, the merchant-block layers of 06-page-coverage §3b, a `ProductReviews` section and the subs `OfferCard`, `BundleItem`, `RatingStars`, `ReviewCard` (lint L21) |
 | §6.3 | 2 columns | + ikas page type column |
 | §9 | prose checklist | one line per CHK id: vars, hardcoded, sections, pages, overlays, anim, textclass, clip, rootmeta, bgprop, placeholder, refassets, ds |
 | YAML `what:` | `"%s"` | JSON-escaped string |

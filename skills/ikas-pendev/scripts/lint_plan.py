@@ -34,6 +34,7 @@ Checks
   L17 contract 2: every Section's Prop'lar line has backgroundColor COLOR
   L18 §6.3 pages reference Sections only
   L19 contract 2 required extras: DS/Imagery, Button eklendi + stok yok, FilterDrawer, QuickBuy
+  L21 contract 2 ikas merchant blocks (06-page-coverage §3b) when ProductDetail / CartPage / CartDrawer exist
   L20 --globals / --components integrity (tables, catalogue, prop types, defaults)
 
 Stdlib only; PyYAML is used, when installed, as an extra YAML syntax check.
@@ -844,7 +845,44 @@ def lint_plan(plan, args, rep, cat):
             rep.add("§6.2", "ERROR", "Overlay/FilterDrawer", "L19", "#### Overlay/FilterDrawer missing")
         if "QuickBuy" not in plan.entries or plan.entries["QuickBuy"]["kind"] != "Overlay":
             rep.add("§6.2", "ERROR", "Overlay/QuickBuy", "L19", "#### Overlay/QuickBuy missing")
+        lint_merchant_blocks(plan, rep)
     return contract, P
+
+
+MERCHANT_LAYERS = collections.OrderedDict([
+    ("ProductDetail", ["pdp-rating", "pdp-campaign", "pdp-offers", "pdp-pay", "pdp-bundle", "pdp-tiers",
+                       "pdp-options", "pdp-group", "pdp-back-in-stock"]),
+    ("CartPage", ["cart-adjustments", "coupon-applied", "cart-recommendations"]),
+    ("CartDrawer", ["drawer-adjustments", "coupon-toggle", "drawer-recommend"]),
+])
+MERCHANT_SUBS = ["OfferCard", "BundleItem", "RatingStars", "ReviewCard"]
+CARTLINE_STATES = ["indirimli", "hediye", "set", "kişiselleştirilmiş"]
+
+
+def lint_merchant_blocks(plan, rep):
+    """L21: ikas merchant blocks that every theme draws itself (06-page-coverage.md §3b)."""
+    for sec, layers in MERCHANT_LAYERS.items():
+        e = plan.entries.get(sec)
+        if not e:
+            continue
+        hay = "\n".join(l for f in e["trees"] for _, l in f["body"])
+        for name in layers:
+            if not re.search(r"(?<![\w-])" + re.escape(name) + r"(?![\w-])", hay):
+                rep.add("§6.2", "ERROR", "%s/%s" % (e["kind"], sec), "L21",
+                        "tree lacks `%s` (ikas merchant block, 06-page-coverage §3b)" % name)
+    if "ProductDetail" not in plan.entries:
+        return
+    if "ProductReviews" not in plan.entries or plan.entries["ProductReviews"]["kind"] != "Section":
+        rep.add("§6.2", "ERROR", "Section/ProductReviews", "L21", "#### Section/ProductReviews missing (required with ProductDetail)")
+    for name in MERCHANT_SUBS:
+        if name not in plan.components:
+            rep.add("§6.1", "ERROR", name, "L21", "sub `%s` missing (required with ProductDetail)" % name)
+    cli = plan.components.get("CartLineItem")
+    if cli:
+        st = cli[2].lower()
+        for w in CARTLINE_STATES:
+            if w not in st:
+                rep.add("§6.1", "ERROR", "CartLineItem", "L21", "CartLineItem states lack '%s'" % w)
 
 
 def lint_section7(plan, rep):

@@ -51,4 +51,7 @@
 §6.1|ERROR|Button:L88|L19 Button states lack 'eklendi'
 §6.2|ERROR|Overlay/FilterDrawer|L19 #### Overlay/FilterDrawer missing
 §6.2|ERROR|Overlay/QuickBuy|L19 #### Overlay/QuickBuy missing
-LINT FAIL (43 errors, 10 warnings)
+§6.2|ERROR|Overlay/CartDrawer|L21 tree lacks `drawer-adjustments` (ikas merchant block, 06-page-coverage §3b)
+§6.2|ERROR|Overlay/CartDrawer|L21 tree lacks `coupon-toggle` (ikas merchant block, 06-page-coverage §3b)
+§6.2|ERROR|Overlay/CartDrawer|L21 tree lacks `drawer-recommend` (ikas merchant block, 06-page-coverage §3b)
+LINT FAIL (46 errors, 10 warnings)

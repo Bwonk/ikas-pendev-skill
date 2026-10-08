@@ -116,7 +116,7 @@ Design → ikas mapping *(project rule, see `02-contract.md` for names)*: `mode:
 
 **Container sections** (Header, Footer, ProductDetail, AccountInfo) host children through a `COMPONENT_LIST` prop restricted by `filteredComponentIds` (opaque ids). Always three steps: create each child → create the parent section without the filter → `update-prop --filteredComponentIds`. In the plan, list the children per slot so the port can run the recipe; ids never appear in design docs.
 
-Overlays (`P/Overlay/<Name>…`) are not a tier: they port as sub-components rendered inside the owning section (CartDrawer, SearchOverlay and QuickBuy inside Header, InfoDrawer inside ProductDetail). QuickBuy is opened from `ProductCard` through a shared UI store or window event and hands over to CartDrawer after a successful add.
+Overlays (`P/Overlay/<Name>…`) are not a tier: they port as sub-components rendered inside the owning section (CartDrawer, SearchOverlay and QuickBuy inside Header, InfoDrawer inside ProductDetail). The merchant blocks of `06-page-coverage.md` §3b (Birlikte al, set, kademeli indirim, kişiselleştirme, haber ver, Hızlı Öde) are local components of ProductDetail that render only when the product carries that data; cart adjustment rows, gift lines and the recommendation rail belong to CartPage / CartDrawer. QuickBuy is opened from `ProductCard` through a shared UI store or window event and hands over to CartDrawer after a successful add.
 
 ## 7. Responsive
 

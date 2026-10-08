@@ -249,10 +249,17 @@ Each sub is a reusable root; each state is its own root `P/Sub/<Name> — <state
 | `SectionHeading` | açıklamalı · açıklamasız | always |
 | `IconButton` | varsayılan · hover | always |
 | `Spinner` | — | always |
+| `CartLineItem` | varsayılan · güncelleniyor · **indirimli** · **hediye** · **set** · **kişiselleştirilmiş** | always |
+| `OfferCard` | seçili değil · seçili · sepette · tükendi | always (Birlikte al) |
+| `BundleItem` | adet düzenlenebilir · adet sabit · tükendi | always (set ürün) |
+| `RatingStars` | puanlı · yorumsuz | always |
+| `ReviewCard` | doğrulanmış alıcı · doğrulanmamış | always |
 
 Theme-specific subs (gizem: `Sticker`, `ScrambleText`) are added by the plan.
 
 Required overlays (`P/Overlay/…`): mobile menu — açık; `CartDrawer` — boş · dolu · yükleniyor; `SearchOverlay` — boş · yazarken · sonuçsuz; **`FilterDrawer@mobile` — açık**; **`QuickBuy` — açık · seçim eksik · ekleniyor** (`@desktop` centred window, `@mobile` bottom sheet; content in `06-page-coverage.md` §3a); plus any panel the plan defines (size guide, info drawer).
+
+Required merchant blocks (`06-page-coverage.md` §3b, lint L21): ProductDetail layers `pdp-rating`, `pdp-campaign`, `pdp-offers`, `pdp-pay`, `pdp-bundle`, `pdp-tiers`, `pdp-options`, `pdp-group`, `pdp-back-in-stock` (hidden ones get their own `— <state>` frames); a `ProductReviews` section; CartPage layers `cart-adjustments`, `coupon-applied`, `cart-recommendations`; CartDrawer layers `drawer-adjustments`, `coupon-toggle`, `drawer-recommend`.
 
 ## 10. Contrast gate
 

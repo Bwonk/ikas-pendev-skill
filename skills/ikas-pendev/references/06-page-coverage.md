@@ -26,8 +26,8 @@ A reference site rarely shows every page an ikas store needs (gizem's reference 
 |---|---|---|---|---|---|
 | `INDEX` | `hero-slider-section`, `product-slider-section`, `category-images-section`, `features-section` or `(özel)` | hero · ≥1 product row (carousel or grid) · category entry · ≥1 brand/editorial block | Cart, Search, Menu, QuickBuy | hero slide n of N; product card states via Subs | ✓ |
 | `CATEGORY` | `category-list-section` | ProductList (title, filter/sort bar, grid, pagination or load-more) | Cart, Search, Menu, QuickBuy, **FilterDrawer@mobile** | empty (no products), loading (skeleton / load-more spinner), filter applied | ✓ |
-| `PRODUCT_DETAIL` | `product-detail-section` (+ `variant-selection`, `add-to-cart`, `product-pricing`, `image-handling`), `product-reviews-section` ○, `product-slider-section` | ProductDetail (gallery, name, price, variants, add-to-cart, description) · ≥1 ProductCarousel (related) | Cart (after add), size guide / info drawer if designed | variant selected / unavailable / out of stock · add-to-cart loading / added · discounted price | ✓ |
-| `CART` | `cart-section` | CartPage (lines, quantity, remove, coupon, summary, checkout) | — | empty · filled · line updating (loading) · coupon error | ✓ |
+| `PRODUCT_DETAIL` | `product-detail-section` (+ `variant-selection`, `add-to-cart`, `product-pricing`, `image-handling`, `bundle-products`), `product-reviews-section`, `product-slider-section` | ProductDetail (gallery, name, rating, price, campaign message, variants, add-to-cart, Pay with ikas, **the merchant blocks of §3b**, description) · **ProductReviews** · ≥1 ProductCarousel/Grid (purchased together or related) · a second rail (last viewed) | Cart (after add), QuickBuy, size guide / info drawer if designed | variant selected / unavailable / out of stock (+ back-in-stock form) · add-to-cart loading / added · discounted price · **set ürün · kişiselleştirme · kademeli indirim · ürün grubu · haber ver kaydedildi · haber ver giriş gerekli** | ✓ |
+| `CART` | `cart-section` | CartPage (lines, quantity, remove, coupon + applied coupon, **campaign / coupon / gift-card adjustment rows**, summary, checkout, **recommendation rail**) | — | empty (rail stays) · filled (one discounted line, one gift line) · line updating (loading) · coupon error | ✓ |
 | `ACCOUNT` | `account-info-section` | Account (tabs: info, orders, addresses, favorites, order detail) | ConfirmModal (delete address) ○ | each tab · orders empty · form saving / success / error | ✓ |
 | `LOGIN` | `login-section` | AuthForms (login variant) | — | default · field error · submitting | ✓ |
 | `REGISTER` | `register-section` | AuthForms (register variant) | — | default · field error · submitting | ✓ |
@@ -94,6 +94,43 @@ Behaviour:
 - Every label is a TEXT prop with a Turkish default: `addText`, `addingText`, `soldOutText`, `chooseOptionText`, `detailLinkText`, `closeAriaLabel`.
 
 Do not add an eyebrow above the name.
+
+### 3b. ikas merchant blocks on the product page and in the cart (required)
+
+The merchant switches these on in ikas admin (campaigns, campaign offers, bundles, option sets, back-in-stock, reviews), but ikas renders none of them inside a theme section. The theme must draw every one, so each design includes them even when the reference shows none. Draw the blocks in the section component; blocks that depend on store data stay hidden (`enabled:false`, with a `fill_container(<column width>)` fallback width) and are switched on in their own state frames.
+
+**Product detail (`ProductDetail`), layer names fixed:**
+
+| Layer | What the shopper sees | ikas API | Shown by default | State frame |
+|---|---|---|---|---|
+| `pdp-rating` | RatingStars + score + review count + link to reviews | `product.stars`, `product.reviewCount` | yes | — |
+| `pdp-campaign` | campaign message ("2 al, ikincisi %50"), badge on ProductCard too | `getProductCampaigns`, `getProductVariantAppliedCampaignAmount` | yes | — |
+| `pdp-offers` | **Birlikte al**: title + OfferCard ×N (toggle, variant select, discounted price, % badge) + summary (old total, new total, saving) + "Birlikte sepete ekle (N)" | `product.offers`, `acceptProductOffer` / `rejectProductOffer`, `isAcceptedProductOffer`, `getProductVariantFormattedFinalPriceWithCampaignOffers`, `addItemToCart(…, offers)` | yes | OfferCard states: seçili değil · seçili · sepette · tükendi |
+| `pdp-pay` | Pay with ikas ("Hızlı Öde") slot, neutral 48 px frame (ikas draws the iframe) | `PayWithIkas` | yes | — |
+| `pdp-bundle` | **Set içeriği**: BundleItem ×N (variant, editable or fixed quantity, added price, sold out) | `hasBundleSettings`, `initBundleProducts`, `isBundleProductQuantityEditable`, `getBundleProductFormattedFinalPrice` | no | `— set ürün` |
+| `pdp-tiers` | **Kademeli indirim** table: quantity range → unit price, current tier highlighted | `getProductVariantTieredDiscountProducts` | no | `— kademeli indirim` |
+| `pdp-options` | **Kişiselleştirme**: text field, choice chips, file upload, option prices | `getProductOptionSet`, `initIkasProductOptionSet`, `getDisplayedOptions`, `productOptionFileUpload` | no | `— kişiselleştirme` |
+| `pdp-group` | **Ürün grubu**: sibling products as image swatches (replaces the colour chips) | `product.productGroup` | no | `— ürün grubu` |
+| `pdp-back-in-stock` | **Gelince haber ver**: e-mail field + button, saved message, login-required branch | `getProductVariantIsBackInStockEnabled`, `initBackInStockNotificationForm`, `submitBackInStockNotificationForm`, `variant.isBackInStockReminderSaved` | in `— stok yok` | `— haber ver kaydedildi` · `— haber ver giriş gerekli` |
+
+**Reviews (`ProductReviews` section, placed right after ProductDetail):** `reviews-summary` (score, RatingStars, count, 5→1 distribution bars, "Yorum yaz"), `reviews-list` (ReviewCard ×N + "Daha fazla yorum"), `reviews-empty`, `review-form` (rating input, title, comment, submit, login-required note). States: yorumlu · `— boş` · `— yorum formu`. API: `product-reviews-section` template, `IkasCustomerReviewList`, `customerReviewSettings`.
+
+**Cart page (`CartPage`) and drawer (`CartDrawer`):**
+
+| Layer | What | ikas API |
+|---|---|---|
+| `cart-adjustments` / `drawer-adjustments` | rows between subtotal and total: campaign, coupon, gift card (name + −amount) | `getIkasOrderDisplayedAdjustments`, `getOrderAdjustmentDisplayName`, `getOrderAdjustmentFormattedAmount`, `cart.giftCardLines` |
+| `coupon-applied` (page) / `coupon-toggle` (drawer) | applied coupon chip with remove; collapsed coupon entry in the drawer | `getCouponCodeForm`, `submitCouponCodeForm`, `removeCouponCodeForm` |
+| `cart-recommendations` / `drawer-recommend` | product rail (stays in the empty cart) from a `PRODUCT_LIST` prop | product list types `PURCHASED_TOGETHER`, `RECOMMENDED`, `LAST_VIEWED`, `RELATED_PRODUCTS` |
+| CartLineItem states | `indirimli` (struck old price) · `hediye` (HEDİYE badge, fixed ×N, no remove) · `set` (bundle sub-list) · `kişiselleştirilmiş` (option values + Düzenle) | `hasOrderLineItemDiscount`, `isOrderLineItemAutoCreated`, `item.variant.bundleProducts`, `item.options`, `editOrderLineItem` |
+
+**Required subs:** `OfferCard`, `BundleItem`, `RatingStars`, `ReviewCard` (plus the CartLineItem states above).
+
+**Product page composition:** Header · ProductDetail · ProductReviews · ProductGrid (purchased together / related) · ProductGrid (last viewed) · Footer.
+
+**Not in ikas, so do not design as data-driven:** size-chart API, product compare, pre-order, free-shipping progress bar, installment table, offer countdown. Size guide is a link to merchant content. "Son N ürün" uses a theme-defined threshold on `variant.stock`.
+
+Do not put an eyebrow above any of these titles. Discount amounts use `$color-text` when the accent fails 4.5:1 on the summary ground.
 
 ## 4. States
 
