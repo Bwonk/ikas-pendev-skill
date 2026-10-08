@@ -3,7 +3,7 @@
 This file only adds what the official pen.dev skill does not say, or says in a place that is easy to miss. It never restates the API: read the official files first (`mcp__pencil__read_skill()` → `SKILL.md`, `pen-schema.md`, `execute.md`; `generate.md` before any `Generate`; `guide/components.md` before building Subs). "Official" lines point to the file and section to open. Items marked *observed* were found on real canvases and are not in the official docs.
 
 ## Contents
-1. Metadata is only kept at creation · 2. `Replace` on a normal layer · 3. Instances drop metadata · 4. Invalid fonts · 5. Translucent colours · 6. `Generate` is async · 7. No wrap · 8. Invisible text · 9. One scope per call · 10. Placement · 11. Failed `execute` · 12. Multiplayer · 13. `fit_content` / `fill_container` loop · 14. Screenshot discipline
+1. Metadata is only kept at creation · 2. `Replace` on a normal layer · 3. Instances drop metadata · 4. Invalid fonts · 5. Translucent colours · 6. `Generate` is async · 7. No wrap · 8. Invisible text · 9. One scope per call · 10. Placement · 11. Failed `execute` · 12. Multiplayer · 13. `fit_content` / `fill_container` loop · 14. Screenshot discipline · 15. Variable opacity · 16. Hidden layers count as clipped
 
 ## 1. Metadata is only kept at creation *(observed)*
 - **Symptom:** `Update(id, {metadata:{…}})` returns without error, but a later `Get` shows the old or no metadata; CHK `rootmeta`, `anim` or `textclass` fails on a layer you "fixed".
@@ -84,3 +84,14 @@ This file only adds what the official pen.dev skill does not say, or says in a p
 ## 14. Screenshot discipline
 - **Rule:** one `TakeScreenshot` per finished unit (a root pair or a Sub with its states), of the smallest meaningful node, at the end of the call that finished it. Structure, sizing and clipping are checked with `Get` visitors (`ctx.bounds`, `ctx.problems`) and the CHK snippet, not with screenshots. Note the screenshot in the build-log line.
 - **Official:** `execute.md` §TakeScreenshot.
+
+## 15. `opacity: "$opacity-inactive"` renders invisible *(observed)*
+- **Symptom:** a disabled button, sold-out chip or loading cart line is missing from the screenshot; CHK passes.
+- **Cause:** pen.dev accepts a number variable on `opacity` but renders the node as fully transparent.
+- **Fix:** write the variable's number (e.g. `0.4`) and append `opacity: $opacity-inactive` to the node's `context`; `02-contract.md` §3 allows this raw value. Find old cases with `Get(n => n.opacity === "$opacity-inactive" …)`, including `descendants` overrides on refs.
+
+## 16. Hidden layers and hidden refs count as clipped *(observed)*
+- **Symptom:** CHK `clip` warns on many children of blocks that are `enabled:false` (state-only blocks such as a bundle list or a back-in-stock form).
+- **Cause:** a hidden frame with `width: "fill_container"` gets width 0; a hidden `ref` reports the master's absolute position; a hidden child taller than its fit-content parent overflows it.
+- **Fix:** give hidden frames a fallback, `width: "fill_container(<column width>)"`; never hide a `ref` directly, wrap it in a hidden frame and toggle the frame in state overrides; prefer making the taller variant the default and hiding the smaller one; name intentional crops `…-mask` (e.g. a half star).
+

@@ -118,6 +118,7 @@ Rules:
 - `0` (zero gap/padding, `opacity: 0` for stacked hidden siblings, radius 0).
 - Structural `1` px hairlines (form-field border, `link-line`) when `size-line` is thicker.
 - Geometry (width, height, x, y, rotation) is never tokenised.
+- `opacity` equal to the `opacity-inactive` value: the canvas does not render a `$variable` on `opacity` (05 §15). Write the number and add `opacity: $opacity-inactive` to the node's `context` so the port uses the token.
 
 ## 4. Type-style mapping
 
