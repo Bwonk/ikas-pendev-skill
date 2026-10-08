@@ -41,7 +41,8 @@ A unit is one root pair (`@desktop` + `@mobile`), one Sub with its state frames,
 4. **Check:** `python3 ${CLAUDE_SKILL_DIR}/scripts/extract_targets.py <plan> --js section:<Key>` → run the printed read-only snippet with `execute`. (DS, Subs, pages: run `--js all` and read the relevant CHK lines.)
 5. **Screenshot:** one `TakeScreenshot` of the finished unit (smallest meaningful node).
 6. **Fix** every FAIL in place — never delete-and-rebuild; metadata fixes use `05-pendev-pitfalls.md` §2. Re-run step 4.
-7. **Close:** `Update(root, {placeholder: false})`, append the build-log line (§6). Next unit.
+7. **Parity:** every layer added to `@desktop` (visible or hidden) also exists in `@mobile`, sized for 390; layout-changing states get `@mobile — <state>` frames (06 §3c "Both devices, always").
+8. **Close:** `Update(root, {placeholder: false})`, append the build-log line (§6). Next unit.
 
 ## 3. CHK table
 
@@ -74,6 +75,7 @@ Design side — every item maps to a CHK or a manual check:
 - [ ] No clipped-content warning on any frame, masks and tracks excepted (`clip`).
 - [ ] Turkish characters (`İ Ş Ğ Ü Ö Ç ı`) render correctly in every chosen font — screenshot of `P/DS/Typography` (manual).
 - [ ] No reference images, copy or logo used; no fill URL from the reference host (`refassets` + manual look).
+- [ ] Desktop/mobile parity: every ikas block, account panel and confirmation exists in both device components; mobile states exist for account settings, delete confirmations, return, error and loading.
 - [ ] The theme name from the brief sits in every brand placement (`02-contract.md` §11): logo/mark in `P/DS/Icons`, Header and Footer logos, copyright, contact e-mail, legal/e-mail texts. No placeholder brand text (`Marka`, `Logo`, `Brand`) and no other brand name on the canvas.
 - [ ] `P/DS/Imagery` exists with the generated photography direction (`ds`).
 - [ ] Every text/background pair passes WCAG AA (`02-contract.md` §10; manual on the `P/DS/Colors` pairs).
