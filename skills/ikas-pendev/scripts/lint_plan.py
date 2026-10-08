@@ -865,7 +865,8 @@ MERCHANT_LAYERS = collections.OrderedDict([
     ("MenuOverlay", ["menu-auth"]),
     ("AuthForms", ["social-login", "sms-login", "register-consents"]),
     ("EmailVerification", ["resend-form"]),
-    ("Account", ["order-detail", "order-packages", "return-form", "account-settings", "orders-error"]),
+    ("Account", ["order-detail", "order-packages", "return-form", "account-settings", "orders-error",
+                 "address-card-actions"]),
     ("ProductReviews", ["merchant-reply", "reviews-pagination"]),
 ])
 MERCHANT_LAYERS["ProductDetail"] += ["pdp-video", "pdp-variant-swatches", "pdp-stock-locations",
@@ -891,6 +892,14 @@ def lint_merchant_blocks(plan, rep):
             if not re.search(r"(?<![\w-])" + re.escape(name) + r"(?![\w-])", hay):
                 rep.add("§6.2", "ERROR", "%s/%s" % (e["kind"], sec), "L21",
                         "tree lacks `%s` (ikas block, 06-page-coverage §3b/§3c)" % name)
+    acc = plan.entries.get("Account")
+    if acc:
+        hay = "\n".join(l for f in acc["trees"] for _, l in f["body"])
+        alt = {"address-form": "AddressModal", "address-delete-confirm": "ConfirmModal", "account-delete-confirm": "ConfirmModal"}
+        for name, modal in alt.items():
+            if not re.search(r"(?<![\w-])" + re.escape(name) + r"(?![\w-])", hay) and modal not in plan.entries:
+                rep.add("§6.2", "ERROR", "Section/Account", "L21",
+                        "tree lacks `%s` and there is no %s overlay (06-page-coverage §3c)" % (name, modal))
     if "ProductDetail" not in plan.entries:
         return
     for key in COMPLETENESS_OVERLAYS + (ACCOUNT_OVERLAYS if "Account" in plan.entries else []):
