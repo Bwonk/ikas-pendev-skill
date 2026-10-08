@@ -99,7 +99,7 @@ Types: `color`, `string`, `number`. Axes: `mode: light | dark` (colours, only wh
 | 31 | `space-grid` | gutter between cells | number | — or device | 0 | `--space-grid` |
 | 32 | `space-card` | card inner padding | number | device | 12 / 10 | `--space-card` |
 | 33 | `space-panel` | panel inner padding | number | device | 24 / 16 | `--space-panel` |
-| 34 | `space-xs` | label ↔ title | number | device | 6 / 4 | `--space-xs` |
+| 34 | `space-xs` | tight pairs (name ↔ price, title ↔ meta below) | number | device | 6 / 4 | `--space-xs` |
 | 35 | `space-sm` | small gap | number | device | 12 / 10 | `--space-sm` |
 | 36 | `space-md` | medium gap | number | device | 16 / 12 | `--space-md` |
 | 37 | `space-section` | section vertical spacing | number | device | 120 / 64 | `--space-section` |

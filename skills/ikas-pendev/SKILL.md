@@ -22,6 +22,7 @@ Turns a reference (screenshots and/or a live site) into an original ikas theme d
 8. **No reference assets.** No image, copy, logo or brand name from the reference enters the design. Imagery comes from `Generate("ai"|"stock")`, logos from `Generate("svg")`. Reference imports on the canvas are look-only. Keep reference screenshots in `docs/referans/girdi/` and add that folder to the project `.gitignore`.
 9. **Verify every unit.** `placeholder: true` while a root frame is being built. When a root pair is done: run `extract_targets.py --js section:<Key>`, execute the printed read-only checks, take one `TakeScreenshot`, fix in place, append to `docs/pendev/build-log.md`, then move on. Never delete-and-rebuild a frame to fix it.
 10. **Language.** These instructions are English. Every generated document and every string on the canvas is Turkish (check `İ Ş Ğ Ü Ö Ç` render in the chosen fonts). Identifiers — frame, layer, prop, variable names, CHK ids — stay English. Measured values are tagged `[ölçüldü]`, estimates `[tahmini]`.
+11. **No eyebrow labels above headings.** Never put a small label, kicker, index or category line directly above a title (`01 / YENİ GELENLER`, `04 / BÜLTEN`, `KOLEKSİYON · 24 ÜRÜN`, `HESAP`, a coordinate over a store name). Headings open the block on their own. This holds in every design, for every strategy, even when the reference uses them; data that belongs with content (blog category and date, price, badges on media) is not an eyebrow.
 
 ## Arguments
 
@@ -95,7 +96,7 @@ ikas-pendev:
 
 ## Anti-patterns (the brief always wins; see `references/08-quality.md`)
 
-Card around everything · gradients, shadows and large radii as defaults · centred hero + three feature cards · Inter/Roboto because nothing was chosen · emoji or hand-drawn icons · English or lorem filler and fake stats · every section at the same rhythm. Spend boldness in one place per page and name it in plan §1.
+Card around everything · gradients, shadows and large radii as defaults · centred hero + three feature cards · Inter/Roboto because nothing was chosen · emoji or hand-drawn icons · English or lorem filler and fake stats · every section at the same rhythm · eyebrow/index labels above headings (never, rule 11). Spend boldness in one place per page and name it in plan §1.
 
 ## Reporting
 
