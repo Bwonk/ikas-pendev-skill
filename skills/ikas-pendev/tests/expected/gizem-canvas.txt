@@ -1,0 +1,16 @@
+# Live read-only run of scripts/pendev_checks.js (--js all, contract 1) on the gizem canvas (pencil-new.pen), 2026-10-08.
+# Baseline for the legacy contract. Numbers come from the canvas; WARN rows are known, accepted exceptions.
+CHK|vars|PASS|37|37/37
+CHK|ds|PASS|5|5/5            (canvas also has C/DS/Imagery; contract 1 expects 5)
+CHK|sections|PASS|31|31/31
+CHK|overlays|PASS|3|3/3
+CHK|pages|PASS|13|13/13      (Auth ×4 matched as "C/Page/Auth — giriş|kayıt|şifremi unuttum|şifre yenile")
+CHK|anim|PASS|115|115/115    (metadata.anim ∪ context, incl. resolveInstances pass)
+CHK|hardcoded|WARN|31|fill=12 (scheme-margin transparent gradient stops #0D0D0D00) fontSize=19 (logo/wordmark placeholders)
+CHK|textclass|WARN|237|contract 1 baseline: texts=732 without metadata.prop=237 (~140 data-bound, ~81 code-generated, 14 SVG placeholders)
+CHK|clip|WARN|128|after roll/hover exclusions; accordion answers, hotspot cards, horizontal strips, account order rows — deliberate
+CHK|rootmeta|PASS|201|201/201 (state frames skipped in contract 1)
+CHK|bgprop|PASS|0|skip: contract 1
+CHK|placeholder|PASS|0|none
+CHK|refassets|PASS|0|no reference-host image fills (axm.framer.website)
+SUMMARY|pass=10|fail=0|warn=3|mode=all|roots=201

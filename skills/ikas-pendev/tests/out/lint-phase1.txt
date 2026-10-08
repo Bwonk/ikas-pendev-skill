@@ -1,0 +1,2 @@
+globals|INFO|-|L20 core names not mentioned: color-accent-text, font-mono
+LINT OK (0 targets)

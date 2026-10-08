@@ -1,0 +1,23 @@
+{
+ "key": "Example",
+ "code": "EXM",
+ "kind": "section",
+ "pages": "<hangi sayfalarda kullanılır>",
+ "ikas": "<başlangıç şablonu, ör. hero-slider-section (uyarlanır) ya da (özel)>",
+ "props": "`title`, `buttonText` TEXT · `image` IMAGE · `link` LINK · `backgroundColor` COLOR",
+ "desktop": "<1440 düzeni: ölçüler, ızgara, boşluklar>",
+ "mobile": "<390 düzeni: neyin değiştiği>",
+ "tree": [
+  "example",
+  "├─ example-image                     {image:IMAGE}",
+  "├─ example-title-mask (clip) → example-title   {title:TEXT} text-h2",
+  "├─ example-price                     {data:product.price} text-price",
+  "├─ example-counter                   {code:slideCounter} font-mono \"01 / 03\"",
+  "└─ example-button (clip)             {buttonText:TEXT}; top + bottom kopya"
+ ],
+ "checks": ["<çizim sonrası kontrol edilecek bir madde>"],
+ "anims": [
+  {"layer": "example-title", "recipe": "M-03", "trigger": "inview", "what": "Başlık kelime kelime açılır"},
+  {"layer": "example-button", "recipe": "M-11", "trigger": "hover", "what": "Buton dolgusu ters döner"}
+ ]
+}

@@ -1,0 +1,142 @@
+{
+ "schema": 1,
+ "contract": 2,
+ "theme": {
+  "slug": "kaya",
+  "name": "Kaya",
+  "sector": "outdoor giyim",
+  "prefix": "K",
+  "file": "plan-K-kaya.md",
+  "title": "Plan K — Kaya duman testi",
+  "lead": "Sözleşme 2 duman testi için küçük veri seti: iki bölüm, bir overlay, iki sayfa.",
+  "reference": {
+   "url": "https://example.com/",
+   "canvasImportNote": "",
+   "policy": "referans sadece ilham; görsel, metin ve logo kullanılmaz"
+  },
+  "penFile": "kaya-K.pen",
+  "codeDir": "kaya/src/",
+  "locale": "tr-TR",
+  "currency": "TRY"
+ },
+ "identity_md": [
+  "**Konsept: \"ZİRVE\".** Taş grisi zemin, koyu yeşil vurgu, sakin büyük başlıklar.",
+  "",
+  "- Başlık fontu `Oswald`; arayüz `Barlow`; etiketler `Space Mono`.",
+  "- Görseller `Generate(\"ai\" | \"stock\")` ile üretilir; metinler Türkçe (`İ Ş Ğ Ü Ö Ç` kontrolü)."
+ ],
+ "modes": ["light", "dark"],
+ "devices": {"desktop": {"width": 1440, "height": 900}, "mobile": {"width": 390, "height": 844}},
+ "variables": {
+  "colors": {
+   "color-bg": ["#E9E7E2", "#151614"],
+   "color-text": ["#151614", "#E9E7E2"],
+   "color-muted": ["#5E615B", "#9A9D96"],
+   "color-line": ["#151614", "#E9E7E2"],
+   "color-surface": ["#DCD9D2", "#20221F"],
+   "color-inverse-bg": ["#151614", "#E9E7E2"],
+   "color-inverse-text": ["#E9E7E2", "#151614"],
+   "color-accent": ["#1F5A3A", "#3E9B67"],
+   "color-accent-text": ["#FFFFFF", "#151614"],
+   "color-scrim": ["#15161499", "#151614B3"],
+   "color-transparent": ["#E9E7E200", "#15161400"],
+   "color-danger": ["#B3261E", "#F2B8B5"],
+   "color-success": ["#1F5A3A", "#3E9B67"]
+  },
+  "fonts": {
+   "font-display": "Oswald",
+   "font-ui": "Barlow",
+   "font-body": "Barlow",
+   "font-price": "Barlow Condensed",
+   "font-mono": "Space Mono"
+  },
+  "type": {
+   "text-display": [120, 56],
+   "text-h2": [80, 40],
+   "text-h3": [48, 32],
+   "text-h4": [28, 22],
+   "text-title": [20, 18],
+   "text-ui": [16, 15],
+   "text-ui-sm": [14, 13],
+   "text-badge": [12, 11],
+   "text-label": [12, 11],
+   "text-body": [16, 15],
+   "text-price": [20, 18]
+  },
+  "numbers": {
+   "space-page": [32, 16],
+   "space-grid": [8, 4],
+   "space-card": [12, 10],
+   "space-panel": [24, 16],
+   "space-xs": [4, 4],
+   "space-sm": [8, 8],
+   "space-md": [16, 12],
+   "space-section": [120, 64],
+   "size-header": [72, 60],
+   "size-line": 1,
+   "opacity-inactive": 0.35,
+   "size-logo": [28, 22]
+  }
+ },
+ "typeStyles": {
+  "map": [
+   {"styles": ["text-display", "text-h2", "text-h3", "text-h4"], "spec": "`$font-display`, satır yüksekliği 1.0"},
+   {"styles": ["text-title", "text-ui", "text-ui-sm", "text-badge"], "spec": "`$font-ui`, 600, satır 1.2"},
+   {"styles": ["text-label"], "spec": "`$font-mono`"},
+   {"styles": ["text-body"], "spec": "`$font-body`, 400, satır 1.45"},
+   {"styles": ["text-price"], "spec": "`$font-price`, 700"}
+  ],
+  "note": "Başlıklar büyük harf."
+ },
+ "fontCheck": {
+  "valid": ["Barlow", "Barlow Condensed", "Oswald", "Space Mono"],
+  "invalid": ["Mona Sans Condensed", "Big Shoulders Display"]
+ },
+ "ds": {
+  "sampleText": "ZİRVEDE ŞIK ÇÖZÜM 2.450 TL",
+  "icons": "arama, hesap, sepet, menü, kapat, filtre, ok ↗, artı, eksi"
+ },
+ "recipes": {
+  "local": {
+   "K-M-01": {
+    "name": "Katman kayması",
+    "what": "Görsel katmanları kaydırmayla farklı hızda kayar.",
+    "struct": "her katman ayrı node; `layoutPosition: \"absolute\"`",
+    "frm": "{ layer.y: 0 }",
+    "to": "{ layer.y: -60 }",
+    "timing": "{ scrub: true }",
+    "impl": "scroll-scrub",
+    "mobile": "kapalı",
+    "rm": "kapalı",
+    "stateHint": "katmanlar: üst üste → ayrışmış → en uçta"
+   }
+  }
+ },
+ "via": {"link": "ArrowLink"},
+ "viaRules": [{"recipe": "M-11", "layerContains": "button", "via": "Button"}],
+ "utils": {"viaComponents": ["Button", "ArrowLink", "Drawer"], "extra": []},
+ "components": [
+  {
+   "name": "Button",
+   "structure": "`button` (clip) içinde `top` + `bottom` kopya; yükseklik 48; text-ui",
+   "states": "varsayılan · hover · pasif · yükleniyor · eklendi · stok yok",
+   "anims": [{"layer": "button", "recipe": "M-11", "trigger": "hover", "what": "Dolgu alttan kayar, etiket yukarı çıkar"}]
+  },
+  {
+   "name": "ArrowLink",
+   "structure": "`link`: etiket text-ui + `link-line` + `link-arrow` (clip: `arrow-top` + `arrow-bottom`)",
+   "states": "varsayılan · hover",
+   "anims": [{"layer": "link", "recipe": "M-10", "trigger": "hover", "what": "Ok döner, alt çizgi uzar"}]
+  },
+  {
+   "name": "ProductCard",
+   "structure": "`card-images` (clip, 3:4): `image-front` + `image-back` · `card-info`: `card-title` · `price`",
+   "states": "varsayılan · hover · stok yok",
+   "anims": []
+  }
+ ],
+ "pages": [
+  {"name": "Home", "sections": "HeroBanner · ProductGrid", "pageType": "INDEX"},
+  {"name": "Category", "sections": "ProductGrid (filtreli)", "pageType": "CATEGORY"}
+ ]
+}

@@ -1,0 +1,54 @@
+{
+  "skill": "ikas-pendev",
+  "evals": [
+    {
+      "id": "trigger-screenshots",
+      "prompt": "Şu 3 ekran görüntüsünden ikas teması tasarla: ~/Desktop/ref-home.png ~/Desktop/ref-plp.png ~/Desktop/ref-pdp.png",
+      "expect_trigger": true,
+      "expected": [
+        "Loads the skill and starts Phase 0 (intake) with the Turkish questionnaire",
+        "Does not call mcp__pencil__execute before docs/00-brief.md is approved",
+        "Asks for the viewport width of each screenshot"
+      ]
+    },
+    {
+      "id": "trigger-url-analyze",
+      "prompt": "https://example-store.framer.website/ sitesini analiz et, globals çıkar",
+      "expect_trigger": true,
+      "expected": [
+        "Runs scripts/analyze_site.py -I on the URL",
+        "Writes docs/referans/globals.md with [ölçüldü]/[tahmini] tags and pen.dev + ikas columns",
+        "Runs lint_plan.py --globals before reporting done"
+      ]
+    },
+    {
+      "id": "trigger-build-section",
+      "prompt": "plan-C'deki ProductList bölümünü pen.dev'de kur",
+      "expect_trigger": true,
+      "expected": [
+        "Reads the official pen.dev skill (mcp__pencil__read_skill) before building",
+        "Creates P/Section/ProductList@desktop and @mobile with flat metadata written at insert time (textClass on every text node)",
+        "Runs extract_targets.py --js section:ProductList and executes the read-only checks, then one TakeScreenshot",
+        "Appends a line to docs/pendev/build-log.md"
+      ]
+    },
+    {
+      "id": "phase-entry-verify",
+      "prompt": "/ikas-pendev verify ~/orca/gizem-theme",
+      "expect_trigger": true,
+      "expected": [
+        "Detects contract 1 from the plan (no marker)",
+        "Generates pendev_checks.js in mode all and asks approval before execute",
+        "Writes docs/pendev/verify-report.md with CHK lines and counts (vars/sections/pages/anim)"
+      ]
+    },
+    {
+      "id": "non-trigger-app-review",
+      "prompt": "ikas app review'a hazır mı, preflight çalıştır",
+      "expect_trigger": false,
+      "expected": [
+        "Does not load ikas-pendev; this is an ikas app preflight task, not a theme design task"
+      ]
+    }
+  ]
+}

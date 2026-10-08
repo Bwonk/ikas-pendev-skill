@@ -1,0 +1,266 @@
+{
+ "schema": 1,
+ "note": "Motion recipe catalogue M-01..M-28 (default from/to/timing/impl/mobile/reducedMotion). Single source for gen_plan.py, lint_plan.py and references/03-motion.md. M-17 is forbidden.",
+ "recipes": {
+  "M-01": {
+   "name": "Yükleme fade-up",
+   "frm": "{ y: 40, opacity: 0 }",
+   "to": "{ y: 0, opacity: 1 }",
+   "timing": "{ duration: 0.5, ease: ease-standard, delay: 0.2 }",
+   "impl": "css-keyframes",
+   "mobile": "aynı",
+   "rm": "anında"
+  },
+  "M-02": {
+   "name": "Yükleme fade",
+   "frm": "{ opacity: 0 }",
+   "to": "{ opacity: 1 }",
+   "timing": "{ spring: \"bounce 0, 1.2s\", delay: 0.3 }",
+   "impl": "css-keyframes",
+   "mobile": "aynı",
+   "rm": "anında"
+  },
+  "M-03": {
+   "name": "Kelime kelime başlık reveal",
+   "frm": "{ opacity: 0, y: 50, rotateX: 20, skewX: 10, skewY: 5 }",
+   "to": "{ opacity: 1, y: 0, rotateX: 0, skewX: 0, skewY: 0 }",
+   "timing": "{ spring: spring-text, stagger: 0.05, threshold: 0.5, once: true }",
+   "impl": "animejs + io-hook",
+   "mobile": "sadece y + opacity",
+   "rm": "anında",
+   "stateHint": "başlık: kelimeler maske altında (görünmez) → yarısı girmiş → hepsi yerinde"
+  },
+  "M-04": {
+   "name": "Duyuru metin döngüsü",
+   "frm": "{ y: 100% }",
+   "to": "{ y: 0 }",
+   "timing": "{ interval: 3, spring: spring-hover }",
+   "impl": "css-keyframes",
+   "mobile": "mobil menü içinde",
+   "rm": "ilk metin sabit"
+  },
+  "M-05": {
+   "name": "Nav hover dolgu + etiket roll",
+   "frm": "{ bottom.y: 100% }",
+   "to": "{ bottom.y: 0, top.y: -100% }",
+   "timing": "{ spring: spring-hover }",
+   "impl": "css-transition",
+   "mobile": "kapalı",
+   "rm": "anında renk değişimi",
+   "stateHint": "nav-link: varsayılan → dolgu yarı yolda → tam ters dolgu"
+  },
+  "M-06": {
+   "name": "Megamenu aç/kapa",
+   "frm": "{ clipHeight: 0, caret.rotate: 0 }",
+   "to": "{ clipHeight: 100%, caret.rotate: 180 }",
+   "timing": "{ spring: spring-soft, ease: ease-nav, duration: 0.4 }",
+   "impl": "css-transition",
+   "mobile": "akordeon",
+   "rm": "anında",
+   "stateHint": "megamenu: kapalı → yarı açık → açık"
+  },
+  "M-07": {
+   "name": "Hero slayt geçişi",
+   "frm": "{ mask.width: 0%, image.scale: 1.2 }",
+   "to": "{ mask.width: 100%, image.scale: 1 }",
+   "timing": "{ spring: spring-hero, text.delay: 1, text.spring: \"bounce 0, 1.2s\" }",
+   "impl": "animejs",
+   "mobile": "çapraz geçiş 0.6s",
+   "rm": "anında değişim",
+   "stateHint": "slayt geçişi: eski slayt → maske %50 (iki görsel yan yana) → yeni slayt"
+  },
+  "M-08": {
+   "name": "Thumbnail ilerleme",
+   "frm": "{ width: 0% }",
+   "to": "{ width: 100% }",
+   "timing": "{ duration: 4, ease: ease-inout, reset: 0.6 }",
+   "impl": "css-transition",
+   "mobile": "tek ince çizgi",
+   "rm": "çubuk gizli"
+  },
+  "M-09": {
+   "name": "Ürün kartı hover",
+   "frm": "{ front.opacity: 1, back.opacity: 0 }",
+   "to": "{ front.opacity: 0, back.opacity: 1 }",
+   "timing": "{ duration: 0.4, ease: ease-standard, arrow.spring: spring-soft }",
+   "impl": "css-transition",
+   "mobile": "kapalı (dokunmatik)",
+   "rm": "anında",
+   "stateHint": "ürün kartı: ön görsel → arka görsel + dönmüş ok"
+  },
+  "M-10": {
+   "name": "Oklu link hover",
+   "frm": "{ line.width: 0%, arrow: top }",
+   "to": "{ line.width: 100%, arrow: bottom }",
+   "timing": "{ duration: 0.4, spring: spring-soft }",
+   "impl": "css-transition",
+   "mobile": "kapalı",
+   "rm": "anında"
+  },
+  "M-11": {
+   "name": "Buton hover dolgu",
+   "frm": "{ bottom.y: 100% }",
+   "to": "{ bottom.y: 0, top.y: -100% }",
+   "timing": "{ spring: \"bounce 0.3, 0.4s\" }",
+   "impl": "css-transition",
+   "mobile": "kapalı",
+   "rm": "anında renk değişimi",
+   "stateHint": "buton: varsayılan → dolgu yarı yolda → ters dolgu"
+  },
+  "M-12": {
+   "name": "Hotspot pulse + kart",
+   "frm": "{ outer.scale: 1, outer.opacity: 1 }",
+   "to": "{ outer.scale: 2.2, outer.opacity: 0 }",
+   "timing": "{ duration: 1.5, loop: true, card.spring: spring-soft }",
+   "impl": "css-keyframes + css-transition",
+   "mobile": "dokunmayla açılır",
+   "rm": "pulse durur",
+   "stateHint": "hotspot: halka küçük → halka büyük ve soluk; ayrıca mini kart açık"
+  },
+  "M-13": {
+   "name": "Sticky panel",
+   "frm": "{}",
+   "to": "{ position: sticky, top: size-header }",
+   "timing": "{}",
+   "impl": "layout",
+   "mobile": "sticky yok",
+   "rm": "aynı"
+  },
+  "M-14": {
+   "name": "Metin marquee",
+   "frm": "{ x: 0 }",
+   "to": "{ x: -50% }",
+   "timing": "{ speed: \"60px/s\", ease: linear, loop: true }",
+   "impl": "css-keyframes",
+   "mobile": "aynı",
+   "rm": "durur"
+  },
+  "M-15": {
+   "name": "Görsel ticker",
+   "frm": "{ x: 0 }",
+   "to": "{ x: -50% }",
+   "timing": "{ speed: \"40px/s\", ease: linear, loop: true, hoverSlow: true }",
+   "impl": "css-keyframes",
+   "mobile": "yatay kaydırma",
+   "rm": "durur"
+  },
+  "M-16": {
+   "name": "Footer reveal",
+   "frm": "{ wordmark.y: -80 }",
+   "to": "{ wordmark.y: 0 }",
+   "timing": "{ scrub: true }",
+   "impl": "layout + scroll-scrub",
+   "mobile": "normal akış",
+   "rm": "normal akış"
+  },
+  "M-17": {
+   "name": "Yumuşak kaydırma",
+   "forbidden": true,
+   "reason": "Lenis ikas'ta kullanılamaz (paket izni yok)."
+  },
+  "M-18": {
+   "name": "Filtre barı",
+   "frm": "{ color: color-muted }",
+   "to": "{ color: color-text }",
+   "timing": "{ duration: 0.3 }",
+   "impl": "layout + css-transition",
+   "mobile": "yatay kaydırma",
+   "rm": "anında"
+  },
+  "M-19": {
+   "name": "PDP galeri scrollspy",
+   "frm": "{ thumb.border: none, bar.y: 100% }",
+   "to": "{ thumb.border: color-text, bar.y: 0 }",
+   "timing": "{ duration: 0.3, bar.spring: spring-soft }",
+   "impl": "layout + io-hook",
+   "mobile": "yatay galeri + noktalar",
+   "rm": "anında"
+  },
+  "M-20": {
+   "name": "Çekmece",
+   "frm": "{ x: 100%, scrim.opacity: 0 }",
+   "to": "{ x: 0, scrim.opacity: 1 }",
+   "timing": "{ spring: spring-drawer, scrim.duration: 0.4, rows.stagger: [0.2, 0.3, 0.4, 0.5] }",
+   "impl": "css-transition + animejs",
+   "mobile": "tam genişlik",
+   "rm": "anında",
+   "stateHint": "çekmece: kapalı (sayfa) → yarı açık + scrim → açık"
+  },
+  "M-21": {
+   "name": "Arama",
+   "frm": "{ y: -100%, opacity: 0 }",
+   "to": "{ y: 0, opacity: 1 }",
+   "timing": "{ spring: spring-search }",
+   "impl": "css-transition",
+   "mobile": "tam ekran",
+   "rm": "anında",
+   "stateHint": "arama: kapalı → açık boş → açık sonuçlu"
+  },
+  "M-22": {
+   "name": "Akordeon",
+   "frm": "{ height: 0, icon.rotate: 0 }",
+   "to": "{ height: auto, icon.rotate: 45 }",
+   "timing": "{ spring: \"bounce 0, 0.5s\" }",
+   "impl": "css-transition",
+   "mobile": "aynı",
+   "rm": "anında",
+   "stateHint": "akordeon: kapalı → açık"
+  },
+  "M-23": {
+   "name": "Scroll-scrub görsel",
+   "frm": "{ rotate: 10, y: 0 }",
+   "to": "{ rotate: 0, y: -1200 }",
+   "timing": "{ scrub: true }",
+   "impl": "scroll-scrub",
+   "mobile": "kapalı, normal akış",
+   "rm": "kapalı",
+   "stateHint": "değer paneli: görsel 10° dönük ve aşağıda → 5° → 0° ve yerinde"
+  },
+  "M-24": {
+   "name": "Scroll-scrub metin",
+   "frm": "{ opacity: 1, scale: 1, text.y: 0 }",
+   "to": "{ opacity: 0, scale: 1.2, text.y: -200 }",
+   "timing": "{ scrub: true }",
+   "impl": "scroll-scrub",
+   "mobile": "kapalı",
+   "rm": "kapalı",
+   "stateHint": "değer başlığı: tam opak → büyümüş ve yarı saydam → görünmez"
+  },
+  "M-25": {
+   "name": "Scrollspy gezinme",
+   "frm": "{ color: color-muted }",
+   "to": "{ color: color-text }",
+   "timing": "{ duration: 0.3 }",
+   "impl": "io-hook + css-transition",
+   "mobile": "yatay kaydırma",
+   "rm": "anında"
+  },
+  "M-26": {
+   "name": "Alıntı slider",
+   "frm": "{ side.opacity: 0.4 }",
+   "to": "{ center.opacity: 1 }",
+   "timing": "{ interval: 3, spring: spring-smooth, drag: true }",
+   "impl": "animejs",
+   "mobile": "scroll-snap",
+   "rm": "otomatik durur"
+  },
+  "M-27": {
+   "name": "Hero parallax",
+   "frm": "{ bg.y: 0 }",
+   "to": "{ bg.y: 20% }",
+   "timing": "{ scrub: true }",
+   "impl": "scroll-scrub",
+   "mobile": "kapalı",
+   "rm": "kapalı"
+  },
+  "M-28": {
+   "name": "Durum rengi",
+   "frm": "{ color: color-muted }",
+   "to": "{ color: color-text }",
+   "timing": "{ duration: 0.3 }",
+   "impl": "css-transition",
+   "mobile": "aynı",
+   "rm": "anında"
+  }
+ }
+}

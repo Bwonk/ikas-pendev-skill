@@ -1,0 +1,368 @@
+# Site analizi — https://axm.framer.website/
+
+Üretici: `analyze_site.py` (metin olarak ayrıştırma; hiçbir şey çalıştırılmadı). `[ölçüldü]` = kaynaktan okunan değer; her satırda kaynak (URL/dosya + seçici) verilir.
+
+## 0. Kaynaklar
+
+| Öğe | Değer | Etiket |
+|---|---|---|
+| Sayfa | fixture:axm-snapshot.html | [ölçüldü] |
+| meta generator | Framer b4b3e20 | [ölçüldü] |
+| Satır içi <style> blokları | 6 | [ölçüldü] |
+| Harici CSS | 0 | [ölçüldü] |
+| Taranan satır içi <script> metni | 0 | [ölçüldü] |
+| JS (metin) | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| CSS bildirimi | 14847 | [ölçüldü] |
+| rem tabanı (html/:root font-size) | 20px | [ölçüldü] |
+
+## 1. Fontlar
+
+### 1.1 Kullanım sıklığı (ilk aile)
+
+| Aile | Kullanım | Kaynak | Etiket |
+|---|---|---|---|
+| Mona Sans Variable | 107 | fixture:axm-snapshot.html <style#3> `.framer-BQ9U2 .framer-styles-preset-158b9mt:not(.…` | [ölçüldü] |
+| Mona Sans | 24 | fixture:axm-snapshot.html [style] `p[style]` | [ölçüldü] |
+| Manrope | 6 | fixture:axm-snapshot.html <style#3> `.framer-j8ytx .framer-styles-preset-455vy9:not(.r…` | [ölçüldü] |
+| Inter | 2 | fixture:axm-snapshot.html <style#3> `.text-styles-preset-reset.framer-text` | [ölçüldü] |
+
+### 1.2 @font-face
+
+| Aile | Ağırlıklar | Stiller | Biçim | Alt küme | Barındırma | Kaynak | Etiket |
+|---|---|---|---|---|---|---|---|
+| Bricolage Grotesque | 800 | normal | woff2 | 3 | fonts.gstatic.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| DM Sans | 400 | normal | woff2 | 2 | fonts.gstatic.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Mona Sans | 400, 500, 600, 700, 900 | normal | woff2 | 15 | fonts.gstatic.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Bricolage Grotesque Variable | 200 800 | normal | woff2 | 3 | fonts.gstatic.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Mona Sans Variable | 400 | normal | woff2 | 1 | fonts.gstatic.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Geist | 500 | normal | woff2 | 1 | fonts.gstatic.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Inter | 400, 700, 900 | italic, normal | woff2 | 44 | framerusercontent.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Manrope | 600, 700, 800 | normal | woff2 | 3 | framerusercontent.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Manrope Variable | 400 | normal | woff2 | 1 | framerusercontent.com | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Mona Sans Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Bricolage Grotesque Variable Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| DM Sans Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Bricolage Grotesque Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Mona Sans Variable Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Geist Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Inter Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Manrope Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+| Manrope Variable Placeholder | 400 | normal |  | 1 | — | fixture:axm-snapshot.html <style#1> | [ölçüldü] |
+
+## 2. Renkler
+
+### 2.1 Sıklık
+
+| Renk | Toplam | Kullanım yeri | Örnek kaynak | Etiket |
+|---|---|---|---|---|
+| `#000000` | 427 | metin 154 · svg 102 · zemin 74 · diğer 72 · değişken 23 · gölge 2 | fixture:axm-snapshot.html <style#3> `body` (--token-880981f7-9d1c-4833-ad18-499497406e78) | [ölçüldü] |
+| `#0099FF` | 372 | metin 372 | fixture:axm-snapshot.html <style#3> `.framer-gHqpI .framer-k6zlio,.framer-gH…` (--framer-link-text-color) | [ölçüldü] |
+| `#7A7A7A` | 364 | çizgi 138 · metin 113 · değişken 110 · zemin 3 | fixture:axm-snapshot.html <style#3> `body` (--token-0a682d38-2904-4012-813f-e7beb1058a66) | [ölçüldü] |
+| `#FFFFFF` | 311 | metin 180 · zemin 62 · değişken 52 · çizgi 9 · gölge 6 · diğer 2 | fixture:axm-snapshot.html <style#3> `body` (--token-577c06ad-f6a6-4157-abe2-69f6ad5cc389) | [ölçüldü] |
+| `#00000000` | 106 | diğer 80 · zemin 23 · çizgi 3 | fixture:axm-snapshot.html [style] `div[style]` (--border-color) | [ölçüldü] |
+| `#00000080` | 24 | zemin 24 | fixture:axm-snapshot.html <style#3> `.framer-DA2YU.framer-1u1oukm` (background-color) | [ölçüldü] |
+| `#696969` | 6 | değişken 4 · metin 2 | fixture:axm-snapshot.html [style] `svg[style]` (--pxuiy5) | [ölçüldü] |
+| `#616161` | 4 | değişken 2 · metin 2 | fixture:axm-snapshot.html [style] `div[style]` (--extracted-r6o4lv) | [ölçüldü] |
+| `#999999` | 4 | değişken 2 · metin 2 | fixture:axm-snapshot.html <style#3> `.__framer-search-modal-container input:…` (color) | [ölçüldü] |
+| `#00000040` | 2 | diğer 2 | fixture:axm-snapshot.html <style#3> `.framer-gHqpI.framer-72rtr7` (-webkit-tap-highlight-color) | [ölçüldü] |
+| `#0D0D0D` | 2 | zemin 2 | fixture:axm-snapshot.html [style] `a[style]` (background-color) | [ölçüldü] |
+| `#1C1C1C` | 2 | değişken 1 · zemin 1 | fixture:axm-snapshot.html <style#3> `body` (--token-367a867b-3cbb-4e8d-91d5-beefad710e98) | [ölçüldü] |
+| `#3D3D3D80` | 2 | çizgi 2 | fixture:axm-snapshot.html [style] `a[style]` (--border-color) | [ölçüldü] |
+| `#9494942B` | 2 | çizgi 2 | fixture:axm-snapshot.html [style] `div[style]` (--border-color) | [ölçüldü] |
+| `#FFFFFF00` | 2 | zemin 2 | fixture:axm-snapshot.html [style] `div[style]` (background) | [ölçüldü] |
+| `#FFFFFFBF` | 2 | zemin 2 | fixture:axm-snapshot.html [style] `div[style]` (background-color) | [ölçüldü] |
+| `#00000005` | 1 | gölge 1 | fixture:axm-snapshot.html [style] `div[style]` (box-shadow) | [ölçüldü] |
+| `#00000024` | 1 | gölge 1 | fixture:axm-snapshot.html [style] `div[style]` (box-shadow) | [ölçüldü] |
+| `#0000002B` | 1 | gölge 1 | fixture:axm-snapshot.html [style] `div[style]` (box-shadow) | [ölçüldü] |
+| `#00000033` | 1 | diğer 1 | fixture:axm-snapshot.html <style#3> `.framer-DA2YU.framer-1me21ll` (-webkit-tap-highlight-color) | [ölçüldü] |
+| `#FFFFFF80` | 1 | zemin 1 | fixture:axm-snapshot.html [style] `div[style]` (background-color) | [ölçüldü] |
+| `#FFFFFF99` | 1 | çizgi 1 | fixture:axm-snapshot.html [style] `div[style]` (--border-color) | [ölçüldü] |
+
+### 2.2 Renk değişkenleri
+
+| Değişken | Değer | var() referansı | Kaynak | Etiket |
+|---|---|---|---|---|
+| `--token-0a682d38-2904-4012-813f-e7beb1058a66` | `#7A7A7A` | 363 | fixture:axm-snapshot.html <style#3> `body` | [ölçüldü] |
+| `--token-577c06ad-f6a6-4157-abe2-69f6ad5cc389` | `#FFFFFF` | 258 | fixture:axm-snapshot.html <style#3> `body` | [ölçüldü] |
+| `--extracted-r6o4lv` | `#FFFFFF` | 173 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `--token-880981f7-9d1c-4833-ad18-499497406e78` | `#000000` | 101 | fixture:axm-snapshot.html <style#3> `body` | [ölçüldü] |
+| `--framer-text-color` | `#000000` | 40 | fixture:axm-snapshot.html <style#3> `.text-styles-preset-reset.framer-text` | [ölçüldü] |
+| `--framer-link-text-color` | `#0099FF` | 31 | fixture:axm-snapshot.html <style#3> `.framer-gHqpI .framer-k6zlio,.framer-gH…` | [ölçüldü] |
+| `--border-color` | `#00000000` | 19 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `--framer-input-icon-color` | `#999999` | 3 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `--token-367a867b-3cbb-4e8d-91d5-beefad710e98` | `#1C1C1C` | 1 | fixture:axm-snapshot.html <style#3> `body` | [ölçüldü] |
+| `--1bd4d3i` | `#000000` | 0 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `--otdjsv` | `#000000` | 0 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `--pxuiy5` | `#696969` | 0 | fixture:axm-snapshot.html [style] `svg[style]` | [ölçüldü] |
+
+## 3. Tipografi
+
+### 3.1 Preset adayları (kademeli çözümleme: 1440 / 1100 / 880 / 390 px)
+
+| Seçici | desktop ≥1200 | laptop 992–1199 | tablet 768–991 | mobile <768 | Ağırlık | Satır | Harf aralığı | Dönüşüm | Aile | Kullanım | Kaynak | Etiket |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `h1[style]` | 506.107 | 506.107 | 506.107 | 506.107 | 900 (wdth 75) | 0.9 | 0px | uppercase | Mona Sans Variable | 0 | fixture:axm-snapshot.html [style] | [ölçüldü] |
+| `.framer-styles-preset-k5mj6w` | 96 | 72 | 56 | 40 | 800 (wdth 75) | 0.9 | 0.5px | uppercase | Mona Sans Variable | 2 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-1g6n19r` | 80 | 64 | 48 | 34 | 800 (wdth 75) | 0.9 | 0.5px | uppercase | Mona Sans Variable | 43 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-17vryqt` (+1) | 54 | 46 | 36 | 32 | 800 (wdth 75) | 1 | 0.5px | uppercase | Mona Sans Variable | 5 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-50acnw` (+1) | 32 | 28 | 26 | 24 | 800 (wdth 75) | 1 | 0.5px | uppercase | Mona Sans Variable | 8 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-1cmh1ca` | 24 | 22 | 20 | 18 | 700 (wdth 75) | 1.1 | 0.5px | uppercase | Mona Sans Variable | 24 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-158b9mt` | 20 | 20 | 18 | 18 | 700 (wdth 75) | 1.1 | 0.5px | uppercase | Mona Sans Variable | 133 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-199s60z` | 16 | 16 | 14 | 14 | 700 (wdth 75) | 1.1 | 0.5px | uppercase | Mona Sans Variable | 96 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-1wz8blc` | 16 | 14 | 12 | 12 | 800 (wdth 80) | 0.8 | 0.5px | uppercase | Mona Sans Variable | 27 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-1bl3o5d` | 16 | 16 | 14 | 14 | 500 (wdth 75) | 1.3 | 0.2px | none | Mona Sans Variable | 2 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.text-styles-preset-reset` (+1) | 16 | 16 | 16 | 16 | 500 | 1.2 | 0 | none | Inter | 0 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-4e019n` | 14 | 14 | 14 | 13 | 600 | 1.5 | -0.015em | none | Manrope | 1 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-gkilgh` | 12 | 12 | 11 | 11 | 600 (wdth 80) | 0.8 | 0.5px | uppercase | Mona Sans Variable | 36 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `.framer-styles-preset-455vy9` | 12 | 12 | 12 | 12 | 700 | 1.2 | -0.015em | none | Manrope | 5 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `body` (+4) | 12 | 12 | 12 | 12 | — | — | — | — | — | 0 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `p[style]` | 11 | 11 | 11 | 11 | 700 | 1 | -0.015em | — | Manrope | 0 | fixture:axm-snapshot.html [style] | [ölçüldü] |
+
+### 3.2 font-size sıklığı (medya bandına göre)
+
+| Boyut (px) | Toplam | medyasız | desktop ≥1200 | laptop 992–1199 | tablet 768–991 | mobile <768 | Örnek kaynak | Etiket |
+|---|---|---|---|---|---|---|---|---|
+| 506.107 | 2 | 2 | 0 | 0 | 0 | 0 | fixture:axm-snapshot.html [style] `h1[style]` | [ölçüldü] |
+| 96 | 1 | 1 | 0 | 0 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.framer-OMJgg .framer-styles-preset-k5m…` | [ölçüldü] |
+| 80 | 1 | 1 | 0 | 0 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.framer-F9tDF .framer-styles-preset-1g6…` | [ölçüldü] |
+| 72 | 1 | 0 | 0 | 1 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.framer-OMJgg .framer-styles-preset-k5m…` | [ölçüldü] |
+| 64 | 4 | 0 | 0 | 4 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.framer-F9tDF .framer-styles-preset-1g6…` | [ölçüldü] |
+| 56 | 1 | 0 | 0 | 0 | 1 | 0 | fixture:axm-snapshot.html <style#3> `.framer-OMJgg .framer-styles-preset-k5m…` | [ölçüldü] |
+| 54 | 2 | 2 | 0 | 0 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.framer-Il29j .framer-styles-preset-17v…` | [ölçüldü] |
+| 48 | 4 | 0 | 0 | 0 | 4 | 0 | fixture:axm-snapshot.html <style#3> `.framer-F9tDF .framer-styles-preset-1g6…` | [ölçüldü] |
+| 46 | 2 | 0 | 0 | 2 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.framer-Il29j .framer-styles-preset-17v…` | [ölçüldü] |
+| 40 | 1 | 0 | 0 | 0 | 0 | 1 | fixture:axm-snapshot.html <style#3> `.framer-OMJgg .framer-styles-preset-k5m…` | [ölçüldü] |
+| 36 | 2 | 0 | 0 | 0 | 2 | 0 | fixture:axm-snapshot.html <style#3> `.framer-Il29j .framer-styles-preset-17v…` | [ölçüldü] |
+| 34 | 4 | 0 | 0 | 0 | 0 | 4 | fixture:axm-snapshot.html <style#3> `.framer-F9tDF .framer-styles-preset-1g6…` | [ölçüldü] |
+| 32 | 4 | 2 | 0 | 0 | 0 | 2 | fixture:axm-snapshot.html <style#3> `.framer-Il29j .framer-styles-preset-17v…` | [ölçüldü] |
+| 28 | 3 | 0 | 0 | 3 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.framer-eWPok .framer-styles-preset-50a…` | [ölçüldü] |
+| 26 | 3 | 0 | 0 | 0 | 3 | 0 | fixture:axm-snapshot.html <style#3> `.framer-eWPok .framer-styles-preset-50a…` | [ölçüldü] |
+| 24 | 4 | 1 | 0 | 0 | 0 | 3 | fixture:axm-snapshot.html <style#3> `.framer-eWPok .framer-styles-preset-50a…` | [ölçüldü] |
+| 22 | 3 | 0 | 0 | 3 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.framer-bT2WL .framer-styles-preset-1cm…` | [ölçüldü] |
+| 20 | 14 | 1 | 0 | 10 | 3 | 0 | fixture:axm-snapshot.html <style#3> `.framer-BQ9U2 .framer-styles-preset-158…` | [ölçüldü] |
+| 18 | 23 | 0 | 0 | 0 | 10 | 13 | fixture:axm-snapshot.html <style#3> `.framer-BQ9U2 .framer-styles-preset-158…` | [ölçüldü] |
+| 16 | 9 | 5 | 0 | 4 | 0 | 0 | fixture:axm-snapshot.html <style#3> `.text-styles-preset-reset.framer-text` | [ölçüldü] |
+| 14 | 11 | 1 | 0 | 1 | 5 | 4 | fixture:axm-snapshot.html <style#3> `.framer-jUuFk .framer-styles-preset-199…` | [ölçüldü] |
+| 13 | 1 | 0 | 0 | 0 | 0 | 1 | fixture:axm-snapshot.html <style#3> `.framer-ZL2OU .framer-styles-preset-4e0…` | [ölçüldü] |
+| 12 | 8 | 3 | 0 | 3 | 1 | 1 | fixture:axm-snapshot.html <style#3> `body,input,textarea,select,button` | [ölçüldü] |
+| 11 | 8 | 2 | 0 | 0 | 3 | 3 | fixture:axm-snapshot.html <style#3> `.framer-3VtZC .framer-styles-preset-gki…` | [ölçüldü] |
+| 100% | 1 | 0 | 0 | 0 | 0 | 1 | fixture:axm-snapshot.html <style#4> `:root` | [ölçüldü] |
+| 112.5% | 2 | 0 | 0 | 1 | 1 | 0 | fixture:axm-snapshot.html <style#4> `:root` | [ölçüldü] |
+| 125% | 1 | 1 | 0 | 0 | 0 | 0 | fixture:axm-snapshot.html <style#4> `:root` | [ölçüldü] |
+| calc(var(--framer-blockquote-font-size,… | 4 | 4 | 0 | 0 | 0 | 0 | fixture:axm-snapshot.html <style#3> `p.framer-text,div.framer-text,h1.framer…` | [ölçüldü] |
+| calc(var(--framer-link-current-font-siz… | 2 | 2 | 0 | 0 | 0 | 0 | fixture:axm-snapshot.html <style#3> `a.framer-text[data-framer-page-link-cur…` | [ölçüldü] |
+| calc(var(--framer-link-hover-font-size,… | 2 | 2 | 0 | 0 | 0 | 0 | fixture:axm-snapshot.html <style#3> `a.framer-text:hover,a.framer-text:hover…` | [ölçüldü] |
+
+## 4. Kırılım adayları
+
+| Sınır (px) | Sorgu | Ham değerler | Yorum | Örnek kaynak | Etiket |
+|---|---|---|---|---|---|
+| 1200 | 37 | max-width:1199 ×31, max-width:1199.98 ×4, min-width:1200 ×2 | desktop alt sınırı | fixture:axm-snapshot.html <style#2> @media (min-width: 1200px) | [ölçüldü] |
+| 992 | 71 | min-width:992 ×35, max-width:991 ×32, max-width:991.98 ×4 | laptop alt sınırı | fixture:axm-snapshot.html <style#2> @media (min-width: 992px) and (max-width: 1199.98px) | [ölçüldü] |
+| 810 | 2 | min-width:810 ×1, max-width:809 ×1 | tablet bandı | fixture:axm-snapshot.html <style#3> @media (max-width:991px) and (min-width:810px) | [ölçüldü] |
+| 768 | 71 | min-width:768 ×35, max-width:767 ×31, max-width:767.98 ×5 | tablet alt sınırı (mobil < 768) | fixture:axm-snapshot.html <style#2> @media (min-width: 768px) and (max-width: 991.98px) | [ölçüldü] |
+
+## 5. Hareket
+
+### 5.1 Easing eğrileri
+
+| Eğri | CSS transition | CSS animation | JS | Toplam | Örnek kaynak | Etiket |
+|---|---|---|---|---|---|---|
+| `cubic-bezier(.4, 0, .2, 1)` | 0 | 0 | 17 | 17 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| `cubic-bezier(.44, 0, .56, 1)` | 1 | 0 | 2 | 3 | fixture:axm-snapshot.html <style#3> `.framer-cPiJu .framer-styles-preset-az5…` | [ölçüldü] |
+| `cubic-bezier(.56, .22, .05, .99)` | 0 | 0 | 3 | 3 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| `cubic-bezier(.68, 0, .22, .83)` | 0 | 0 | 3 | 3 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| `cubic-bezier(0, 0, 1, 1)` | 0 | 0 | 1 | 1 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+
+| Anahtar kelime | Sayı | Kaynak | Etiket |
+|---|---|---|---|
+| ease | 24 | CSS transition/animation | [ölçüldü] |
+| ease-in-out | 3 | CSS transition/animation | [ölçüldü] |
+
+### 5.2 Süreler
+
+| Süre | CSS transition | CSS animation | JS tween | Toplam | Örnek kaynak | Etiket |
+|---|---|---|---|---|---|---|
+| 300ms | 24 | 0 | 0 | 24 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| 400ms | 1 | 0 | 10 | 11 | fixture:axm-snapshot.html <style#3> `.framer-cPiJu .framer-styles-preset-az5…` | [ölçüldü] |
+| 600ms | 0 | 0 | 9 | 9 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| 500ms | 0 | 0 | 5 | 5 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| 1500ms | 0 | 3 | 0 | 3 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| 1ms | 1 | 0 | 0 | 1 | fixture:axm-snapshot.html <style#6> `.lenis.lenis-autoToggle` | [ölçüldü] |
+| 10ms | 0 | 1 | 0 | 1 | fixture:axm-snapshot.html <style#3> `.__framer-search-modal-container input:…` | [ölçüldü] |
+| 150ms | 1 | 0 | 0 | 1 | fixture:axm-snapshot.html <style#3> `.framer-form-text-input-clear` | [ölçüldü] |
+| 1000ms | 0 | 0 | 1 | 1 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| 4000ms | 0 | 0 | 1 | 1 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+
+### 5.3 Spring parametreleri (JS)
+
+| İmza | Sayı | Örnek kaynak | Etiket |
+|---|---|---|---|
+| spring bounce 0.2, 0.4s | 16 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0, 0.6s | 15 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0.2, 0.6s | 7 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring stiffness 500, damping 60, mass 1 | 7 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0, 0.3s | 6 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0, 1.2s | 5 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0.2, 1.5s | 5 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0, 1.5s | 3 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0.2, 0.8s | 3 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0.3, 0.4s | 3 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0, 1s | 2 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0.2, 1s | 2 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0.2, 2s | 2 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring stiffness 150, damping 30, mass 1 | 2 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring stiffness 250, damping 60, mass 1 | 2 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring stiffness 300, damping 40, mass 1 | 2 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring stiffness 800, damping 60, mass 1 | 2 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring bounce 0, 0.4s | 1 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+| spring stiffness 600, damping 40, mass 1 | 1 | fixture:axm-motion.excerpt.js | [ölçüldü] |
+
+### 5.4 @keyframes
+
+| Ad | Tanım | Adım | animation kullanımı | Kaynak | Etiket |
+|---|---|---|---|---|---|
+| `__framer-blink-input` | 1 | 2 | 1 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+| `pulse` | 1 | 2 | 3 | fixture:axm-snapshot.html <style#3> | [ölçüldü] |
+
+### 5.5 Geçiş yapılan özellikler
+
+| Özellik | Sayı | Kaynak | Etiket |
+|---|---|---|---|
+| opacity | 25 | CSS transition | [ölçüldü] |
+| var(--framer-input-boolean-checked-transition) | 3 | CSS transition | [ölçüldü] |
+| color | 2 | CSS transition | [ölçüldü] |
+| var(--framer-input-focused-transition) | 2 | CSS transition | [ölçüldü] |
+| border-color | 2 | CSS transition | [ölçüldü] |
+| border-width | 2 | CSS transition | [ölçüldü] |
+| border-style | 2 | CSS transition | [ölçüldü] |
+| background | 2 | CSS transition | [ölçüldü] |
+| box-shadow | 2 | CSS transition | [ölçüldü] |
+| border-top-left-radius | 1 | CSS transition | [ölçüldü] |
+| border-top-right-radius | 1 | CSS transition | [ölçüldü] |
+| border-bottom-right-radius | 1 | CSS transition | [ölçüldü] |
+| border-bottom-left-radius | 1 | CSS transition | [ölçüldü] |
+| corner-shape | 1 | CSS transition | [ölçüldü] |
+| overflow | 1 | CSS transition | [ölçüldü] |
+
+## 6. Çizgi ve köşe
+
+### 6.1 Çizgi kalınlıkları
+
+| Kalınlık | Sayı | Stil | Örnek kaynak | Etiket |
+|---|---|---|---|---|
+| 1px | 413 | (width) ×413 | fixture:axm-snapshot.html <style#3> `.framer-gHqpI .framer-ht2wzk,.framer-gH…` | [ölçüldü] |
+
+### 6.2 Köşe yarıçapı
+
+| Değer | Sayı | Örnek kaynak | Etiket |
+|---|---|---|---|
+| `1000px` | 48 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `30px` | 24 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `10px` | 21 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `8px` | 16 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `11px` | 8 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `12px` | 8 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+| `1px` | 8 | fixture:axm-snapshot.html [style] `div[style]` | [ölçüldü] |
+
+## 7. Boşluk (gap / padding)
+
+| px | gap | padding | Toplam | Örnek kaynak | Etiket |
+|---|---|---|---|---|---|
+| 20 | 31 | 21 | 52 | fixture:axm-snapshot.html <style#3> `#__framer-badge-container` (padding) | [ölçüldü] |
+| 10 | 30 | 9 | 39 | fixture:axm-snapshot.html <style#3> `.framer-DX4uq .framer-qny776` (padding) | [ölçüldü] |
+| 5 | 20 | 2 | 22 | fixture:axm-snapshot.html <style#3> `.framer-DX4uq .framer-q1dxs2` (gap) | [ölçüldü] |
+| 32 | 18 | 0 | 18 | fixture:axm-snapshot.html <style#3> `.framer-yb2WN.framer-1zktol` (gap) | [ölçüldü] |
+| 30 | 14 | 1 | 15 | fixture:axm-snapshot.html <style#3> `.framer-gHqpI .framer-ht2wzk,.framer-gH…` (gap) | [ölçüldü] |
+| 15 | 12 | 0 | 12 | fixture:axm-snapshot.html <style#3> `.framer-29ZKU .framer-it4llm,.framer-29…` (gap) | [ölçüldü] |
+| 4 | 4 | 3 | 7 | fixture:axm-snapshot.html <style#3> `.framer-DX4uq .framer-1gvjbtr` (gap) | [ölçüldü] |
+| 8 | 6 | 1 | 7 | fixture:axm-snapshot.html <style#3> `.framer-HVCu6 .framer-1sl1vnq` (gap) | [ölçüldü] |
+| 16 | 5 | 0 | 5 | fixture:axm-snapshot.html <style#3> `.framer-h9lrK .framer-36dbuc` (gap) | [ölçüldü] |
+| 12 | 1 | 2 | 3 | fixture:axm-snapshot.html <style#3> `.framer-DX4uq .framer-1gvjbtr` (padding) | [ölçüldü] |
+| 6 | 2 | 0 | 2 | fixture:axm-snapshot.html <style#3> `.framer-dm4k3 .framer-1bavk0d` (gap) | [ölçüldü] |
+| 60 | 0 | 2 | 2 | fixture:axm-snapshot.html <style#3> `.framer-gHqpI .framer-l7vttc` (padding) | [ölçüldü] |
+| 64 | 2 | 0 | 2 | fixture:axm-snapshot.html <style#3> `.framer-XzoKs .framer-leshrs` (gap) | [ölçüldü] |
+| 100 | 0 | 2 | 2 | fixture:axm-snapshot.html <style#3> `.framer-gHqpI .framer-kpu706` (padding) | [ölçüldü] |
+| 3 | 1 | 0 | 1 | fixture:axm-snapshot.html <style#3> `.framer-prkW1.framer-v-8y4amp.framer-r6…` (gap) | [ölçüldü] |
+| 7 | 1 | 0 | 1 | fixture:axm-snapshot.html <style#3> `.framer-prkW1.framer-r6qmoq` (gap) | [ölçüldü] |
+| 40 | 0 | 1 | 1 | fixture:axm-snapshot.html <style#3> `.framer-8bjlt.framer-v-y7pecv .framer-1…` (padding) | [ölçüldü] |
+| 50 | 0 | 1 | 1 | fixture:axm-snapshot.html <style#3> `.framer-gHqpI .framer-kpu706,.framer-gH…` (padding) | [ölçüldü] |
+
+## 8. Katman adları (bölüm ipuçları)
+
+### 8.1 Sığ katmanlar (belge sırası)
+
+| # | Ad | Bölge | HTML | Kaynak | Etiket |
+|---|---|---|---|---|---|
+| 1 | Desktop | main öncesi | nav | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 2 | Mobile | main öncesi | nav | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 3 | Lenis Smooth Scroll | main öncesi | div | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 4 | Slider Container | main içi | div | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 5 | Catalog | main içi | div | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 6 | Follow Us | main içi | section | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 7 | Journal | main içi | section | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 8 | Footer Trigger | main sonrası | div | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 9 | Desktop | main sonrası | footer | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 10 | Phone | main sonrası | footer | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 11 | Template Buy Button | main sonrası | div | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+| 12 | Light | main sonrası | a | fixture:axm-snapshot.html [data-*-name] | [ölçüldü] |
+
+### 8.2 Sıklık
+
+| Ad | Sayı | Adlı derinlik | HTML | Kaynak | Etiket |
+|---|---|---|---|---|---|
+| Default | 65 | 4 | a ×10, button ×2, div ×53 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Bottom Arrow | 51 | 6 | div ×51 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Top Arrow | 51 | 6 | div ×51 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Desktop | 50 | 0 | a ×12, div ×3, footer ×1, header ×32, nav ×2 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Header | 47 | 3 | div ×47 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Inactive | 46 | 4 | a ×44, div ×2 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Line | 30 | 5 | div ×30 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Text | 30 | 2 | div ×30 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Active | 25 | 4 | a ×24, div ×1 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| New | 22 | 5 | div ×22 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Back | 21 | 5 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Badges | 21 | 4 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Button | 21 | 6 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Category | 21 | 6 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Compare Price | 21 | 7 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Front | 21 | 5 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Images | 21 | 4 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Medium | 21 | 6 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Price | 21 | 7 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Price / Arrow | 21 | 5 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Product Info | 21 | 4 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Swipe | 21 | 3 | a ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Title | 21 | 6 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Title / Category | 21 | 5 | div ×21 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| FiInstagram | 20 | 6 | div ×20 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Overlay | 20 | 5 | div ×20 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Bottom | 19 | 1 | div ×19 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Top | 18 | 4 | div ×18 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Shop Now | 17 | 5 | div ×17 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+| Category / Button | 16 | 4 | div ×16 | fixture:axm-snapshot.html [data-framer-name] | [ölçüldü] |
+
+### 8.4 HTML landmark'ları
+
+| HTML | Ad/id | Sayı | Derinlik | Kaynak | Etiket |
+|---|---|---|---|---|---|
+| nav | Desktop | 2 | 6 | fixture:axm-snapshot.html <nav> | [ölçüldü] |
+| nav | Mobile | 1 | 6 | fixture:axm-snapshot.html <nav> | [ölçüldü] |
+| main | Main | 1 | 5 | fixture:axm-snapshot.html <main> | [ölçüldü] |
+| section | New Arrivals | 1 | 7 | fixture:axm-snapshot.html <section> | [ölçüldü] |
+| section | Best Sellers | 1 | 7 | fixture:axm-snapshot.html <section> | [ölçüldü] |
+| section | Product Display | 1 | 7 | fixture:axm-snapshot.html <section> | [ölçüldü] |
+| section | framer-1nv48w0 | 1 | 7 | fixture:axm-snapshot.html <section> | [ölçüldü] |
+| header | Desktop | 32 | 14 | fixture:axm-snapshot.html <header> | [ölçüldü] |
+| section | Collections / About Us | 1 | 7 | fixture:axm-snapshot.html <section> | [ölçüldü] |
+| section | About Us | 1 | 9 | fixture:axm-snapshot.html <section> | [ölçüldü] |
+| section | Follow Us | 1 | 6 | fixture:axm-snapshot.html <section> | [ölçüldü] |
+| section | Journal | 1 | 6 | fixture:axm-snapshot.html <section> | [ölçüldü] |
+| footer | Desktop | 1 | 6 | fixture:axm-snapshot.html <footer> | [ölçüldü] |
+| footer | Phone | 1 | 6 | fixture:axm-snapshot.html <footer> | [ölçüldü] |
+
+## 9. Ölçülemeyenler ve notlar
+
+- Render edilmiş ölçüler (bölüm yükseklikleri, grid sütun genişlikleri, görsel oranları), hover/aktif durum görünümleri ve kaydırmaya bağlı davranışlar metinden ölçülemez; tarayıcıda (Chrome) ölçülüp `[ölçüldü]` ya da gözlemle `[tahmini]` etiketlenmelidir.
+- Değişken font eksenleri (`wdth`, `wght`) pen.dev'de ayarlanamaz; dar aile karşılığı seçilmelidir.
+

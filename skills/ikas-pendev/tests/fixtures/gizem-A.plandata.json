@@ -1,0 +1,2098 @@
+{
+ "schema": 1,
+ "contract": 1,
+ "contextScan": false,
+ "theme": {
+  "slug": "gizem",
+  "name": "Gizem",
+  "sector": "streetwear",
+  "prefix": "A",
+  "file": "plan-A-ayni-iskelet-yeni-kimlik.md",
+  "title": "Plan A — Aynı iskelet, yeni kimlik",
+  "lead": "Referansın grid sistemi, bölüm sırası ve hareket dili korunur; renk, tipografi, görsel dili ve metinler Gizem'e özgüdür.",
+  "reference": {
+   "url": "https://axm.framer.website/",
+   "canvasImportNote": "Dosyadaki `axm.framer.website` adlı 8 frame referansın ham import'udur: **sadece bakmak için**; içinden katman kopyalanmaz, silinmez, değiştirilmez.",
+   "policy": "Referans (ücretli Framer şablonu) sadece ilham; görselleri, metinleri, logosu ve adı kullanılmaz."
+  },
+  "penFile": "gizem-A.pen",
+  "codeDir": "gizem/src/",
+  "locale": "tr-TR",
+  "currency": "TRY"
+ },
+ "identity_md": [
+  "**Marka:** GİZEM — streetwear. Ton: gece, beton, sessiz özgüven; az söz, büyük harf.",
+  "**Wordmark:** `GİZEM` (font-display); kısa işaret `GZM`. Logo `Generate(\"svg\")` ile üretilir, elle çizilmez.",
+  "",
+  "**Referanstan farklar (iskelet aynı, yüz farklı):**",
+  "- Zemin saf siyah değil, sıcak mürekkep siyahı; metin kemik beyazı. Çizgiler referanstaki açık gri yerine koyu (`$color-line`), ızgara daha sakin.",
+  "- Tek vurgu rengi: **volt** `$color-accent`. Sadece şuralarda: SALE rozeti, hotspot iç noktası, `progress-bar`, aktif sekme altındaki 2px çizgi, sepet sayısı kutusu, odak (focus) çerçevesi. Buton dolgusunda **kullanılmaz** (butonlar kemik beyazı kalır).",
+  "- Başlıklar `Anton` (ağır, dar); arayüz `Barlow Condensed`; kategori etiketi, tarih, breadcrumb ve ürün kodu gibi küçük bilgiler `JetBrains Mono` (teknik etiket hissi).",
+  "- Görsel dili: sert flaş, düşük doygunluk, beton / otopark / gece sokağı; ürün çekimleri koyu zeminde; her sahnede en fazla bir renkli obje. Referansın görselleri **kullanılmaz**; `Generate(\"ai\" | \"stock\")` ile özgün üretilir.",
+  "- Metinler Türkçe, büyük harf. Font seçerken `İ Ş Ğ Ü Ö Ç` karakterlerini kontrol et.",
+  "",
+  "**Örnek içerik:** nav `MAĞAZA · HAKKINDA · JOURNAL · İLETİŞİM` · duyurular `750 TL ÜZERİ ÜCRETSİZ KARGO` / `30 GÜN İÇİNDE ÜCRETSİZ İADE` / `İLK SİPARİŞE %10` · hero `GECE VARDİYASI`, `SOKAĞIN SESİ`, `İKİ MEVSİM ARASI` · bölümler `YENİ GELENLER`, `ÇOK SATANLAR`, `KOLEKSİYONLARI KEŞFET`, `GİZEM'İ TAKİP ET`, `JOURNAL'DAN` · butonlar `ALIŞVERİŞE BAŞLA ↗`, `SEPETE EKLE`, `HEPSİNİ GÖR ↗`, `YAZIYI OKU ↗` · footer `KENDİ YOLUNDA YÜRÜ.` · ürünler `GECE OVERSIZE HOODIE — 1.850 TL`, `ASFALT GRAFİK TİŞÖRT — 850 TL`, `SİS KARGO PANTOLON — 1.650 TL`, `SİNYAL RÜZGARLIK — 2.250 TL`."
+ ],
+ "modes": null,
+ "devices": {
+  "desktop": {
+   "width": 1440,
+   "height": 900
+  },
+  "mobile": {
+   "width": 390,
+   "height": 844
+  }
+ },
+ "variables": {
+  "intro": "Adlar üç planda aynıdır (`globals.md` ile eşleşir); değerler bu varyanta özgüdür.",
+  "colors": {
+   "color-bg": "#0A0A0B",
+   "color-text": "#F2EFE9",
+   "color-muted": "#8C8A85",
+   "color-line": "#3A3A3C",
+   "color-surface": "#161617",
+   "color-inverse-bg": "#F2EFE9",
+   "color-inverse-text": "#0A0A0B",
+   "color-accent": "#C8FF2E",
+   "color-accent-text": "#0A0A0B",
+   "color-scrim": "#0A0A0BB3"
+  },
+  "fonts": {
+   "font-display": "Anton",
+   "font-ui": "Barlow Condensed",
+   "font-body": "Barlow",
+   "font-price": "Barlow Condensed",
+   "font-mono": "JetBrains Mono"
+  },
+  "type": {
+   "text-display": [
+    104,
+    44
+   ],
+   "text-h2": [
+    84,
+    36
+   ],
+   "text-h3": [
+    56,
+    32
+   ],
+   "text-h4": [
+    32,
+    24
+   ],
+   "text-title": [
+    24,
+    18
+   ],
+   "text-ui": [
+    20,
+    18
+   ],
+   "text-ui-sm": [
+    16,
+    14
+   ],
+   "text-badge": [
+    14,
+    12
+   ],
+   "text-label": [
+    12,
+    11
+   ],
+   "text-body": [
+    16,
+    15
+   ],
+   "text-price": [
+    24,
+    18
+   ]
+  },
+  "numbers": {
+   "space-page": [
+    20,
+    16
+   ],
+   "space-grid": [
+    5,
+    4
+   ],
+   "space-card": 10,
+   "space-panel": [
+    20,
+    16
+   ],
+   "space-xs": 5,
+   "space-sm": 10,
+   "space-md": [
+    15,
+    12
+   ],
+   "space-section": [
+    100,
+    60
+   ],
+   "size-header": [
+    60,
+    56
+   ],
+   "size-line": 1,
+   "opacity-inactive": 0.3
+  }
+ },
+ "typeStyles": {
+  "map": [
+   {
+    "styles": [
+     "text-display",
+     "text-h2",
+     "text-h3",
+     "text-h4"
+    ],
+    "spec": "`$font-display`, satır yüksekliği 0.9–1.0"
+   },
+   {
+    "styles": [
+     "text-title",
+     "text-ui",
+     "text-ui-sm",
+     "text-badge"
+    ],
+    "spec": "`$font-ui`, 700, satır 1.1"
+   },
+   {
+    "styles": [
+     "text-label"
+    ],
+    "spec": "`$font-mono`"
+   },
+   {
+    "styles": [
+     "text-body"
+    ],
+    "spec": "`$font-body`, 500, satır 1.35"
+   },
+   {
+    "styles": [
+     "text-price"
+    ],
+    "spec": "`$font-price`, 700"
+   }
+  ],
+  "note": "Hepsi büyük harf (gövde metni hariç)."
+ },
+ "fontCheck": {
+  "valid": [
+   "Anton",
+   "Antonio",
+   "Archivo Narrow",
+   "Barlow",
+   "Barlow Condensed",
+   "Bebas Neue",
+   "JetBrains Mono",
+   "Mona Sans",
+   "Oswald",
+   "Sofia Sans Extra Condensed",
+   "Space Mono"
+  ],
+  "invalid": [
+   "Mona Sans Condensed",
+   "Big Shoulders Display"
+  ]
+ },
+ "ds": {
+  "sampleText": "GÖLGE İÇİNDE ŞIK ÇÖZÜM 1.850 TL",
+  "icons": "arama, hesap, sepet, menü, kapat, ok ↗, caret, artı, eksi, onay"
+ },
+ "recipes": {
+  "local": {}
+ },
+ "via": {
+  "link": "ArrowLink",
+  "hotspot-outer": "Hotspot",
+  "hotspot": "Hotspot",
+  "marquee-track": "Marquee",
+  "section-title": "SectionHeading",
+  "faq-answer": "AccordionItem",
+  "filter-tab": "Tabs",
+  "variant-chip": "VariantChip",
+  "image-back": "ProductCard",
+  "card-arrow": "ProductCard",
+  "card-spec": "ProductCard"
+ },
+ "viaRules": [
+  {
+   "recipe": "M-11",
+   "layerContains": "button",
+   "via": "Button"
+  }
+ ],
+ "utils": {
+  "viaComponents": [
+   "Marquee",
+   "Button",
+   "ArrowLink",
+   "Hotspot",
+   "AccordionItem",
+   "Drawer"
+  ],
+  "extra": []
+ },
+ "components": [
+  {
+   "name": "ProductCard",
+   "structure": "çerçeveli; `card-badges` (sol üst, boşluk $space-card) · `card-images` (clip, 4:3): `image-front` + `image-back` üst üste · `card-info` (boşluk $space-card): `card-category` text-label muted · `card-title` text-title · `card-price-row`: `price` + `price-compare` (üstü çizili, muted) + `card-arrow` (clip: `arrow-top` + `arrow-bottom`)",
+   "states": "varsayılan · hover (arka görsel + ok dönmüş) · stok yok · indirimli · 3 genişlik: 429 / 478 / 370 (mobil)",
+   "anims": [
+    {
+     "layer": "image-back",
+     "recipe": "M-09",
+     "trigger": "hover",
+     "what": "Ön görsel arka görsele geçer"
+    },
+    {
+     "layer": "card-arrow",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok çapraz döner",
+     "frm": "{ arrow: top }",
+     "to": "{ arrow: bottom }",
+     "timing": "{ spring: spring-soft }"
+    }
+   ]
+  },
+  {
+   "name": "ProductCardSmall",
+   "structure": "çerçeveli satır: görsel 100×110 (sağ çizgi) · `card-category` · `card-title` (text-ui) · `price` · `card-arrow`",
+   "states": "varsayılan · hover",
+   "anims": [
+    {
+     "layer": "card-arrow",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok çapraz döner",
+     "frm": "{ arrow: top }",
+     "to": "{ arrow: bottom }",
+     "timing": "{ spring: spring-soft }"
+    }
+   ]
+  },
+  {
+   "name": "BlogCard",
+   "structure": "çerçeveli: `blog-card-image` (16:9, clip) · `blog-card-info` (boşluk $space-panel): `journal-date` text-label muted · `blog-card-title` text-h4 · `link`",
+   "states": "varsayılan · hover",
+   "anims": [
+    {
+     "layer": "blog-card-image",
+     "recipe": "M-09",
+     "trigger": "hover",
+     "what": "Görsel hafif büyür",
+     "frm": "{ scale: 1 }",
+     "to": "{ scale: 1.04 }",
+     "timing": "{ spring: spring-card }"
+    }
+   ]
+  },
+  {
+   "name": "Button",
+   "structure": "`button` (clip) içinde `top` + `bottom` kopya; yükseklik 44 / 48; text-ui; türler: dolu (ters zemin), çerçeveli",
+   "states": "varsayılan · hover · pasif · yükleniyor (spinner)",
+   "anims": [
+    {
+     "layer": "button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Dolgu alttan kayar, etiket yukarı çıkar"
+    }
+   ]
+  },
+  {
+   "name": "ArrowLink",
+   "structure": "`link`: etiket text-ui + `link-line` (1px, tam genişlik) + `link-arrow` (clip 20×20: `arrow-top` + `arrow-bottom`)",
+   "states": "varsayılan · hover",
+   "anims": [
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "name": "Badge",
+   "structure": "zeminsiz text-badge; yan yana birden çok olabilir, aralık 10",
+   "states": "NEW · SALE · BEST SELLER",
+   "anims": []
+  },
+  {
+   "name": "Hotspot",
+   "structure": "48×48 dokunma alanı: `hotspot-outer` (halka) + `hotspot-inner` (nokta) + `hotspot-card` (ProductCardSmall, kapalıyken gizli)",
+   "states": "kapalı · açık",
+   "anims": [
+    {
+     "layer": "hotspot-outer",
+     "recipe": "M-12",
+     "trigger": "auto-loop",
+     "what": "Halka nabız gibi atar"
+    }
+   ]
+  },
+  {
+   "name": "Marquee",
+   "structure": "`marquee` (clip) → `marquee-track` → metin ×≥3 kopya",
+   "states": "—",
+   "anims": [
+    {
+     "layer": "marquee-track",
+     "recipe": "M-14",
+     "trigger": "auto-loop",
+     "what": "Metin kesintisiz kayar"
+    }
+   ]
+  },
+  {
+   "name": "Breadcrumbs",
+   "structure": "text-label; linkler altı çizili, ayırıcı \"/\", son öğe muted",
+   "states": "—",
+   "anims": []
+  },
+  {
+   "name": "Tabs",
+   "structure": "`filter-tab` / `info-tab` / `anchor-link` ortak stili",
+   "states": "aktif · pasif · hover",
+   "anims": [
+    {
+     "layer": "filter-tab",
+     "recipe": "M-28",
+     "trigger": "hover",
+     "what": "Renk parlar"
+    }
+   ]
+  },
+  {
+   "name": "VariantChip",
+   "structure": "`variant-chip`: yükseklik 28, 1px çerçeve, yatay boşluk 20, normal genişlikte 13px yazı",
+   "states": "seçili · pasif · hover · stok yok (üstü çizili)",
+   "anims": [
+    {
+     "layer": "variant-chip",
+     "recipe": "M-28",
+     "trigger": "hover",
+     "what": "Çerçeve ve metin parlar"
+    }
+   ]
+  },
+  {
+   "name": "FormField",
+   "structure": "`form-field`: yükseklik 48, 1px çerçeve, placeholder text-ui-sm muted; `form-textarea` 160",
+   "states": "boş · dolu · odak · hata (+ mesaj) · pasif",
+   "anims": []
+  },
+  {
+   "name": "Checkbox",
+   "structure": "12×12 kutu + text-label",
+   "states": "işaretli · boş",
+   "anims": []
+  },
+  {
+   "name": "AccordionItem",
+   "structure": "`faq-item`: `faq-question` satırı (yükseklik 44, alt çizgi) + `faq-icon` + `faq-answer`",
+   "states": "açık · kapalı",
+   "anims": [
+    {
+     "layer": "faq-answer",
+     "recipe": "M-22",
+     "trigger": "click",
+     "what": "Cevap açılır, ikon döner"
+    }
+   ]
+  },
+  {
+   "name": "QuantitySelector",
+   "structure": "eksi · adet · artı; çerçeveli, yükseklik 32",
+   "states": "varsayılan · alt sınır (eksi pasif)",
+   "anims": []
+  },
+  {
+   "name": "SectionHeading",
+   "structure": "`section-heading`: `section-title-mask` → `section-title` (text-h2) + `section-description` + `link` (sağda)",
+   "states": "açıklamalı · açıklamasız",
+   "anims": [
+    {
+     "layer": "section-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    }
+   ]
+  },
+  {
+   "name": "IconButton",
+   "structure": "ikon 20, dokunma alanı 40×60; sol çizgi",
+   "states": "varsayılan · hover",
+   "anims": []
+  },
+  {
+   "name": "Spinner",
+   "structure": "16 / 20 halka",
+   "states": "—",
+   "anims": []
+  }
+ ],
+ "sections": [
+  {
+   "key": "Header",
+   "code": "HDR",
+   "kind": "section",
+   "pages": "tüm sayfalar",
+   "ikas": "header-section (--isHeader)",
+   "desktop": "Tam genişlik × 60; üst + alt çizgi; zemin `$color-bg`; sayfada en üstte sabit. Hücreler arası dikey çizgi.",
+   "mobile": "Ayrı frame: `menu-button` (hamburger, 54×60, sağ çizgi) · `header-logo` ortada · `header-actions` sağda. `announcement-mask` ve `header-nav` yok (MobileMenu içinde).",
+   "tree": [
+    "header",
+    "├─ header-logo                       {logo:SVG}  yatay boşluk $space-page",
+    "├─ announcement-mask                 clip, esner",
+    "│   ├─ announcement-text             {text:TEXT}  görünen",
+    "│   └─ announcement-text (×2)        maske dışında, alt alta",
+    "├─ header-nav",
+    "│   ├─ nav-link (clip)  ×4           genişlik 132, sol çizgi",
+    "│   │   ├─ top                       etiket {label:LINK}, + caret (sadece Shop)",
+    "│   │   └─ bottom                    ters zemin + ters metin, maske dışında altta",
+    "│   └─ header-actions",
+    "│       ├─ search-button             ikon 20",
+    "│       ├─ account-button            ikon 20",
+    "│       └─ cart-button               ikon 20 + cart-count (ters zeminli sayı kutusu)"
+   ],
+   "checks": [
+    "nav-link içinde top ve bottom kopyaları var",
+    "duyuru metinlerinin hepsi maske içinde çizili",
+    "ikon dokunma alanı ≥ 40×60"
+   ],
+   "anims": [
+    {
+     "layer": "announcement-mask",
+     "recipe": "M-04",
+     "trigger": "auto-loop",
+     "what": "Duyuru metinleri dikey kayarak döner"
+    },
+    {
+     "layer": "nav-link",
+     "recipe": "M-05",
+     "trigger": "hover",
+     "what": "Ters dolgu alttan kayar, etiket yukarı çıkar"
+    },
+    {
+     "layer": "cart-count",
+     "recipe": "M-01",
+     "trigger": "state-change",
+     "what": "Sepet sayısı değişince kısa zıplama",
+     "frm": "{ scale: 1.4 }",
+     "to": "{ scale: 1 }",
+     "timing": "{ spring: spring-soft }",
+     "impl": "css-keyframes"
+    }
+   ]
+  },
+  {
+   "key": "Megamenu",
+   "code": "MEGA",
+   "kind": "overlay",
+   "pages": "Header (desktop)",
+   "ikas": "Header sub-component",
+   "desktop": "Header altında tam genişlik × 354; alt çizgi; 3 eşit sütun, aralarında dikey çizgi. Arkadaki sayfa görünür kalır.",
+   "mobile": "Mobilde yok; yerine MobileMenu içindeki akordeon.",
+   "tree": [
+    "megamenu",
+    "├─ megamenu-links                    boşluk $space-page, 2 kolon",
+    "│   └─ megamenu-column ×2",
+    "│       ├─ megamenu-column-title     {title:TEXT}  text-ui-sm muted",
+    "│       └─ megamenu-link ×N          {links:LIST_OF_LINK}  text-ui, satır aralığı 37",
+    "└─ megamenu-card ×2",
+    "    ├─ megamenu-card-image           {image:IMAGE}",
+    "    ├─ gradient-mask                 alttan siyah gradyan",
+    "    └─ megamenu-card-text            {title:TEXT} text-h4 + {subtitle:TEXT} text-ui-sm muted"
+   ],
+   "checks": [
+    "açık hali ayrı overlay frame olarak çizildi",
+    "Shop nav-link açık durumda ters dolgulu"
+   ],
+   "anims": [
+    {
+     "layer": "megamenu",
+     "recipe": "M-06",
+     "trigger": "hover | click",
+     "what": "Panel header altından açılır; Shop caret döner"
+    },
+    {
+     "layer": "megamenu-card-image",
+     "recipe": "M-09",
+     "trigger": "hover",
+     "what": "Kart görseli hafif büyür",
+     "frm": "{ scale: 1 }",
+     "to": "{ scale: 1.05 }",
+     "timing": "{ spring: spring-smooth }"
+    },
+    {
+     "layer": "megamenu-link",
+     "recipe": "M-28",
+     "trigger": "hover",
+     "what": "Diğer linkler soluklaşır, üzerindeki parlak kalır"
+    }
+   ]
+  },
+  {
+   "key": "MobileMenu",
+   "code": "MMENU",
+   "kind": "overlay",
+   "pages": "Header (mobil)",
+   "ikas": "Header sub-component",
+   "desktop": "Desktop karşılığı yok.",
+   "mobile": "390 × tam ekran, header altında. Hamburger çarpıya döner.",
+   "tree": [
+    "mobile-menu",
+    "├─ mobile-announcement               {text:TEXT} ortalı, alt çizgi, yükseklik 60",
+    "├─ mobile-nav-item ×4                text-h3, alt çizgi; Shop satırında caret",
+    "│   └─ mobile-submenu                (Shop açıkken) megamenu-link listesi",
+    "└─ mobile-secondary-links            text-ui muted"
+   ],
+   "checks": [
+    "kapalı ve Shop-açık halleri ayrı çizildi"
+   ],
+   "anims": [
+    {
+     "layer": "mobile-menu",
+     "recipe": "M-20",
+     "trigger": "click",
+     "what": "Menü yukarıdan/yandan açılır, satırlar sırayla girer",
+     "frm": "{ y: -100%, opacity: 0 }",
+     "to": "{ y: 0, opacity: 1 }"
+    },
+    {
+     "layer": "mobile-submenu",
+     "recipe": "M-22",
+     "trigger": "click",
+     "what": "Shop alt menüsü akordeon olarak açılır"
+    }
+   ]
+  },
+  {
+   "key": "CartDrawer",
+   "code": "CART",
+   "kind": "overlay",
+   "pages": "Header",
+   "ikas": "Header sub-component (cart-patterns rehberi)",
+   "desktop": "Sağdan 500 × tam yükseklik; sol çizgi; arkada `scrim` (koyu + blur).",
+   "mobile": "390 tam genişlik çekmece.",
+   "tree": [
+    "cart-overlay",
+    "├─ scrim",
+    "└─ cart-drawer",
+    "    ├─ cart-header                   {cartTitleText:TEXT} + close-button, alt çizgi, yükseklik 85",
+    "    ├─ cart-body",
+    "    │   ├─ cart-empty                {cartEmptyTitle:TEXT} text-h4 + {cartEmptyText:TEXT} text-label",
+    "    │   └─ cart-line-item ×N         görsel · ad · varyant · quantity-selector · fiyat · remove-button",
+    "    └─ cart-footer                   üst çizgi, boşluk $space-panel",
+    "        ├─ cart-shipping-row         {cartShippingLabel:TEXT} + {cartShippingNote:TEXT}  text-label muted",
+    "        ├─ cart-subtotal-row         {cartSubtotalLabel:TEXT} text-h4 + tutar text-price",
+    "        └─ checkout-button           {checkoutButtonText:TEXT}"
+   ],
+   "checks": [
+    "boş ve dolu (2 ürün) halleri ayrı frame",
+    "checkout butonu boşken soluk"
+   ],
+   "anims": [
+    {
+     "layer": "cart-drawer",
+     "recipe": "M-20",
+     "trigger": "click",
+     "what": "Çekmece sağdan kayar, scrim belirir"
+    },
+    {
+     "layer": "cart-line-item",
+     "recipe": "M-20",
+     "trigger": "state-change",
+     "what": "Satırlar gecikmeli girer",
+     "frm": "{ opacity: 0, y: 20 }",
+     "to": "{ opacity: 1, y: 0 }",
+     "timing": "{ spring: spring-smooth, stagger: [0.2, 0.3, 0.4, 0.5] }",
+     "impl": "animejs"
+    },
+    {
+     "layer": "checkout-button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Buton dolgusu ters döner"
+    }
+   ]
+  },
+  {
+   "key": "SearchOverlay",
+   "code": "SRCH",
+   "kind": "overlay",
+   "pages": "Header",
+   "ikas": "Header sub-component",
+   "desktop": "Header altında tam genişlik panel; alt çizgi; arkada `scrim`.",
+   "mobile": "Tam ekran; sonuçlar tek sütun liste (ProductCardSmall).",
+   "tree": [
+    "search-overlay",
+    "├─ scrim",
+    "└─ search-panel",
+    "    ├─ search-field                  {searchPlaceholder:TEXT} text-h3 boyutunda giriş + close-button",
+    "    ├─ search-results                ProductCard ×3–4 (yatay)",
+    "    └─ search-empty                  {searchEmptyText:TEXT}"
+   ],
+   "checks": [
+    "boş, sonuçlu ve sonuçsuz halleri ayrı frame"
+   ],
+   "anims": [
+    {
+     "layer": "search-panel",
+     "recipe": "M-21",
+     "trigger": "click",
+     "what": "Panel header altından açılır"
+    },
+    {
+     "layer": "search-results",
+     "recipe": "M-01",
+     "trigger": "state-change",
+     "what": "Sonuç kartları sırayla girer",
+     "timing": "{ duration: 0.4, ease: ease-standard, stagger: 0.05 }",
+     "impl": "animejs"
+    }
+   ]
+  },
+  {
+   "key": "Footer",
+   "code": "FTR",
+   "kind": "section",
+   "pages": "tüm sayfalar",
+   "ikas": "footer-section (--isFooter)",
+   "desktop": "Tam genişlik × ~725. Üstte görselli banner 280, ortada 4 sütun, altta çizgili form satırı.",
+   "mobile": "Banner 180; sütunlar 2×2; form tam genişlik alt alta; yasal linkler en altta.",
+   "tree": [
+    "footer",
+    "├─ footer-banner (clip)",
+    "│   ├─ footer-banner-image           {bannerImage:IMAGE}",
+    "│   ├─ footer-wordmark               {wordmarkText:TEXT} dev boyut, yarı saydam, banner genişliğinde",
+    "│   ├─ footer-banner-title           {bannerTitle:TEXT} text-h2, sol üst",
+    "│   └─ footer-logomark               {logoMark:SVG} 48, sağ alt",
+    "├─ footer-columns                    4 sütun, boşluk $space-page",
+    "│   └─ footer-column ×4",
+    "│       ├─ footer-column-title       {title:TEXT} text-ui",
+    "│       └─ footer-link ×N            {links:LIST_OF_LINK} text-ui-sm muted",
+    "└─ footer-bottom                     üst çizgi",
+    "    ├─ newsletter-form               newsletter-input (337×48) + newsletter-button (222×48) + newsletter-consent",
+    "    └─ footer-legal                  footer-link ×2 + {copyrightText:TEXT}"
+   ],
+   "checks": [
+    "footer-wordmark ayrı katman",
+    "input: boş, odak ve hata halleri Components sayfasında"
+   ],
+   "anims": [
+    {
+     "layer": "footer",
+     "recipe": "M-16",
+     "trigger": "scroll-scrub",
+     "what": "Footer içeriğin altından ortaya çıkar (sticky)",
+     "frm": "{}",
+     "to": "{ position: sticky, bottom: 0 }",
+     "timing": "{}",
+     "impl": "layout"
+    },
+    {
+     "layer": "footer-wordmark",
+     "recipe": "M-16",
+     "trigger": "scroll-scrub",
+     "what": "Dev yazı kaydırmayla hafifçe kayar"
+    },
+    {
+     "layer": "footer-link",
+     "recipe": "M-28",
+     "trigger": "hover",
+     "what": "Link rengi parlar"
+    },
+    {
+     "layer": "newsletter-button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Buton dolgusu ters döner"
+    }
+   ]
+  },
+  {
+   "key": "HeroSlider",
+   "code": "HERO",
+   "kind": "section",
+   "pages": "Ana sayfa",
+   "ikas": "hero-slider-section",
+   "desktop": "1440 × 720 (viewport − header). Tam kaplama görsel, alttan gradyan. Metin sol altta, thumbnail sağ altta; kenar boşluğu $space-page.",
+   "mobile": "390 × 420. `hero-description` ve `hero-thumbs` yok; alt kenarda tam genişlik 2px `progress-bar`. Başlık text-display (mobil değer).",
+   "tree": [
+    "hero-slider",
+    "├─ hero-slides                       layout none, tüm slaytlar üst üste",
+    "│   └─ hero-slide ×3",
+    "│       └─ hero-slide-mask (clip)",
+    "│           ├─ hero-slide-image      {image:IMAGE}",
+    "│           └─ gradient-mask",
+    "├─ hero-text",
+    "│   ├─ hero-badge (clip)             {badgeText:TEXT} çerçeveli; top + bottom kopya",
+    "│   ├─ hero-title-mask (clip)",
+    "│   │   └─ hero-title                {title:TEXT} text-display",
+    "│   └─ hero-description              {description:TEXT} text-ui muted, genişlik 500",
+    "├─ hero-thumbs                       aralık $space-grid",
+    "│   └─ hero-thumb ×3                 151×105, çerçeveli; pasif olanlar $opacity-inactive",
+    "│       ├─ hero-thumb-image",
+    "│       └─ progress-bar              aktif thumb üzerinde yarı saydam dolgu (genişlik %50 çiz)",
+    "└─ hero-click-left / hero-click-right   görünmez, yarı genişlik"
+   ],
+   "checks": [
+    "3 slaytın hepsi kardeş frame, sadece biri görünür",
+    "başlık kendi clip maskesinde",
+    "Motion States: slayt geçişi %0 / %50 / %100"
+   ],
+   "anims": [
+    {
+     "layer": "hero-slide-mask",
+     "recipe": "M-07",
+     "trigger": "auto | click",
+     "what": "Yeni slayt soldan maske ile açılır, görsel küçülerek oturur"
+    },
+    {
+     "layer": "hero-title",
+     "recipe": "M-07",
+     "trigger": "state-change",
+     "what": "Başlık slaytla birlikte değişir",
+     "frm": "{ y: 100% }",
+     "to": "{ y: 0 }",
+     "timing": "{ spring: \"bounce 0, 1.2s\", delay: 1 }"
+    },
+    {
+     "layer": "hero-description",
+     "recipe": "M-01",
+     "trigger": "state-change",
+     "what": "Açıklama başlıktan sonra girer",
+     "timing": "{ duration: 0.5, ease: ease-standard, delay: 1.2 }"
+    },
+    {
+     "layer": "progress-bar",
+     "recipe": "M-08",
+     "trigger": "auto",
+     "what": "Aktif thumbnail çubuğu slayt süresince dolar"
+    },
+    {
+     "layer": "hero-thumb",
+     "recipe": "M-28",
+     "trigger": "hover",
+     "what": "Pasif thumbnail parlar",
+     "frm": "{ opacity: 0.3 }",
+     "to": "{ opacity: 1 }",
+     "timing": "{ spring: spring-smooth }"
+    },
+    {
+     "layer": "hero-badge",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Etiket butonu dolgusu ters döner"
+    },
+    {
+     "layer": "hero-slides",
+     "recipe": "M-02",
+     "trigger": "load",
+     "what": "İlk yüklemede görsel yumuşak belirir"
+    },
+    {
+     "layer": "hero-text",
+     "recipe": "M-01",
+     "trigger": "load",
+     "what": "İlk yüklemede metin bloğu aşağıdan girer"
+    }
+   ]
+  },
+  {
+   "key": "FeaturedCollection",
+   "code": "FEAT",
+   "kind": "section",
+   "pages": "Ana sayfa (2 kez: promo solda / sağda)",
+   "ikas": "product-slider-section",
+   "desktop": "1440 × ~835. Promo panel 576×432 (sticky) + ürün ızgarası 2 sütun × 2 satır (kart 429×415), aralık $space-grid. İkinci örnekte panel sağda.",
+   "mobile": "Panel tam genişlik (390×420) üstte; altında ürünler yatay kaydırmalı (kart 370, sonraki kart 15px görünür).",
+   "tree": [
+    "featured-collection",
+    "├─ promo-panel                       çerçeveli; sticky",
+    "│   ├─ promo-image                   {promoImage:IMAGE}",
+    "│   ├─ hotspot                       {hotspotProduct:PRODUCT}",
+    "│   │   ├─ hotspot-outer",
+    "│   │   └─ hotspot-inner",
+    "│   └─ promo-header                  boşluk $space-panel",
+    "│       ├─ link                      {linkText:TEXT} + link-line + link-arrow (clip: arrow-top + arrow-bottom)",
+    "│       └─ promo-title-mask (clip)",
+    "│           └─ promo-title           {title:TEXT} text-h2",
+    "└─ product-grid",
+    "    └─ ProductCard ×4                {productList:PRODUCT_LIST}"
+   ],
+   "checks": [
+    "kap yüksekliği iki ürün satırı kadar (sticky aralığı görünür)",
+    "promo solda ve sağda iki örnek çizildi",
+    "hotspot açık hali Motion States içinde"
+   ],
+   "anims": [
+    {
+     "layer": "promo-panel",
+     "recipe": "M-13",
+     "trigger": "sticky",
+     "what": "Panel, yanındaki ürünler kayarken sabit kalır"
+    },
+    {
+     "layer": "promo-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "hotspot-outer",
+     "recipe": "M-12",
+     "trigger": "auto-loop",
+     "what": "Hotspot halkası nabız gibi atar"
+    },
+    {
+     "layer": "hotspot",
+     "recipe": "M-12",
+     "trigger": "hover | click",
+     "what": "Hotspot ürün mini kartını açar",
+     "frm": "{ card.opacity: 0, card.scale: 0.9 }",
+     "to": "{ card.opacity: 1, card.scale: 1 }",
+     "timing": "{ spring: spring-soft }",
+     "impl": "css-transition"
+    },
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "key": "ShoppableImages",
+   "code": "SHOP",
+   "kind": "section",
+   "pages": "Ana sayfa",
+   "ikas": "category-images-section (uyarlanır)",
+   "desktop": "1440 × 540; 2 eşit görsel (720), aralık $space-grid, çerçeveli; her birinde bir hotspot.",
+   "mobile": "Alt alta, her biri 390×390.",
+   "tree": [
+    "shoppable-images",
+    "└─ shoppable-image ×2",
+    "    ├─ shoppable-image-media         {image:IMAGE}",
+    "    └─ hotspot                       {product:PRODUCT}",
+    "        ├─ hotspot-outer",
+    "        └─ hotspot-inner"
+   ],
+   "checks": [
+    "hotspot konumu ürünün üzerinde"
+   ],
+   "anims": [
+    {
+     "layer": "hotspot-outer",
+     "recipe": "M-12",
+     "trigger": "auto-loop",
+     "what": "Hotspot halkası nabız gibi atar"
+    },
+    {
+     "layer": "hotspot",
+     "recipe": "M-12",
+     "trigger": "hover | click",
+     "what": "Hotspot ürün mini kartını açar",
+     "frm": "{ card.opacity: 0, card.scale: 0.9 }",
+     "to": "{ card.opacity: 1, card.scale: 1 }",
+     "timing": "{ spring: spring-soft }",
+     "impl": "css-transition"
+    }
+   ]
+  },
+  {
+   "key": "CategoryCards",
+   "code": "CAT",
+   "kind": "section",
+   "pages": "Ana sayfa",
+   "ikas": "category-images-section",
+   "desktop": "1440 × 362; 4 eşit kart (357), aralık $space-grid, çerçeveli.",
+   "mobile": "Yatay kaydırmalı; kart 370×420, sonraki kart kenardan görünür.",
+   "tree": [
+    "category-cards",
+    "└─ category-card ×4 (clip)",
+    "    ├─ marquee (clip)",
+    "    │   └─ marquee-track             {label:TEXT} ×3 kopya, text-h2 muted, kart dışına taşar",
+    "    ├─ category-image                {image:IMAGE} ortada, zeminsiz ürün görseli",
+    "    └─ category-footer               boşluk $space-panel, iki uca yaslı",
+    "        ├─ category-label            {label:TEXT} text-ui",
+    "        └─ link                      {linkText:TEXT} + link-line + link-arrow"
+   ],
+   "checks": [
+    "marquee-track içinde en az 3 kopya",
+    "hover hali Components sayfasında"
+   ],
+   "anims": [
+    {
+     "layer": "marquee-track",
+     "recipe": "M-14",
+     "trigger": "auto-loop",
+     "what": "Kategori adı kesintisiz kayar"
+    },
+    {
+     "layer": "category-card",
+     "recipe": "M-28",
+     "trigger": "hover",
+     "what": "Marquee parlar, etiket soluklaşır",
+     "frm": "{ marquee.color: color-muted, label.opacity: 1 }",
+     "to": "{ marquee.color: color-text, label.opacity: 0.4 }",
+     "timing": "{ spring: spring-card }"
+    },
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "key": "SplitBanners",
+   "code": "SPLIT",
+   "kind": "section",
+   "pages": "Ana sayfa",
+   "ikas": "hero-slider-section (uyarlanır)",
+   "desktop": "1440 × 780; 2 eşit banner (720), aralık $space-grid, çerçeveli; tam kaplama görsel; metin sol altta.",
+   "mobile": "Alt alta, her biri 390×380.",
+   "tree": [
+    "split-banners",
+    "└─ split-banner ×2",
+    "    ├─ split-banner-image            {image:IMAGE}",
+    "    ├─ gradient-mask",
+    "    └─ split-banner-text             boşluk $space-panel",
+    "        ├─ link                      {linkText:TEXT} + link-line + link-arrow",
+    "        └─ split-banner-title        her satır ayrı clip maskede",
+    "            └─ title-line-mask ×3 → title-line   {title:TEXT} text-h2"
+   ],
+   "checks": [
+    "her başlık satırı ayrı maskede"
+   ],
+   "anims": [
+    {
+     "layer": "title-line",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık satırları sırayla açılır"
+    },
+    {
+     "layer": "split-banner-image",
+     "recipe": "M-09",
+     "trigger": "hover",
+     "what": "Görsel hafif büyür",
+     "frm": "{ scale: 1 }",
+     "to": "{ scale: 1.04 }",
+     "timing": "{ spring: spring-card }"
+    },
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "key": "SocialFeed",
+   "code": "SOC",
+   "kind": "section",
+   "pages": "Ana sayfa, ürün detay",
+   "ikas": "(özel)",
+   "desktop": "1440 × ~713; üst boşluk $space-section. Başlık satırı + altında 5 görsel görünen kesintisiz şerit (görsel 300×428, aralık $space-grid).",
+   "mobile": "Başlık alt alta; görsel 220×314.",
+   "tree": [
+    "social-feed",
+    "├─ section-heading                   boşluk $space-page",
+    "│   ├─ section-title-mask (clip) → section-title   {title:TEXT} text-h2",
+    "│   ├─ section-description           {description:TEXT} text-ui muted",
+    "│   └─ link                          {linkText:TEXT} + link-line + link-arrow, sağda",
+    "└─ ticker (clip)",
+    "    └─ ticker-track                  {images:IMAGE_LIST} iki set, frame dışına taşar",
+    "        └─ ticker-item ×10           çerçeveli"
+   ],
+   "checks": [
+    "ticker-track iki set görsel içeriyor"
+   ],
+   "anims": [
+    {
+     "layer": "section-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "ticker-track",
+     "recipe": "M-15",
+     "trigger": "auto-loop",
+     "what": "Görseller kesintisiz kayar"
+    },
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "key": "JournalFeatured",
+   "code": "JRNF",
+   "kind": "section",
+   "pages": "Ana sayfa, ürün detay, journal yazı",
+   "ikas": "blog-home-section (uyarlanır)",
+   "desktop": "1440 × ~1244; üst boşluk $space-section. Başlık satırı; öne çıkan yazı (818 görsel + 626 metin, çerçeveli, yükseklik 541); altında 3 BlogCard (478).",
+   "mobile": "Öne çıkan alt alta (görsel 390×260); kartlar yatay kaydırmalı.",
+   "tree": [
+    "journal-featured",
+    "├─ section-heading",
+    "│   ├─ section-title-mask (clip) → section-title   {title:TEXT} text-h2",
+    "│   ├─ section-description           {description:TEXT} text-ui muted",
+    "│   └─ link                          {viewAllText:TEXT} + link-line + link-arrow",
+    "├─ journal-feature                   çerçeveli",
+    "│   ├─ journal-feature-image         {blogList:BLOG_LIST}[0]",
+    "│   └─ journal-feature-text          boşluk 40",
+    "│       ├─ journal-date              text-label muted",
+    "│       ├─ journal-feature-title     text-h3",
+    "│       ├─ journal-excerpt           text-body",
+    "│       └─ link                      {readMoreText:TEXT} + link-line + link-arrow",
+    "└─ journal-cards",
+    "    └─ BlogCard ×3"
+   ],
+   "checks": [
+    "BlogCard bileşen instance'ı"
+   ],
+   "anims": [
+    {
+     "layer": "section-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "journal-feature-image",
+     "recipe": "M-09",
+     "trigger": "hover",
+     "what": "Görsel hafif büyür",
+     "frm": "{ scale: 1 }",
+     "to": "{ scale: 1.04 }",
+     "timing": "{ spring: spring-card }"
+    },
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "key": "ProductList",
+   "code": "PLP",
+   "kind": "section",
+   "pages": "Kategori, koleksiyon, arama, favoriler",
+   "ikas": "category-list-section",
+   "desktop": "1440; başlık alanı 126 (alt çizgi), sticky filtre barı 72 (alt çizgi), 3 sütun ızgara (kart 478×451), aralık $space-grid.",
+   "mobile": "Tek sütun (kart 390×~380); filter-bar yatay kaydırmalı; başlık text-display (mobil değer).",
+   "tree": [
+    "product-list",
+    "├─ list-header                       boşluk $space-page",
+    "│   └─ list-title                    {title:TEXT} text-display",
+    "├─ filter-bar                        sticky; boşluk $space-page; aralık 15",
+    "│   └─ filter-tab ×8                 {filterLinks:LIST_OF_LINK} text-h4; aktif $color-text, pasif $color-muted",
+    "├─ product-grid",
+    "│   └─ ProductCard ×9+",
+    "└─ list-footer",
+    "    ├─ load-more-button              {loadMoreText:TEXT}",
+    "    └─ list-empty                    {emptyTitle:TEXT} + {emptyText:TEXT}"
+   ],
+   "checks": [
+    "en az 9 kart; rozet çeşitleri (NEW, SALE, BEST SELLER, rozetsiz) görünür",
+    "boş durum ayrı frame"
+   ],
+   "anims": [
+    {
+     "layer": "filter-bar",
+     "recipe": "M-18",
+     "trigger": "sticky",
+     "what": "Filtre barı header altında sabit kalır"
+    },
+    {
+     "layer": "filter-tab",
+     "recipe": "M-28",
+     "trigger": "hover | click",
+     "what": "Sekme rengi parlar"
+    },
+    {
+     "layer": "product-grid",
+     "recipe": "M-01",
+     "trigger": "state-change",
+     "what": "Filtre değişince kartlar sırayla girer",
+     "timing": "{ duration: 0.4, ease: ease-standard, stagger: 0.04 }",
+     "impl": "animejs"
+    },
+    {
+     "layer": "list-title",
+     "recipe": "M-01",
+     "trigger": "load",
+     "what": "Sayfa başlığı aşağıdan girer"
+    }
+   ]
+  },
+  {
+   "key": "CollectionHero",
+   "code": "COLL",
+   "kind": "section",
+   "pages": "Koleksiyon",
+   "ikas": "(özel)",
+   "desktop": "1440 × 720; arka plan görseli + gradyan; sol altta koleksiyon adı ve slogan; altında açıklama satırı ve iki yardımcı görsel.",
+   "mobile": "390 × 480; collection-info alt alta.",
+   "tree": [
+    "collection-hero",
+    "├─ collection-hero-bg                {backgroundImage:IMAGE}, kabından %15 yüksek",
+    "├─ gradient-mask",
+    "├─ collection-hero-text",
+    "│   ├─ collection-tagline            {tagline:TEXT} text-ui muted",
+    "│   └─ collection-title-mask (clip) → collection-title   {title:TEXT} text-display",
+    "└─ collection-info                   boşluk $space-page, 3 hücre",
+    "    ├─ collection-image-a            {imageA:IMAGE} 3:4",
+    "    ├─ collection-description        {description:TEXT} text-ui",
+    "    └─ collection-image-b            {imageB:IMAGE} 4:3"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "collection-hero-bg",
+     "recipe": "M-27",
+     "trigger": "scroll-scrub",
+     "what": "Arka plan içerikten yavaş kayar"
+    },
+    {
+     "layer": "collection-title",
+     "recipe": "M-03",
+     "trigger": "load",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "collection-info",
+     "recipe": "M-01",
+     "trigger": "inview",
+     "what": "Bilgi hücreleri sırayla girer",
+     "timing": "{ duration: 0.5, ease: ease-standard, stagger: 0.1 }",
+     "impl": "animejs + io-hook"
+    }
+   ]
+  },
+  {
+   "key": "ProductDetail",
+   "code": "PDP",
+   "kind": "section",
+   "pages": "Ürün detay",
+   "ikas": "product-detail-section",
+   "desktop": "1440; solda 500 sticky detay sütunu (viewport yüksekliği, sağ çizgi), sağda 940 galeri (4 görsel, her biri 720 yükseklik, alt çizgi), sağ üstte dikey thumbnail şeridi (60×75, aralık 5, çerçeveli).",
+   "mobile": "Sıra: yatay galeri (390×490, altında noktalar) → pdp-top → variant-chips → pdp-buy-row. Sticky yok; `mini-buy-bar` alt kenarda tam genişlik.",
+   "tree": [
+    "product-detail",
+    "├─ pdp-details                       sticky; dikey, iki uca yaslı",
+    "│   ├─ pdp-top                       boşluk $space-page, aralık 20",
+    "│   │   ├─ breadcrumbs               text-label",
+    "│   │   ├─ pdp-title                 text-h3",
+    "│   │   ├─ pdp-description           text-ui",
+    "│   │   └─ info-tabs                 info-tab ×3 {infoTabs:COMPONENT_LIST} text-ui-sm muted",
+    "│   └─ pdp-bottom",
+    "│       ├─ variant-chips             variant-chip ×N (seçili / pasif / stok yok)",
+    "│       ├─ link                      {sizeGuideText:TEXT} + link-line + link-arrow, sağda",
+    "│       └─ pdp-buy-row               üst çizgi, boşluk $space-page",
+    "│           ├─ pdp-price             text-price (+ eski fiyat) + {shippingNoteText:TEXT} text-label",
+    "│           └─ add-to-cart-button    {addToCartText:TEXT} dolu buton 225×44",
+    "├─ pdp-gallery",
+    "│   └─ pdp-image ×4",
+    "├─ pdp-thumbs",
+    "│   └─ pdp-thumb ×4                  aktif olan $color-text çerçeveli",
+    "└─ mini-buy-bar                      sağ altta 350×72 çerçeveli: küçük görsel + ad + fiyat + buton"
+   ],
+   "checks": [
+    "galeri gerçek yükseklikte (4 görsel alt alta)",
+    "buton halleri: varsayılan, yükleniyor, eklendi, stok yok",
+    "mini-buy-bar ayrı overlay frame"
+   ],
+   "anims": [
+    {
+     "layer": "pdp-details",
+     "recipe": "M-13",
+     "trigger": "sticky",
+     "what": "Detay sütunu galeri kayarken sabit kalır"
+    },
+    {
+     "layer": "pdp-thumb",
+     "recipe": "M-19",
+     "trigger": "scroll-scrub",
+     "what": "Görünen görselin thumbnail çerçevesi yanar"
+    },
+    {
+     "layer": "mini-buy-bar",
+     "recipe": "M-19",
+     "trigger": "inview",
+     "what": "Galeri bitince mini satın alma çubuğu alttan girer"
+    },
+    {
+     "layer": "add-to-cart-button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Buton dolgusu ters döner"
+    },
+    {
+     "layer": "variant-chip",
+     "recipe": "M-28",
+     "trigger": "hover | click",
+     "what": "Çip çerçevesi ve metni parlar"
+    },
+    {
+     "layer": "info-tab",
+     "recipe": "M-28",
+     "trigger": "hover",
+     "what": "Sekme rengi parlar"
+    },
+    {
+     "layer": "pdp-title",
+     "recipe": "M-01",
+     "trigger": "load",
+     "what": "Başlık ve açıklama aşağıdan girer"
+    },
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "key": "InfoDrawer",
+   "code": "INFO",
+   "kind": "overlay",
+   "pages": "Ürün detay (Materials / Care / Shipping / Size guide)",
+   "ikas": "ProductDetail sub-component",
+   "desktop": "Soldan 460 × tam yükseklik; sağ çizgi; arkada `scrim` (koyu + blur).",
+   "mobile": "390 tam genişlik.",
+   "tree": [
+    "info-overlay",
+    "├─ scrim",
+    "└─ info-drawer",
+    "    ├─ info-media (clip)             yükseklik 300, alt çizgi",
+    "    │   ├─ info-image                {image:IMAGE}",
+    "    │   ├─ marquee (clip) → marquee-track   sekme adı ×3, text-h2 muted, görselin üst kenarında",
+    "    │   └─ close-button              sağ üst",
+    "    ├─ info-tabs-row                 info-tab ×3 text-h4; aktif $color-text",
+    "    └─ info-content                  {content:RICH_TEXT} text-body, madde listesi"
+   ],
+   "checks": [
+    "beden rehberi (tablo) hali ayrı frame"
+   ],
+   "anims": [
+    {
+     "layer": "info-drawer",
+     "recipe": "M-20",
+     "trigger": "click",
+     "what": "Çekmece soldan kayar, scrim belirir",
+     "frm": "{ x: -100%, scrim.opacity: 0 }"
+    },
+    {
+     "layer": "marquee-track",
+     "recipe": "M-14",
+     "trigger": "auto-loop",
+     "what": "Sekme adı görselin üstünde kayar"
+    },
+    {
+     "layer": "info-content",
+     "recipe": "M-01",
+     "trigger": "state-change",
+     "what": "Sekme değişince içerik yumuşak değişir",
+     "timing": "{ duration: 0.3, ease: ease-standard }"
+    }
+   ]
+  },
+  {
+   "key": "ProductCarousel",
+   "code": "CRSL",
+   "kind": "section",
+   "pages": "Ürün detay (2 kez), iletişim",
+   "ikas": "product-slider-section",
+   "desktop": "1440 × ~664; üst boşluk $space-section. Başlık satırı (başlık + sağda link); altında yatay ProductCard şeridi (kart 478, 3 görünür, devamı taşar).",
+   "mobile": "Kart 370; yatay kaydırmalı.",
+   "tree": [
+    "product-carousel",
+    "├─ section-heading",
+    "│   ├─ section-title-mask (clip) → section-title   {title:TEXT} text-h2",
+    "│   └─ link                          {linkText:TEXT} + link-line + link-arrow",
+    "└─ carousel (clip)",
+    "    └─ carousel-track",
+    "        └─ ProductCard ×6            {productList:PRODUCT_LIST}"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "section-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "carousel-track",
+     "recipe": "M-15",
+     "trigger": "drag",
+     "what": "Şerit sürüklenir / kaydırılır",
+     "frm": "{}",
+     "to": "{}",
+     "timing": "{ snap: true }",
+     "impl": "css scroll-snap",
+     "rm": "aynı"
+    },
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "key": "AboutHero",
+   "code": "ABH",
+   "kind": "section",
+   "pages": "Hakkında",
+   "ikas": "(özel)",
+   "desktop": "1440 × 780; tam kaplama görsel; sol altta 3 satır başlık; sağda 300 genişlik misyon bloğu.",
+   "mobile": "390 × 620; misyon bloğu başlığın altında tam genişlik.",
+   "tree": [
+    "about-hero",
+    "├─ about-hero-bg                     {backgroundImage:IMAGE}, kabından %15 yüksek",
+    "├─ about-hero-title",
+    "│   └─ title-line-mask ×3 → title-line   {title:TEXT} text-display",
+    "└─ about-mission                     genişlik 300",
+    "    ├─ about-mission-label           {missionLabel:TEXT} text-ui-sm muted",
+    "    └─ about-mission-text            {missionText:TEXT} text-ui"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "about-hero-bg",
+     "recipe": "M-27",
+     "trigger": "scroll-scrub",
+     "what": "Arka plan içerikten yavaş kayar"
+    },
+    {
+     "layer": "title-line",
+     "recipe": "M-03",
+     "trigger": "load",
+     "what": "Başlık satırları sırayla açılır"
+    },
+    {
+     "layer": "about-mission",
+     "recipe": "M-01",
+     "trigger": "load",
+     "what": "Misyon bloğu aşağıdan girer",
+     "timing": "{ duration: 0.5, ease: ease-standard, delay: 0.6 }"
+    }
+   ]
+  },
+  {
+   "key": "PressSlider",
+   "code": "PRS",
+   "kind": "section",
+   "pages": "Hakkında",
+   "ikas": "(özel)",
+   "desktop": "1440 × 410; üst + alt çizgi; ortada 600 genişlik alıntı, solda ve sağda soluk komşu alıntılar (kısmen görünür).",
+   "mobile": "Tek alıntı görünür (350); yatay kaydırmalı.",
+   "tree": [
+    "press-slider",
+    "└─ press-track                       yatay, aralık 120, ortalı",
+    "    └─ press-quote ×5                genişlik 600, ortalı metin; ortadaki tam opak, diğerleri 0.4",
+    "        ├─ press-logo                {logo:SVG} yükseklik 34",
+    "        └─ press-text                {quote:TEXT} text-title"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "press-track",
+     "recipe": "M-26",
+     "trigger": "auto | drag",
+     "what": "Alıntılar 3 saniyede bir kayar; ortadaki parlar"
+    }
+   ]
+  },
+  {
+   "key": "ValuesStack",
+   "code": "VAL",
+   "kind": "section",
+   "pages": "Hakkında",
+   "ikas": "(özel)",
+   "desktop": "1440 × 3120 (4 panel × 780). Her panel tam viewport ve sticky; ortada 800 genişlik metin; kenarda döndürülmüş görsel (4:3 = 527×411 solda / 3:4 = 587×753 sağda, sırayla).",
+   "mobile": "Normal akış (sticky yok); her panel: görsel üstte tam genişlik + metin altında; rotasyon yok.",
+   "tree": [
+    "values-stack",
+    "├─ value-panel (giriş)",
+    "│   ├─ value-image                   {image:IMAGE} mutlak konum, sol kenar",
+    "│   └─ value-text",
+    "│       ├─ value-title               {introTitle:TEXT} text-h2",
+    "│       └─ value-paragraph           {introText:TEXT} text-ui",
+    "└─ value-panel ×3",
+    "    ├─ value-image                   {image:IMAGE} mutlak konum; sağ / sol / sağ",
+    "    └─ value-text",
+    "        ├─ value-title               {title:TEXT} text-h3",
+    "        └─ value-paragraph           {text:TEXT} text-ui"
+   ],
+   "checks": [
+    "görseller bitiş (0°) halinde çizildi",
+    "Motion States: bir panelin %0 (10° dönük) / %50 / %100 hali"
+   ],
+   "anims": [
+    {
+     "layer": "value-panel",
+     "recipe": "M-13",
+     "trigger": "sticky",
+     "what": "Paneller üst üste biner",
+     "to": "{ position: sticky, top: 0 }"
+    },
+    {
+     "layer": "value-image",
+     "recipe": "M-23",
+     "trigger": "scroll-scrub",
+     "what": "Görsel dönerek düzelir ve yukarı kayar"
+    },
+    {
+     "layer": "value-title",
+     "recipe": "M-24",
+     "trigger": "scroll-scrub",
+     "what": "Başlık kaydırdıkça büyüyerek kaybolur"
+    },
+    {
+     "layer": "value-paragraph",
+     "recipe": "M-24",
+     "trigger": "scroll-scrub",
+     "what": "Paragraf yukarı kayar",
+     "frm": "{ y: 0 }",
+     "to": "{ y: -200 }"
+    }
+   ]
+  },
+  {
+   "key": "ProcessSteps",
+   "code": "PRC",
+   "kind": "section",
+   "pages": "Hakkında",
+   "ikas": "(özel)",
+   "desktop": "1440 × ~1275; üst boşluk $space-section; 1200 genişlik kap: başlık + paragraf, altında 3 sütun adım; en altta tam genişlik görsel (788).",
+   "mobile": "Adımlar alt alta; görsel 390×300.",
+   "tree": [
+    "process-steps",
+    "├─ process-container                 genişlik 1200",
+    "│   ├─ section-title-mask (clip) → section-title   {title:TEXT} text-h2",
+    "│   ├─ process-text                  {text:TEXT} text-ui",
+    "│   └─ process-grid                  3 sütun, aralık 40",
+    "│       └─ process-step ×3",
+    "│           ├─ process-step-title    {title:TEXT} text-ui",
+    "│           └─ process-step-text     {text:TEXT} text-body",
+    "└─ process-image                     {image:IMAGE}"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "section-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "process-step",
+     "recipe": "M-01",
+     "trigger": "inview",
+     "what": "Adımlar sırayla girer",
+     "timing": "{ duration: 0.5, ease: ease-standard, stagger: 0.1 }",
+     "impl": "animejs + io-hook"
+    },
+    {
+     "layer": "process-image",
+     "recipe": "M-27",
+     "trigger": "scroll-scrub",
+     "what": "Görsel hafif parallax yapar"
+    }
+   ]
+  },
+  {
+   "key": "TeamGrid",
+   "code": "TEAM",
+   "kind": "section",
+   "pages": "Hakkında",
+   "ikas": "(özel)",
+   "desktop": "1440 × ~811; üst boşluk $space-section; 1200 kap: başlık + paragraf; altında tam genişlik 4 sütun üye kartı (çerçeveli, aralık $space-grid).",
+   "mobile": "Kartlar yatay kaydırmalı (kart 300).",
+   "tree": [
+    "team-grid",
+    "├─ team-container",
+    "│   ├─ section-title-mask (clip) → section-title   {title:TEXT} text-h2",
+    "│   └─ team-text                     {text:TEXT} text-ui",
+    "└─ team-members",
+    "    └─ team-member ×4",
+    "        ├─ team-member-image         {image:IMAGE} 357×380",
+    "        └─ team-member-info          boşluk $space-card: {role:TEXT} text-label muted + {name:TEXT} text-title"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "section-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "team-member",
+     "recipe": "M-01",
+     "trigger": "inview",
+     "what": "Kartlar sırayla girer",
+     "timing": "{ duration: 0.5, ease: ease-standard, stagger: 0.08 }",
+     "impl": "animejs + io-hook"
+    }
+   ]
+  },
+  {
+   "key": "Timeline",
+   "code": "TML",
+   "kind": "section",
+   "pages": "Hakkında",
+   "ikas": "(özel)",
+   "desktop": "1440; üst boşluk $space-section; başlık + 5 satır; her satır alt çizgili: solda yıl, ortada başlık, sağda paragraf.",
+   "mobile": "Satır içi alt alta: yıl → başlık → paragraf.",
+   "tree": [
+    "timeline",
+    "├─ section-title-mask (clip) → section-title   {title:TEXT} text-h2",
+    "└─ timeline-row ×5                   boşluk 40 $space-page, alt çizgi",
+    "    ├─ timeline-year                 {year:TEXT} text-h2",
+    "    ├─ timeline-title                {title:TEXT} text-ui",
+    "    └─ timeline-text                 {text:TEXT} text-body, genişlik 480"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "section-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "timeline-row",
+     "recipe": "M-01",
+     "trigger": "inview",
+     "what": "Satırlar görünürlüğe girince tek tek belirir"
+    }
+   ]
+  },
+  {
+   "key": "CtaBanner",
+   "code": "CTA",
+   "kind": "section",
+   "pages": "Hakkında",
+   "ikas": "(özel)",
+   "desktop": "1440 × 600; tam kaplama görsel + gradyan; ortada başlık ve buton.",
+   "mobile": "390 × 420.",
+   "tree": [
+    "cta-banner",
+    "├─ cta-image                         {image:IMAGE}",
+    "├─ gradient-mask",
+    "├─ cta-title-mask (clip) → cta-title {title:TEXT} text-h2",
+    "└─ cta-button (clip)                 {buttonText:TEXT}; top + bottom kopya"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "cta-title",
+     "recipe": "M-03",
+     "trigger": "inview",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "cta-button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Buton dolgusu ters döner"
+    }
+   ]
+  },
+  {
+   "key": "AnchorNav",
+   "code": "ANC",
+   "kind": "section",
+   "pages": "Hakkında",
+   "ikas": "(özel)",
+   "desktop": "Alt kenarda sabit çubuk: tam genişlik × 72, üst çizgi, zemin $color-bg; ortalı sekmeler, aralık 20.",
+   "mobile": "Yükseklik 56; yatay kaydırmalı; sol hizalı.",
+   "tree": [
+    "anchor-nav",
+    "└─ anchor-link ×6                    {items:LIST_OF_LINK} text-h4; aktif $color-text, pasif $color-muted"
+   ],
+   "checks": [
+    "sayfa frame'inde alt kenara mutlak konumla yerleştirildi"
+   ],
+   "anims": [
+    {
+     "layer": "anchor-link",
+     "recipe": "M-25",
+     "trigger": "scroll-scrub",
+     "what": "Görünen bölümün sekmesi parlar"
+    }
+   ]
+  },
+  {
+   "key": "BlogList",
+   "code": "BLG",
+   "kind": "section",
+   "pages": "Journal liste",
+   "ikas": "blog-home-section",
+   "desktop": "1440; öne çıkan yazı (818 görsel + 626 metin, yükseklik 541, çerçeveli); altında 2 sütun BlogCard ızgarası (kart 720), aralık $space-grid.",
+   "mobile": "Tek sütun.",
+   "tree": [
+    "blog-list",
+    "├─ journal-feature",
+    "│   ├─ journal-feature-image",
+    "│   └─ journal-feature-text          journal-date · journal-feature-title (text-h3) · journal-excerpt · link",
+    "├─ blog-grid",
+    "│   └─ BlogCard ×4+                  {blogList:BLOG_LIST}",
+    "└─ load-more-button                  {loadMoreText:TEXT}"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "journal-feature",
+     "recipe": "M-01",
+     "trigger": "load",
+     "what": "Öne çıkan yazı aşağıdan girer"
+    },
+    {
+     "layer": "blog-grid",
+     "recipe": "M-01",
+     "trigger": "inview",
+     "what": "Kartlar sırayla girer",
+     "timing": "{ duration: 0.5, ease: ease-standard, stagger: 0.08 }",
+     "impl": "animejs + io-hook"
+    },
+    {
+     "layer": "link",
+     "recipe": "M-10",
+     "trigger": "hover",
+     "what": "Ok döner, alt çizgi uzar"
+    }
+   ]
+  },
+  {
+   "key": "BlogPost",
+   "code": "BLP",
+   "kind": "section",
+   "pages": "Journal yazı",
+   "ikas": "blog-post-section",
+   "desktop": "1440; hero 720 (görsel + tarih + başlık + özet, sol hizalı, genişlik 600); altında 1200 genişlik gövde (sol + sağ çizgi): içerik 826 + yan sütun 372 (sol çizgi, sticky).",
+   "mobile": "Hero 390×520; gövde tek sütun; yan sütun içeriğin altında.",
+   "tree": [
+    "blog-post",
+    "├─ post-hero",
+    "│   ├─ post-hero-bg                  görsel, kabından %15 yüksek",
+    "│   └─ post-hero-text                journal-date · post-title (text-h2) · post-excerpt (text-body)",
+    "└─ post-body",
+    "    ├─ post-content                  boşluk 40",
+    "    │   ├─ breadcrumbs",
+    "    │   ├─ post-heading              text-h3",
+    "    │   ├─ post-paragraph            text-body",
+    "    │   ├─ post-quote                text-h4",
+    "    │   └─ post-image                640×360",
+    "    └─ post-sidebar                  sticky",
+    "        ├─ post-next (clip)          {nextText:TEXT} ortalı, alt çizgi; top + bottom kopya",
+    "        ├─ post-sidebar-title        {relatedProductsTitle:TEXT} text-h4",
+    "        └─ ProductCardSmall ×3       {relatedProducts:PRODUCT_LIST}"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "post-hero-bg",
+     "recipe": "M-27",
+     "trigger": "scroll-scrub",
+     "what": "Hero görseli içerikten yavaş kayar"
+    },
+    {
+     "layer": "post-title",
+     "recipe": "M-03",
+     "trigger": "load",
+     "what": "Başlık kelime kelime açılır"
+    },
+    {
+     "layer": "post-sidebar",
+     "recipe": "M-13",
+     "trigger": "sticky",
+     "what": "Yan sütun içerik kayarken sabit kalır"
+    },
+    {
+     "layer": "post-next",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "NEXT hücresi ters dolguya döner"
+    }
+   ]
+  },
+  {
+   "key": "MarqueeTitle",
+   "code": "MQT",
+   "kind": "section",
+   "pages": "İletişim",
+   "ikas": "(özel)",
+   "desktop": "1440 × 120; alt çizgi; sayfa adı kesintisiz kayar.",
+   "mobile": "Yükseklik 70.",
+   "tree": [
+    "marquee-title",
+    "└─ marquee (clip)",
+    "    └─ marquee-track                 {text:TEXT} ×6 kopya, text-display, aralık 40"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "marquee-track",
+     "recipe": "M-14",
+     "trigger": "auto-loop",
+     "what": "Sayfa başlığı kesintisiz kayar",
+     "timing": "{ speed: \"90px/s\", ease: linear, loop: true }"
+    }
+   ]
+  },
+  {
+   "key": "Contact",
+   "code": "CNT",
+   "kind": "section",
+   "pages": "İletişim",
+   "ikas": "(özel; form-handling rehberi)",
+   "desktop": "1440; iki eşit sütun, ortada dikey çizgi. Sütun başlıkları 85 yüksekliğinde alt çizgili satırlar.",
+   "mobile": "Tek sütun: önce form, sonra bilgiler ve FAQ.",
+   "tree": [
+    "contact",
+    "├─ contact-left",
+    "│   ├─ contact-heading               {infoTitle:TEXT} text-h3, alt çizgi",
+    "│   ├─ contact-info                  2 kolon: (e-posta, telefon, adres) | sosyal linkler",
+    "│   │   ├─ contact-item ×3           etiket text-ui-sm + değer text-label altı çizili",
+    "│   │   └─ contact-socials           {socialLinks:LIST_OF_LINK} text-label muted",
+    "│   ├─ faq-heading                   {faqTitle:TEXT} text-h3",
+    "│   └─ faq-list                      çerçeveli",
+    "│       └─ faq-item ×5               {faqItems:COMPONENT_LIST}",
+    "│           ├─ faq-question          text-ui-sm + faq-icon (artı / eksi)",
+    "│           └─ faq-answer            text-body",
+    "└─ contact-right",
+    "    ├─ contact-heading               {formTitle:TEXT} text-h3, alt çizgi",
+    "    └─ contact-form                  bitişik çerçeveli hücreler",
+    "        ├─ form-row                  form-field ×1–3 (yükseklik 48)",
+    "        ├─ form-textarea             yükseklik 160",
+    "        └─ submit-button (clip)      {submitText:TEXT} tam genişlik; top + bottom kopya"
+   ],
+   "checks": [
+    "faq-item açık ve kapalı halleri",
+    "form: boş, hata, gönderiliyor, başarılı halleri ayrı frame"
+   ],
+   "anims": [
+    {
+     "layer": "faq-answer",
+     "recipe": "M-22",
+     "trigger": "click",
+     "what": "Cevap açılır, ikon döner"
+    },
+    {
+     "layer": "submit-button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Buton dolgusu ters döner"
+    },
+    {
+     "layer": "contact-heading",
+     "recipe": "M-01",
+     "trigger": "load",
+     "what": "Sütun başlıkları aşağıdan girer"
+    }
+   ]
+  },
+  {
+   "key": "SupportContent",
+   "code": "SUP",
+   "kind": "section",
+   "pages": "Destek / politika sayfaları",
+   "ikas": "rich-text-section",
+   "desktop": "1440; 1200 genişlik kap: solda 300 yan menü (sticky), sağda içerik.",
+   "mobile": "Yan menü üstte yatay kaydırmalı sekmeler; içerik altında.",
+   "tree": [
+    "support-content",
+    "├─ support-nav                       sticky",
+    "│   ├─ support-link ×6               {navLinks:LIST_OF_LINK} text-ui-sm; aktif $color-text",
+    "│   └─ support-contact               çerçeveli kutu: {contactTitle:TEXT} + {contactText:TEXT} + link",
+    "└─ support-body",
+    "    ├─ support-title                 {title:TEXT} text-h3",
+    "    └─ support-rich-text             {content:RICH_TEXT}: ara başlık text-h4 + paragraf text-body"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "support-nav",
+     "recipe": "M-13",
+     "trigger": "sticky",
+     "what": "Yan menü içerik kayarken sabit kalır"
+    },
+    {
+     "layer": "support-link",
+     "recipe": "M-28",
+     "trigger": "hover",
+     "what": "Link rengi parlar"
+    }
+   ]
+  },
+  {
+   "key": "CartPage",
+   "code": "CRTP",
+   "kind": "section",
+   "pages": "Sepet (referansta yok, ikas için gerekli)",
+   "ikas": "cart-section",
+   "desktop": "1440; başlık alanı (text-display); solda ürün satırları (alt çizgili), sağda 480 genişlik sticky özet kutusu (çerçeveli).",
+   "mobile": "Tek sütun; özet altta; checkout butonu alt kenarda sabit.",
+   "tree": [
+    "cart-page",
+    "├─ list-header → list-title          {title:TEXT} text-display",
+    "├─ cart-lines",
+    "│   └─ cart-line-item ×N             görsel 120×150 · ad · varyant · quantity-selector · fiyat · remove-button",
+    "├─ cart-summary                      sticky",
+    "│   ├─ cart-coupon                   giriş + buton",
+    "│   ├─ cart-summary-row ×3           ara toplam · kargo · indirim",
+    "│   ├─ cart-total-row                text-h4 + text-price",
+    "│   └─ checkout-button (clip)        top + bottom kopya",
+    "└─ cart-empty                        {emptyTitle:TEXT} + {emptyText:TEXT} + buton"
+   ],
+   "checks": [
+    "dolu ve boş halleri ayrı frame"
+   ],
+   "anims": [
+    {
+     "layer": "cart-summary",
+     "recipe": "M-13",
+     "trigger": "sticky",
+     "what": "Özet kutusu satırlar kayarken sabit kalır"
+    },
+    {
+     "layer": "checkout-button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Buton dolgusu ters döner"
+    },
+    {
+     "layer": "cart-line-item",
+     "recipe": "M-01",
+     "trigger": "state-change",
+     "what": "Satır silinince/eklenince yumuşak geçiş",
+     "timing": "{ duration: 0.3, ease: ease-standard }"
+    }
+   ]
+  },
+  {
+   "key": "AuthForms",
+   "code": "AUTH",
+   "kind": "section",
+   "pages": "Giriş, kayıt, şifremi unuttum, şifre yenile (referansta yok)",
+   "ikas": "login-section / register-section / forgot-password-section / recover-password-section",
+   "desktop": "1440 × 720; iki eşit sütun: solda tam kaplama görsel + başlık, sağda ortalı 420 genişlik form.",
+   "mobile": "Görsel üstte 390×200; form altında tam genişlik.",
+   "tree": [
+    "auth",
+    "├─ auth-media",
+    "│   ├─ auth-image                    {image:IMAGE}",
+    "│   └─ auth-title                    {title:TEXT} text-h2",
+    "└─ auth-form                         genişlik 420",
+    "    ├─ form-field ×2–4               bitişik çerçeveli",
+    "    ├─ auth-helper-link              text-label altı çizili",
+    "    ├─ submit-button (clip)          {submitButtonText:TEXT}; top + bottom kopya",
+    "    └─ auth-switch                   {switchText:TEXT} + link"
+   ],
+   "checks": [
+    "4 sayfa ayrı frame: giriş, kayıt, şifremi unuttum, şifre yenile",
+    "hata ve yükleniyor halleri"
+   ],
+   "anims": [
+    {
+     "layer": "submit-button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Buton dolgusu ters döner"
+    },
+    {
+     "layer": "auth-form",
+     "recipe": "M-01",
+     "trigger": "load",
+     "what": "Form aşağıdan girer"
+    }
+   ]
+  },
+  {
+   "key": "Account",
+   "code": "ACC",
+   "kind": "section",
+   "pages": "Hesabım (referansta yok)",
+   "ikas": "account-info-section",
+   "desktop": "1440; başlık alanı; sticky sekme barı (PLP filter-bar ile aynı); altında sekme içeriği.",
+   "mobile": "Sekmeler yatay kaydırmalı; içerik tek sütun.",
+   "tree": [
+    "account",
+    "├─ list-header → list-title          {title:TEXT} text-display",
+    "├─ filter-bar                        sticky",
+    "│   └─ filter-tab ×5                 Bilgilerim · Siparişler · Adresler · Favoriler · Çıkış",
+    "└─ account-content",
+    "    ├─ account-info-form             form-field ızgarası + submit-button",
+    "    ├─ order-row ×N                  alt çizgili: sipariş no · tarih · durum · tutar · link",
+    "    ├─ address-card ×N               çerçeveli kart",
+    "    └─ order-detail                  ürün satırları + özet"
+   ],
+   "checks": [
+    "her sekme içeriği ayrı frame"
+   ],
+   "anims": [
+    {
+     "layer": "filter-bar",
+     "recipe": "M-18",
+     "trigger": "sticky",
+     "what": "Sekme barı header altında sabit kalır"
+    },
+    {
+     "layer": "filter-tab",
+     "recipe": "M-28",
+     "trigger": "hover | click",
+     "what": "Sekme rengi parlar"
+    }
+   ]
+  },
+  {
+   "key": "NotFound",
+   "code": "NF",
+   "kind": "section",
+   "pages": "404 ve e-posta doğrulama (referansta ölçülmedi)",
+   "ikas": "not-found-section / email-verification-section",
+   "desktop": "1440 × 720; kayan dev \"404\" şeridi + ortada mesaj ve buton.",
+   "mobile": "390 × 560.",
+   "tree": [
+    "not-found",
+    "├─ marquee (clip)",
+    "│   └─ marquee-track                 {code:TEXT} ×6 kopya, text-display muted",
+    "├─ not-found-title                   {title:TEXT} text-h3",
+    "├─ not-found-text                    {text:TEXT} text-ui muted",
+    "└─ not-found-button (clip)           {buttonText:TEXT}; top + bottom kopya"
+   ],
+   "checks": [],
+   "anims": [
+    {
+     "layer": "marquee-track",
+     "recipe": "M-14",
+     "trigger": "auto-loop",
+     "what": "404 yazısı kesintisiz kayar"
+    },
+    {
+     "layer": "not-found-button",
+     "recipe": "M-11",
+     "trigger": "hover",
+     "what": "Buton dolgusu ters döner"
+    }
+   ]
+  }
+ ],
+ "pages": [
+  {
+   "name": "Home",
+   "sections": "Header · HeroSlider · FeaturedCollection (promo solda) · FeaturedCollection (promo sağda) · ShoppableImages · CategoryCards · SplitBanners · SocialFeed · JournalFeatured · Footer",
+   "pageType": "INDEX"
+  },
+  {
+   "name": "Category",
+   "sections": "Header · ProductList · Footer",
+   "pageType": "CATEGORY"
+  },
+  {
+   "name": "Collection",
+   "sections": "Header · CollectionHero · ProductList · Footer",
+   "pageType": "COLLECTION"
+  },
+  {
+   "name": "Product",
+   "sections": "Header · ProductDetail · ProductCarousel · ProductCarousel · JournalFeatured · SocialFeed · Footer",
+   "pageType": "PRODUCT_DETAIL"
+  },
+  {
+   "name": "About",
+   "sections": "Header · AboutHero · PressSlider · ValuesStack · ProcessSteps · TeamGrid · Timeline · CtaBanner · Footer (+ AnchorNav sabit)",
+   "pageType": "CUSTOM"
+  },
+  {
+   "name": "Journal",
+   "sections": "Header · BlogList · Footer",
+   "pageType": "BLOG"
+  },
+  {
+   "name": "JournalPost",
+   "sections": "Header · BlogPost · JournalFeatured · Footer",
+   "pageType": "BLOG_POST"
+  },
+  {
+   "name": "Contact",
+   "sections": "Header · MarqueeTitle · Contact · ProductCarousel · Footer",
+   "pageType": "CUSTOM"
+  },
+  {
+   "name": "Support",
+   "sections": "Header · SupportContent · Footer",
+   "pageType": "CUSTOM"
+  },
+  {
+   "name": "Cart",
+   "sections": "Header · CartPage · Footer",
+   "pageType": "CART"
+  },
+  {
+   "name": "Auth (×4)",
+   "sections": "Header · AuthForms · Footer",
+   "pageType": "LOGIN",
+   "expand": [
+    {
+     "name": "Login",
+     "pageType": "LOGIN"
+    },
+    {
+     "name": "Register",
+     "pageType": "REGISTER"
+    },
+    {
+     "name": "ForgotPassword",
+     "pageType": "FORGOT_PASSWORD"
+    },
+    {
+     "name": "RecoverPassword",
+     "pageType": "RECOVER_PASSWORD"
+    }
+   ]
+  },
+  {
+   "name": "Account",
+   "sections": "Header · Account · Footer",
+   "pageType": "ACCOUNT"
+  },
+  {
+   "name": "NotFound",
+   "sections": "Header · NotFound · Footer",
+   "pageType": "NOT_FOUND"
+  }
+ ]
+}

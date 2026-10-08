@@ -1,0 +1,103 @@
+# 07 · Checklists — phase gates, the per-unit loop, CHK ids, final list, report formats
+
+## Contents
+1. Phase gates 0–5 (with the intake questionnaire)
+2. Per-unit build loop
+3. CHK table
+4. Final checklist (plan §9)
+5. verify-report format
+6. build-log format
+
+## 1. Phase gates 0–5
+
+A phase starts only when the previous gate passed; after each gate update the `Durum` row in `docs/00-brief.md` (`Faz | Durum | Dosya | Tarih | Not`; Durum ∈ `bekliyor`, `sürüyor`, `tamam`, `istisna`).
+
+**Phase 0 · intake** — `AskUserQuestion`, Turkish, two rounds of ≤ 4 questions:
+- Round 1: (1) inputs — screenshots (each with its viewport width) and/or live URL + paths; (2) brand name → slug `^[a-z0-9-]+$`, sector, three tone adjectives; (3) interpretation strategy (aynı iskelet / yakın klon / serbest yorum) and prefix letter A–Z — check `get_app_state` / root frame names for a collision; (4) reference policy: look-only, no reference images, copy, logo or brand name on the canvas — confirm.
+- Round 2: (5) pages in scope — `06-page-coverage.md` defaults pre-ticked, optional ones offered; (6) locale, currency format (`1.850 TL`), uppercase policy; (7) palette modes — single palette / inverse sections (`mode: dark` on some sections) / full dark; (8) canvas file + devices (default 1440 / 390) and motion appetite (sade / orta / yoğun).
+- Gate: `templates/00-brief.md` fully filled (no `…` left), the user says the brief is right; Durum row 0 → `tamam`.
+
+**Phase 1 · analyze** — gate: `lint_plan.py --globals docs/referans/globals.md --components docs/referans/components.md` prints `LINT OK`; every value tagged `[ölçüldü]` or `[tahmini]`; inputs copied to `docs/referans/girdi/` and that folder listed in the project `.gitignore`.
+
+**Phase 2 · plan** — gate: `lint_plan.py docs/pendev/plan-<P>-<slug>.md --globals docs/referans/globals.md` prints `LINT OK (n targets)`; WCAG contrast passes for every text/background pair (contract 2: ERROR); plan §1 (identity) and §6.2 (section list) shown to the user.
+
+**Phase 3 · build** — gate per unit: the unit's CHK lines all `PASS` (or `WARN` allowed by §3), one screenshot taken, one build-log line appended. Phase gate: every unit in plan order (ds → subs → sections → pages → overlays → motion) has a build-log line.
+
+**Phase 4 · verify** — gate: `docs/pendev/verify-report.md` written from `--js all`; every `FAIL` fixed or listed as an exception the user accepted in writing; manual checks (Turkish glyphs, contrast) done.
+
+**Phase 5 · handoff** — gate: `build_manifest.py` exits 0 (no plan section or anim target missing on the canvas); `docs/port/port-manifest.{json,md}` and `globals-runbook.md` written; open questions listed to the user.
+
+## 2. Per-unit build loop
+
+A unit is one root pair (`@desktop` + `@mobile`), one Sub with its state frames, one overlay with its states, or the DS / pages / motion batch.
+
+1. **Read** the unit's block in the plan (§6.0–§6.5) and the tail of `docs/pendev/build-log.md` (resume: re-read listed node ids, `05-pendev-pitfalls.md` §12).
+2. **Placeholder:** `FindEmptySpace` in the right band → `Insert` the root with `placeholder: true`, final name and root metadata.
+3. **Build** the whole tree in that `execute` (one call per root frame): every node named as in the plan tree, flat metadata, `textClass` on every text, anim ids also in `context`, values only `$variables`. Polish with `Update` in a follow-up call if needed.
+4. **Check:** `python3 ${CLAUDE_SKILL_DIR}/scripts/extract_targets.py <plan> --js section:<Key>` → run the printed read-only snippet with `execute`. (DS, Subs, pages: run `--js all` and read the relevant CHK lines.)
+5. **Screenshot:** one `TakeScreenshot` of the finished unit (smallest meaningful node).
+6. **Fix** every FAIL in place — never delete-and-rebuild; metadata fixes use `05-pendev-pitfalls.md` §2. Re-run step 4.
+7. **Close:** `Update(root, {placeholder: false})`, append the build-log line (§6). Next unit.
+
+## 3. CHK table
+
+Emitted by `pendev_checks.js` as `CHK|<id>|PASS|FAIL|WARN|<n>|<detail≤200>`, closed by `SUMMARY|pass=..|fail=..|warn=..`. `n` = offending count (or `found/expected`). Contract 1 = legacy gizem canvas (37 variables, no `textClass`); contract 2 = all new projects.
+
+| id | What | Pass rule (contract 2) | Contract 1 behaviour |
+|---|---|---|---|
+| `vars` | core variables | `GetVariables()` has all 41 core names; themed ones carry axes `device` and/or `mode` as in `02-contract.md` | expects the 37 gizem names |
+| `hardcoded` | raw values | no node under `P/` roots has a literal `#hex` fill/stroke, numeric `fontSize` or literal `fontFamily` (allowlist in `02-contract.md` §3) | same rule |
+| `sections` | section frames | every plan §6.2 Section key has `P/Section/<Key>@desktop` and `@mobile`, both `reusable: true` | same |
+| `pages` | page composition | every plan §6.3 page exists at both devices; children are only `ref`s to `P/Section/*` of the same device | same |
+| `overlays` | overlay frames | every plan overlay × listed state × device has a root `P/Overlay/<Name>@device — <state>` | same |
+| `anim` | animation targets | set of ids from `metadata.anim` ∪ `context` regex (`resolveInstances: true`) equals the plan's id set, both directions | regex `C-[A-Z]{2,}-\d\d` style (prefix-specific), same equality |
+| `textclass` | text classification | 0 text nodes without `textClass`; `prop` has `prop`+`propType` (one of the 30); `data` has `source` | `WARN` with the unmarked count (gizem baseline ≈ 350); never FAIL |
+| `clip` | clipped content | 0 nodes with `ctx.problems`, excluding descendants of layers named `*mask*`, `*track*`, `marquee`, `ticker`, `*pin*`, `*stage*`, `*curtain*` | same |
+| `rootmeta` | root metadata | every `P/` root has `type`=slug, `role`, `ikas` (section/overlay/sub), `device` (section/page/overlay), `variant`=P, `contract`=2 | `contract` key not required |
+| `bgprop` | section background prop | every Section root has `prop:"backgroundColor", propType:"COLOR"` | skipped → `WARN` "contract 1" |
+| `placeholder` | unfinished roots | no `P/` root has `placeholder: true` (during build: only the current unit may) | same |
+| `refassets` | reference leakage | no image-fill `url` and no text content contains the reference host or brand name from the brief | same |
+| `ds` | design-system frames | `P/DS/{Colors,Typography,Spacing,Icons,Motion,Imagery}` present (6/6) | 5/5, `Imagery` not required |
+
+## 4. Final checklist (plan §9)
+
+Design side — every item maps to a CHK or a manual check:
+- [ ] `GetVariables()` contains all plan §3 variables; no hardcoded hex / font size / font family (`vars`, `hardcoded`).
+- [ ] Every §6.2 section has reusable `@desktop` and `@mobile` roots (`sections`).
+- [ ] Every §6.3 page consists only of Section instances (`pages`); every overlay state exists at both devices (`overlays`).
+- [ ] The **union** of `metadata.anim` and the `context` scan (plan §8 step 2) equals the §7 id list exactly (`anim`).
+- [ ] Every text layer has `textClass`; `prop` texts carry `prop`+`propType`, `data` texts carry `source` (`textclass`).
+- [ ] No clipped-content warning on any frame, masks and tracks excepted (`clip`).
+- [ ] Turkish characters (`İ Ş Ğ Ü Ö Ç ı`) render correctly in every chosen font — screenshot of `P/DS/Typography` (manual).
+- [ ] No reference images, copy or logo used; no fill URL from the reference host (`refassets` + manual look).
+- [ ] `P/DS/Imagery` exists with the generated photography direction (`ds`).
+- [ ] Every text/background pair passes WCAG AA (`02-contract.md` §10; manual on the `P/DS/Colors` pairs).
+- [ ] Every Section root carries the `backgroundColor` COLOR prop (`bgprop`); root metadata complete (`rootmeta`).
+- [ ] No root left with `placeholder: true` (`placeholder`).
+
+Port side (done later by the port, listed so the handoff carries it): theme globals created and re-listed with `list_theme_globals`; every section passes `check` and `build`; every anim target `done: true`.
+
+## 5. verify-report format
+
+`docs/pendev/verify-report.md` (Turkish; skeleton in `templates/verify-report.md`):
+1. Header: date, canvas file, plan path, prefix, contract, `--js all` run date.
+2. `## CHK sonuçları` table `| CHK | Sonuç | n | Ayrıntı |` — one row per CHK line, copied verbatim, then the `SUMMARY|…` line quoted.
+3. `## Elle kontroller` — Turkish glyph check, contrast pairs, reference look-through: each `geçti` / `kaldı` + note.
+4. `## İstisnalar` table `| CHK | Node / kök | Gerekçe | Kullanıcı onayı |` — one line of reasoning each; empty table if none.
+5. `## Ekran görüntüleri` — list of screenshots taken (unit, node id, what it shows).
+6. `## Sonuç` — one sentence: ready for handoff or not.
+
+## 6. build-log format
+
+`docs/pendev/build-log.md` is append-only and lets a new session resume. Header once:
+
+```
+# Build log — <slug> (<P>, contract <n>)
+
+| Kök | Node | CHK | Ekran görüntüsü |
+|---|---|---|---|
+```
+
+Then one line per finished root frame: `| <root> | <nodeId> | <CHK summary> | <screenshot note> |`, e.g.
+`| P/Section/Hero@desktop | 4kT9x | sections PASS · anim 8/8 · textclass 0 · clip 0 | masaüstü hero, başlık maskeleri doğru |`.
+Fixes after the fact get a new line with the same root and `düzeltme:` in the note; never edit old lines.

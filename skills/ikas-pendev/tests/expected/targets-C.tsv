@@ -1,0 +1,115 @@
+C-CMP-01	Sub/ProductCard	image-back	M-09	css-transition
+C-CMP-02	Sub/ProductCard	card-spec	C-M-05	css-transition
+C-CMP-03	Sub/ProductCardSmall	card-arrow	M-10	css-transition
+C-CMP-04	Sub/BlogCard	blog-card-image	M-09	css-transition
+C-CMP-05	Sub/Button	button	M-11	css-transition
+C-CMP-06	Sub/ArrowLink	link	M-10	css-transition
+C-CMP-07	Sub/Hotspot	hotspot-outer	M-12	css-keyframes + css-transition
+C-CMP-08	Sub/Marquee	marquee-track	M-14	css-keyframes
+C-CMP-09	Sub/Tabs	filter-tab	M-28	css-transition
+C-CMP-10	Sub/VariantChip	variant-chip	M-28	css-transition
+C-CMP-11	Sub/AccordionItem	faq-answer	M-22	css-transition
+C-CMP-12	Sub/SectionHeading	section-title	M-03	animejs + io-hook
+C-CMP-13	Sub/Sticker	wall-sticker	C-M-07	animejs + io-hook
+C-CMP-14	Sub/ScrambleText	scramble-text	C-M-01	animejs (ya da setInterval)
+C-HDR-01	Header	marquee-track	M-14	css-keyframes
+C-HDR-02	Header	nav-link	C-M-01	animejs (ya da setInterval)
+C-HDR-03	Header	cart-button	C-M-01	animejs (ya da setInterval)
+C-MENU-01	MenuOverlay	menu-overlay	C-M-02	animejs
+C-MENU-02	MenuOverlay	menu-item	M-01	animejs
+C-MENU-03	MenuOverlay	menu-item-label	C-M-01	animejs (ya da setInterval)
+C-MENU-04	MenuOverlay	menu-preview	C-M-02	animejs
+C-CART-01	CartDrawer	cart-drawer	M-20	css-transition + animejs
+C-CART-02	CartDrawer	cart-line-item	M-20	animejs
+C-CART-03	CartDrawer	checkout-button	M-11	css-transition
+C-SRCH-01	SearchOverlay	search-panel	M-21	css-transition
+C-SRCH-02	SearchOverlay	search-results	M-01	animejs
+C-FTR-01	Footer	footer-wordmark	C-M-01	animejs (ya da setInterval)
+C-FTR-02	Footer	footer-link	M-28	css-transition
+C-FTR-03	Footer	newsletter-button	M-11	css-transition
+C-HERO-01	HeroSplit	curtain	C-M-02	animejs
+C-HERO-02	HeroSplit	hero-title	C-M-01	animejs (ya da setInterval)
+C-HERO-03	HeroSplit	digit-mask	C-M-08	css-transition + setInterval
+C-HERO-04	HeroSplit	hero-sticker	C-M-07	animejs + io-hook
+C-HERO-05	HeroSplit	hero-button	M-11	css-transition
+C-HERO-06	HeroSplit	hero-counter	C-M-01	animejs (ya da setInterval)
+C-TICK-01	TickerStrip	marquee-track	M-14	css-keyframes
+C-IDX-01	ProductIndex	index-preview	C-M-03	scroll-scrub benzeri (pointermove + rAF)
+C-IDX-02	ProductIndex	index-row	M-11	css-transition
+C-IDX-03	ProductIndex	index-name	C-M-01	animejs (ya da setInterval)
+C-IDX-04	ProductIndex	index-arrow	M-10	css-transition
+C-LOOK-01	LookbookScroll	lookbook-track	C-M-04	layout + scroll-scrub
+C-LOOK-02	LookbookScroll	lookbook-progress	M-08	scroll-scrub
+C-LOOK-03	LookbookScroll	lookbook-number	M-27	scroll-scrub
+C-LOOK-04	LookbookScroll	lookbook-tag	C-M-07	animejs + io-hook
+C-MOS-01	CategoryMosaic	mosaic-hover	C-M-05	css-transition
+C-MOS-02	CategoryMosaic	marquee-track	M-14	css-keyframes
+C-MOS-03	CategoryMosaic	mosaic-image	M-09	css-transition
+C-DROP-01	DropGrid	card-spec	C-M-05	css-transition
+C-DROP-02	DropGrid	image-back	M-09	css-transition
+C-DROP-03	DropGrid	product-grid	M-01	animejs + io-hook
+C-DROP-04	DropGrid	section-title	C-M-01	animejs (ya da setInterval)
+C-MANI-01	Manifesto	manifesto-text	C-M-06	scroll-scrub
+C-MANI-02	Manifesto	manifesto-button	M-11	css-transition
+C-WALL-01	StickerWall	wall-photo	C-M-07	animejs + io-hook
+C-WALL-02	StickerWall	wall-sticker	C-M-07	animejs + io-hook
+C-WALL-03	StickerWall	wall-title	C-M-01	animejs (ya da setInterval)
+C-WALL-04	StickerWall	link	M-10	css-transition
+C-JROW-01	JournalRows	journal-row-image	C-M-02	animejs + io-hook
+C-JROW-02	JournalRows	journal-row-title	M-01	css-transition
+C-JROW-03	JournalRows	index-arrow	M-10	css-transition
+C-PLP-01	ProductList	list-title	C-M-01	animejs (ya da setInterval)
+C-PLP-02	ProductList	filter-sidebar	M-13	layout
+C-PLP-03	ProductList	list-toolbar	M-18	layout + css-transition
+C-PLP-04	ProductList	filter-group	M-22	css-transition
+C-PLP-05	ProductList	product-grid	M-01	animejs
+C-PLP-06	ProductList	card-spec	C-M-05	css-transition
+C-COLL-01	CollectionHero	collection-hero-bg	M-27	scroll-scrub
+C-COLL-02	CollectionHero	collection-title	M-03	animejs + io-hook
+C-COLL-03	CollectionHero	collection-info	M-01	animejs + io-hook
+C-PDP-01	ProductDetail	pdp-details	M-13	layout
+C-PDP-02	ProductDetail	pdp-title	C-M-01	animejs (ya da setInterval)
+C-PDP-03	ProductDetail	pdp-image	C-M-02	animejs + io-hook
+C-PDP-04	ProductDetail	add-to-cart-button	M-11	css-transition
+C-PDP-05	ProductDetail	variant-chip	M-28	css-transition
+C-PDP-06	ProductDetail	faq-answer	M-22	css-transition
+C-CRSL-01	ProductCarousel	section-title	M-03	animejs + io-hook
+C-CRSL-02	ProductCarousel	carousel-track	M-15	css scroll-snap
+C-CRSL-03	ProductCarousel	link	M-10	css-transition
+C-ABH-01	AboutHero	about-hero-bg	M-27	scroll-scrub
+C-ABH-02	AboutHero	title-line	M-03	animejs + io-hook
+C-ABH-03	AboutHero	about-mission	M-01	css-keyframes
+C-PRS-01	PressSlider	press-track	M-26	animejs
+C-VAL-01	ValuesStack	value-panel	M-13	layout
+C-VAL-02	ValuesStack	value-image	M-23	scroll-scrub
+C-VAL-03	ValuesStack	value-title	M-24	scroll-scrub
+C-VAL-04	ValuesStack	value-paragraph	M-24	scroll-scrub
+C-PRC-01	ProcessSteps	section-title	M-03	animejs + io-hook
+C-PRC-02	ProcessSteps	process-step	M-01	animejs + io-hook
+C-PRC-03	ProcessSteps	process-image	M-27	scroll-scrub
+C-TEAM-01	TeamGrid	section-title	M-03	animejs + io-hook
+C-TEAM-02	TeamGrid	team-member	M-01	animejs + io-hook
+C-TML-01	Timeline	section-title	M-03	animejs + io-hook
+C-TML-02	Timeline	timeline-row	M-01	css-keyframes
+C-CTA-01	CtaBanner	cta-title	M-03	animejs + io-hook
+C-CTA-02	CtaBanner	cta-button	M-11	css-transition
+C-ANC-01	AnchorNav	anchor-link	M-25	io-hook + css-transition
+C-BLP-01	BlogPost	post-hero-bg	M-27	scroll-scrub
+C-BLP-02	BlogPost	post-title	M-03	animejs + io-hook
+C-BLP-03	BlogPost	post-sidebar	M-13	layout
+C-BLP-04	BlogPost	post-next	M-11	css-transition
+C-MQT-01	MarqueeTitle	marquee-track	M-14	css-keyframes
+C-CNT-01	Contact	faq-answer	M-22	css-transition
+C-CNT-02	Contact	submit-button	M-11	css-transition
+C-CNT-03	Contact	contact-heading	M-01	css-keyframes
+C-SUP-01	SupportContent	support-nav	M-13	layout
+C-SUP-02	SupportContent	support-link	M-28	css-transition
+C-CRTP-01	CartPage	cart-summary	M-13	layout
+C-CRTP-02	CartPage	checkout-button	M-11	css-transition
+C-CRTP-03	CartPage	cart-line-item	M-01	css-keyframes
+C-AUTH-01	AuthForms	submit-button	M-11	css-transition
+C-AUTH-02	AuthForms	auth-form	M-01	css-keyframes
+C-ACC-01	Account	filter-bar	M-18	layout + css-transition
+C-ACC-02	Account	filter-tab	M-28	css-transition
+C-NF-01	NotFound	marquee-track	M-14	css-keyframes
+C-NF-02	NotFound	not-found-button	M-11	css-transition

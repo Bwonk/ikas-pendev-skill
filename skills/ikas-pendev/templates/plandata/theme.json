@@ -1,0 +1,124 @@
+{
+ "schema": 1,
+ "contract": 2,
+ "theme": {
+  "slug": "marka-adi",
+  "name": "Marka Adı",
+  "sector": "sektör (ör. streetwear)",
+  "prefix": "P",
+  "title": "Plan P — <tek cümlelik yön adı>",
+  "lead": "<Referanstan ne alınır, ne yeniden tasarlanır: tek paragraf.>",
+  "reference": {
+   "url": "https://referans-site.example/",
+   "canvasImportNote": "",
+   "policy": "referans sadece ilham; görsel, metin ve logo kullanılmaz"
+  },
+  "penFile": "marka-adi-P.pen",
+  "codeDir": "marka-adi/src/",
+  "locale": "tr-TR",
+  "currency": "TRY"
+ },
+ "identity_md": [
+  "**Konsept: \"<KONSEPT>\".** <Markanın tonu ve görsel fikri, 2–3 cümle.>",
+  "",
+  "**Referanstan farklar:**",
+  "- <zemin / palet farkı>",
+  "- <tipografi: başlık, arayüz, etiket fontları>",
+  "- <görsel dili; `Generate(\"ai\" | \"stock\")` ile özgün üretilir>",
+  "- Metinler Türkçe, büyük harf (`İ Ş Ğ Ü Ö Ç` kontrolü).",
+  "",
+  "**Örnek içerik:** <nav, hero, buton ve ürün örnekleri>"
+ ],
+ "modes": ["light", "dark"],
+ "devices": {"desktop": {"width": 1440, "height": 900}, "mobile": {"width": 390, "height": 844}},
+ "variables": {
+  "colors": {
+   "color-bg": ["#F2F0EB", "#111111"],
+   "color-text": ["#111111", "#F2F0EB"],
+   "color-muted": ["#5F5F5F", "#A0A0A0"],
+   "color-line": ["#111111", "#F2F0EB"],
+   "color-surface": ["#E6E3DC", "#1C1C1C"],
+   "color-inverse-bg": ["#111111", "#F2F0EB"],
+   "color-inverse-text": ["#F2F0EB", "#111111"],
+   "color-accent": ["#E5402A", "#E5402A"],
+   "color-accent-text": ["#111111", "#111111"],
+   "color-scrim": ["#11111199", "#111111B3"],
+   "color-transparent": ["#F2F0EB00", "#11111100"],
+   "color-danger": ["#B3261E", "#F2B8B5"],
+   "color-success": ["#2E7D32", "#81C784"]
+  },
+  "fonts": {
+   "font-display": "Oswald",
+   "font-ui": "Barlow",
+   "font-body": "Barlow",
+   "font-price": "Barlow Condensed",
+   "font-mono": "Space Mono"
+  },
+  "type": {
+   "text-display": [120, 56],
+   "text-h2": [80, 40],
+   "text-h3": [48, 32],
+   "text-h4": [28, 22],
+   "text-title": [20, 18],
+   "text-ui": [16, 15],
+   "text-ui-sm": [14, 13],
+   "text-badge": [12, 11],
+   "text-label": [12, 11],
+   "text-body": [16, 15],
+   "text-price": [20, 18]
+  },
+  "numbers": {
+   "space-page": [32, 16],
+   "space-grid": [8, 4],
+   "space-card": [12, 10],
+   "space-panel": [24, 16],
+   "space-xs": [4, 4],
+   "space-sm": [8, 8],
+   "space-md": [16, 12],
+   "space-section": [120, 64],
+   "size-header": [72, 60],
+   "size-line": 1,
+   "opacity-inactive": 0.3,
+   "size-logo": [28, 22]
+  }
+ },
+ "typeStyles": {
+  "map": [
+   {"styles": ["text-display", "text-h2", "text-h3", "text-h4"], "spec": "`$font-display`, satır yüksekliği 1.0"},
+   {"styles": ["text-title", "text-ui", "text-ui-sm", "text-badge"], "spec": "`$font-ui`, 700, satır 1.1"},
+   {"styles": ["text-label"], "spec": "`$font-mono`"},
+   {"styles": ["text-body"], "spec": "`$font-body`, 500, satır 1.4"},
+   {"styles": ["text-price"], "spec": "`$font-price`, 700"}
+  ],
+  "note": "Hepsi büyük harf (gövde metni hariç)."
+ },
+ "fontCheck": {
+  "valid": ["Anton", "Antonio", "Archivo Narrow", "Barlow", "Barlow Condensed", "Bebas Neue", "JetBrains Mono", "Mona Sans", "Oswald", "Sofia Sans Extra Condensed", "Space Mono"],
+  "invalid": ["Mona Sans Condensed", "Big Shoulders Display"]
+ },
+ "ds": {
+  "sampleText": "GÖLGE İÇİNDE ŞIK ÇÖZÜM 1.850 TL",
+  "icons": "arama, hesap, sepet, menü, kapat, filtre, ok ↗, caret, artı, eksi, onay"
+ },
+ "recipes": {"local": {}},
+ "via": {"link": "ArrowLink", "faq-answer": "AccordionItem", "marquee-track": "Marquee"},
+ "viaRules": [{"recipe": "M-11", "layerContains": "button", "via": "Button"}],
+ "utils": {"extra": []},
+ "components": [
+  {
+   "name": "Button",
+   "structure": "`button` (clip) içinde `top` + `bottom` kopya; yükseklik 48; text-ui; türler: dolu, çerçeveli",
+   "states": "varsayılan · hover · pasif · yükleniyor (spinner) · eklendi · stok yok",
+   "anims": [{"layer": "button", "recipe": "M-11", "trigger": "hover", "what": "Dolgu alttan kayar, etiket yukarı çıkar"}]
+  },
+  {
+   "name": "ArrowLink",
+   "structure": "`link`: etiket text-ui + `link-line` + `link-arrow` (clip: `arrow-top` + `arrow-bottom`)",
+   "states": "varsayılan · hover",
+   "anims": [{"layer": "link", "recipe": "M-10", "trigger": "hover", "what": "Ok döner, alt çizgi uzar"}]
+  }
+ ],
+ "pages": [
+  {"name": "Home", "sections": "Example", "pageType": "INDEX"}
+ ]
+}

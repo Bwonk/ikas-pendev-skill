@@ -1,0 +1,23 @@
+{
+ "key": "FilterDrawer",
+ "code": "FILT",
+ "kind": "overlay",
+ "devices": ["mobile"],
+ "pages": "ProductGrid (mobil)",
+ "ikas": "ProductGrid sub-component",
+ "desktop": "Desktop karşılığı yok (filtreler satır içinde).",
+ "mobile": "Alttan açılan tam genişlik çekmece; arkada `scrim`.",
+ "tree": [
+  "filter-overlay",
+  "├─ scrim",
+  "└─ filter-drawer",
+  "    ├─ filter-header                 {filterTitle:TEXT} + close-button",
+  "    ├─ filter-group ×3               {data:category.filterName} + filter-option ×N",
+  "    └─ apply-button (clip)           {applyText:TEXT}; top + bottom kopya"
+ ],
+ "checks": ["açık ve seçimli halleri ayrı frame"],
+ "anims": [
+  {"layer": "filter-drawer", "recipe": "M-20", "trigger": "click", "what": "Çekmece alttan kayar, scrim belirir", "frm": "{ y: 100%, scrim.opacity: 0 }", "to": "{ y: 0, scrim.opacity: 1 }"},
+  {"layer": "filter-group", "recipe": "M-22", "trigger": "click", "what": "Filtre grubu akordeon olarak açılır"}
+ ]
+}

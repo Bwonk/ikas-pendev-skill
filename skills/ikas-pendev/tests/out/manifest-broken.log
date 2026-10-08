@@ -1,0 +1,25 @@
+Q|Q1|data-unmarked|contract|Contract 1: metinlerde textClass yok; dataBound ve codeText boş. Veri bağlı ve kodla üretilen metinler aktarımda elle belirlenmeli.
+Q|Q2|prop-mismatch|Header.searchText|Planda TEXT, canvas'ta prop yok
+Q|Q3|prop-mismatch|Header.accountText|Planda TEXT, canvas'ta prop yok
+Q|Q4|prop-mismatch|Header.cartText|Planda TEXT, canvas'ta prop yok
+Q|Q5|prop-mismatch|Header.menuText|Planda TEXT, canvas'ta prop yok
+Q|Q6|prop-mismatch|ProductIndex.title|Planda TEXT, canvas'ta prop yok
+Q|Q7|prop-mismatch|ProductIndex.linkText|Planda TEXT, canvas'ta prop yok
+Q|Q8|prop-mismatch|CategoryMosaic.countSuffixText|Planda TEXT, canvas'ta prop yok
+Q|Q9|prop-mismatch|DropGrid.title|Planda TEXT, canvas'ta prop yok
+Q|Q10|prop-mismatch|DropGrid.metaText|Planda TEXT, canvas'ta prop yok
+Q|Q11|prop-mismatch|DropGrid.linkText|Planda TEXT, canvas'ta prop yok
+Q|Q12|prop-mismatch|DropGrid.quickAddText|Planda TEXT, canvas'ta prop yok
+Q|Q13|prop-mismatch|Manifesto.buttonText|Planda TEXT, canvas'ta prop yok
+Q|Q14|prop-mismatch|JournalRows.title|Planda TEXT, canvas'ta prop yok
+Q|Q15|prop-mismatch|JournalRows.linkText|Planda TEXT, canvas'ta prop yok
+Q|Q16|prop-mismatch|ProductList.countSuffixText|Planda TEXT, canvas'ta prop yok
+Q|Q17|prop-mismatch|ProductList.viewToggleAriaLabel|Planda TEXT, canvas'ta prop yok
+Q|Q18|prop-mismatch|ProductList.applyFiltersText|Planda TEXT, canvas'ta prop yok
+Q|Q19|prop-mismatch|ProductList.clearFiltersText|Planda TEXT, canvas'ta prop yok
+Q|Q20|missing-section|Timeline|Planda var, canvas'ta `C/Section/Timeline@desktop` / `C/Section/Timeline@mobile` kök frame'i yok (anim hedefleri: C-TML-01, C-TML-02)|BLOCKING
+Q|Q21|anim-missing-on-canvas|C-PDP-03|Plandaki hedef (ProductDetail · pdp-image) canvas'ta hiçbir kök frame'de yok (metadata.anim / context)|BLOCKING
+FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port-broken/port-manifest.json
+FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port-broken/port-manifest.md
+FILE|/Users/yigitozen/orca/ikas-pendev-skill/skills/ikas-pendev/tests/out/port-broken/globals-runbook.md
+MANIFEST|sections=31|overlays=3|subs=20|pages=16|anims=115|open=21|blocking=2

@@ -1,0 +1,27 @@
+{
+ "key": "ProductGrid",
+ "code": "GRID",
+ "kind": "section",
+ "pages": "Ana sayfa, kategori",
+ "ikas": "category-list-section",
+ "props": "`title` TEXT · `productList` PRODUCT_LIST · `filterButtonText` TEXT · `backgroundColor` COLOR",
+ "mode": "dark",
+ "desktop": "1440; başlık satırı + 4 sütun ızgara (kart 344×460), aralık $space-grid.",
+ "mobile": "2 sütun; \"FİLTRE\" butonu FilterDrawer'ı açar.",
+ "tree": [
+  "product-grid-section",
+  "├─ grid-header",
+  "│   ├─ grid-title                    {title:TEXT} text-h2",
+  "│   ├─ grid-count                    {data:category.productCount} font-mono",
+  "│   └─ filter-button                 {filterButtonText:TEXT}",
+  "└─ product-grid",
+  "    └─ ProductCard ×8                {productList:PRODUCT_LIST}; card-images → image-front + image-back",
+  "        ├─ card-title                {data:product.name}",
+  "        └─ price                     {data:product.price}"
+ ],
+ "checks": ["en az 8 kart"],
+ "anims": [
+  {"layer": "product-grid", "recipe": "M-01", "trigger": "inview", "what": "Kartlar sırayla girer", "timing": "{ duration: 0.5, ease: ease-standard, stagger: 0.05 }", "impl": "animejs + io-hook"},
+  {"layer": "image-back", "recipe": "M-09", "trigger": "hover", "what": "Ön görsel arka görsele geçer", "via": "ProductCard"}
+ ]
+}

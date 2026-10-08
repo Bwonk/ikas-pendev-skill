@@ -1,0 +1,23 @@
+{
+ "key": "HeroBanner",
+ "code": "HERO",
+ "kind": "section",
+ "pages": "Ana sayfa",
+ "ikas": "hero-slider-section (uyarlanır)",
+ "props": "`title`, `buttonText` TEXT · `image` IMAGE · `link` LINK · `backgroundColor` COLOR",
+ "desktop": "1440 × 760; tam kaplama görsel, sol altta başlık ve buton.",
+ "mobile": "390 × 520; başlık text-display (mobil).",
+ "tree": [
+  "hero-banner",
+  "├─ hero-image                        {image:IMAGE}, kabından %15 yüksek",
+  "├─ hero-title-mask (clip) → hero-title   {title:TEXT} text-display \"ZİRVEYE ÇIK\"",
+  "├─ hero-counter                      {code:slideCounter} font-mono \"01 / 03\"",
+  "└─ hero-button (clip)                {buttonText:TEXT}; top + bottom kopya"
+ ],
+ "checks": ["başlık kendi clip maskesinde"],
+ "anims": [
+  {"layer": "hero-image", "recipe": "K-M-01", "trigger": "scroll-scrub", "what": "Görsel \"katman\" hızıyla kayar"},
+  {"layer": "hero-title", "recipe": "M-03", "trigger": "load", "what": "Başlık kelime kelime açılır"},
+  {"layer": "hero-button", "recipe": "M-11", "trigger": "hover", "what": "Buton dolgusu ters döner"}
+ ]
+}

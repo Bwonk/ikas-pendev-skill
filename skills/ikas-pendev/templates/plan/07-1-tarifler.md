@@ -1,0 +1,2 @@
+| Tarif | Kullanım | Uygulama yolu |
+|---|---|---|

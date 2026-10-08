@@ -1,0 +1,53 @@
+§-|ERROR|fence:L258|L01 unclosed code fence
+§-|ERROR|@@SLUG@@:L6|L01 leftover placeholder @@SLUG@@
+§6|ERROR|yaml:L178|L02 what: plain scalar contains ': ' (quote it)
+§6|ERROR|yaml:L180|L02 to: unbalanced flow mapping
+§6|ERROR|Z-hdr-3:L172|L02 missing key 'mobile'
+§6|WARN|Z-hdr-3:L185|L02 unknown key 'speed'
+§6|ERROR|Z-hdr-3:L184|L02 done must be true|false, got 'no'
+§6|WARN|Z-hdr-3:L177|L02 unknown trigger wiggle
+§6|ERROR|Z-HDR-01:L159|L03 duplicate id (first at L145)
+§6|ERROR|Z-hdr-3:L172|L03 id does not match ^Z-(CMP|[A-Z]{2,5})-\d\d$
+§6|WARN|Header|L03 section uses several id codes: Z-HDR, Z-hdr
+§5.1|ERROR|Q-M-01|L04 local recipe id must use the plan prefix Z-M-NN
+§6|ERROR|Z-HDR-01:L162|L04 M-17 is forbidden (Lenis / not portable to ikas)
+§6|ERROR|Z-hdr-3:L176|L04 recipe M-99 not in catalogue
+§6.1|ERROR|Z-CMP-02:L108|L05 component Ghost not in §6.1 table
+§6.2|ERROR|Z-hdr-3:L174|L06 layer 'cart-button' not found in Section/Header tree
+§6.2|ERROR|Z-hdr-3:L175|L07 via 'Ghost' is not a §6.1 component
+§6|ERROR|Z-HDR-01:L168|L08 forbidden library in impl: gsap
+§7|ERROR|total|L09 §7 says 7 targets, blocks hold 6
+§7|ERROR|Sub/Ghost|L09 section missing from §7 table
+§7|ERROR|Header:L249|L09 count 2, blocks hold 3
+§7|ERROR|Header:L249|L09 recipes M-14 != blocks M-14,M-17,M-99
+§7|ERROR|Header:L249|L09 id range Z-HDR-01…Z-HDR-02 != Z-HDR-01…Z-hdr-3
+§7|ERROR|M-10|L09 recipe missing from usage table
+§7|ERROR|M-14:L256|L09 usage 2, blocks use 1
+§7|ERROR|M-17|L09 recipe missing from usage table
+§7|ERROR|M-99|L09 recipe missing from usage table
+§7|ERROR|Z-M-01|L09 recipe missing from usage table
+§6.5|WARN|Z-M-01|L10 state recipe used but no Motion States row
+§6.5|WARN|M-22:L241|L10 Motion States row for an unused recipe
+§3|ERROR|color-success|L11 core variable missing (contract 2 needs 41)
+§3|WARN|radius-card:L52|L11 variable outside the core set
+§3|ERROR|color-line:L15|L12 #RRGGBBAA only allowed on color-scrim / color-transparent
+§3|ERROR|color-transparent:L22|L12 color-transparent must be #RRGGBB00
+§3|ERROR|text-h2:L30|L12 size variable themed by mode; use device
+§3|ERROR|text-h2:L30|L12 device axis needs desktop and mobile
+§3|ERROR|text-price:L39|L11 type string, expected number
+§3|WARN|space-grid:L41|L12 no device axis (same value on desktop and mobile)
+§3|WARN|color-transparent|L12 some colours have no mode axis while others do
+§3|ERROR|font-display:L24|L13 font 'Big Shoulders Display' is invalid in pen.dev
+§3|WARN|font-ui:L25|L13 font 'Inter' not in the tested-valid list; confirm in an execute response
+§3|ERROR|color-muted/color-bg@light|L14 contrast 2.40 < 4.5 (#A09C94 on #F2F0EA)
+§3|WARN|color-muted/color-surface@light|L14 contrast 2.11 < 4.5 (#A09C94 on #E6E2D8)
+§6.2|ERROR|Header:L138|L15 {logo:svg}: svg is not an ikas prop type
+§6.2|ERROR|Header:L139|L15 {Nav_label:TEXT}: prop name must be camelCase
+§6.2|ERROR|Header:L140|L16 unmarked literal "SEARCH": add {name:TYPE}, {data:source} or {code:name}
+§6.2|ERROR|Section/Hero:L189|L17 no Prop'lar line (backgroundColor COLOR required)
+§6.3|ERROR|Home:L235|L18 'CartDrawer' is an Overlay; pages hold Section refs only
+§6.3|ERROR|Home:L235|L18 'Missing' is not a §6.2 Section
+§6.0|ERROR|Z/DS/Imagery|L19 DS frame missing from §6.0
+§6.1|ERROR|Button:L88|L19 Button states lack 'eklendi'
+§6.2|ERROR|Overlay/FilterDrawer|L19 #### Overlay/FilterDrawer missing
+LINT FAIL (42 errors, 10 warnings)

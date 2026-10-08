@@ -1,0 +1,274 @@
+# 02 — Canvas contract
+
+The fixed agreement between the plan, the pen.dev canvas and the ikas port. Scripts (`gen_plan.py`, `lint_plan.py`, `pendev_checks.js`, `build_manifest.py`) and the downstream ikas port depend on these names; **do not rename anything in this file per project**. Only values change.
+
+`P` below stands for the project's prefix letter (A–Z, chosen in intake, unique on the canvas). Contract 2 is the default for new projects; contract 1 is the legacy gizem form (37 variables, no `textClass`, no Imagery frame) and is only read, never produced.
+
+## Contents
+
+1. Canvas bands and layout
+2. Naming ↔ code
+3. Core variables (41)
+4. Type-style mapping
+5. Metadata schema
+6. Tree notation
+7. ID scheme
+8. Design-system frames
+9. Required subs, overlays and states
+10. Contrast gate
+
+---
+
+## 1. Canvas bands and layout
+
+Everything is a **separate root frame**. Root names follow a fixed pattern; the port reads the component list from them.
+
+| Band (top → bottom) | Root frame name | Content | Size |
+|---|---|---|---|
+| 00 | `P/DS/Colors`, `P/DS/Typography`, `P/DS/Spacing`, `P/DS/Icons`, `P/DS/Motion`, `P/DS/Imagery` | design-system pages | free |
+| 01 | `P/Sub/<Name>` (reusable) and `P/Sub/<Name> — <state>` | components and their states | by content |
+| 02 | `P/Section/<Name>@desktop`, `P/Section/<Name>@mobile` (both reusable) | sections | 1440 / 390 wide |
+| 03 | `P/Page/<Name>@desktop`, `P/Page/<Name>@mobile` | pages (section instances only) | 1440 / 390 |
+| 04 | `P/Overlay/<Name>@desktop — <state>`, `P/Overlay/<Name>@mobile — <state>` | menu, cart, search, panels | 1440×900 / 390×844 |
+| 05 | `P/Motion/<recipe> <section>` | animation frames (start / mid / end) | by content |
+
+Layout rules:
+- One horizontal band per row; 800 between bands, 200 between frames. A section's desktop and mobile frames sit **side by side**. Place new roots with `FindEmptySpace`.
+- Nothing loose at root level (no text, icon or shape). Explanations are `note` nodes beside the frame.
+- Desktop roots `theme: {device: "desktop"}`, mobile roots `theme: {device: "mobile"}`; inverted sections add `mode: "dark"` (default `mode: "light"`). Sized variables switch automatically; never type a mobile number.
+- Section frames use `layout: "vertical"` or `"horizontal"` with `clip: true`. `layout: "none"` only for truly stacked layers (slides, image + gradient + text, hotspots).
+- Everything repeated is a `ref` instance of a reusable (ProductCard, Button, ArrowLink…). Pages contain **only** section refs.
+- The root being worked on has `placeholder: true`; remove it when the unit passes its checks.
+- Values are variables, never numbers: colour, font, font size, spacing are all `$…` (exceptions: §3 "Allowed raw values").
+- Reference imports on the canvas are for looking only: never copy layers from them, never edit or delete them.
+
+## 2. Naming ↔ code
+
+| pen.dev | ikas / code |
+|---|---|
+| Root `P/Section/HeroSlider@desktop` | section component **HeroSlider** (`src/components/HeroSlider/`) |
+| Root `P/Sub/ProductCard` | sub-component **ProductCard** (`src/sub-components/ProductCard/`) |
+| Root `P/Overlay/CartDrawer…` | sub-component of the section that opens it (usually Header) |
+| Root `P/Page/Home@desktop` | ikas page (INDEX…) composed in the editor |
+| Layer name `hero-title` (kebab-case) | CSS class `.hero-title` |
+| `ref` instance name = component name (`ProductCard`) | JSX `<ProductCard />` |
+| Text layer + `textClass:"prop"` + `prop` | TEXT prop (no literal text in JSX) |
+| Text layer + `textClass:"data"` + `source` | storefront data binding (`product.name` …) |
+| Text layer + `textClass:"code"` | string computed in code (counter, digits, separators) |
+| Image-filled frame + `prop` | IMAGE / PRODUCT / CATEGORY prop |
+| Repeated child group + `prop` | COMPONENT_LIST or `*_LIST` prop |
+| Section root `prop:"backgroundColor"` | mandatory `backgroundColor` COLOR prop |
+| `metadata.anim` (+ ids in `context`) | animation target in the plan's `anim-targets` |
+
+## 3. Core variables (41)
+
+Types: `color`, `string`, `number`. Axes: `mode: light | dark` (colours, only when the brief chose inverted sections or dark mode; a single-palette theme declares scalar colours) and `device: desktop | mobile` (sizes). Fonts and the scalar sizes marked "—" have no axis. Example values are the gizem plan-C values (light / dark, desktop / mobile); the four contract-2 additions show suggested values.
+
+| # | Variable | Role | Type | Axis | Example | ikas destination |
+|---|---|---|---|---|---|---|
+| 1 | `color-bg` | page/section background | color | mode | `#EFEBE2` / `#0D0D0D` | colorScheme slot `Background` |
+| 2 | `color-text` | primary text, icons | color | mode | `#0D0D0D` / `#EFEBE2` | slot `Text` |
+| 3 | `color-muted` | secondary text, inactive labels | color | mode | `#6B675F` / `#8F8B82` | color `Muted` |
+| 4 | `color-line` | borders, dividers | color | mode | `#0D0D0D` / `#EFEBE2` | color `Line` |
+| 5 | `color-surface` | raised panels, fields, chips | color | mode | `#E3DED2` / `#1A1A1A` | color `Surface` |
+| 6 | `color-inverse-bg` | filled button, hover fill | color | mode | `#0D0D0D` / `#EFEBE2` | slot `PrimaryButton/Background` |
+| 7 | `color-inverse-text` | text on inverse fill | color | mode | `#EFEBE2` / `#0D0D0D` | slot `PrimaryButton/Text` |
+| 8 | `color-accent` | the one accent (badge, ticker, focus) | color | mode | `#FF3B1F` / `#FF3B1F` | color `Accent` |
+| 9 | `color-accent-text` | text on accent | color | mode | `#0D0D0D` / `#0D0D0D` | color `AccentText` |
+| 10 | `color-scrim` | overlay backdrop (alpha) | color | mode | `#0D0D0D99` / `#0D0D0DB3` | `global.css` `--color-scrim` |
+| 11 | `color-transparent` | gradient start stop (`#RRGGBB00` of bg) | color | mode | `#EFEBE200` / `#0D0D0D00` | `global.css` `--color-transparent` |
+| 12 | `color-danger` | errors, field error message | color | mode | `#B3261E` / `#FF6B5E` | color `Danger` |
+| 13 | `color-success` | confirmations, "eklendi" | color | mode | `#1E6B3A` / `#4CC27A` | color `Success` |
+| 14 | `font-display` | display + h2–h4 | string | — | `Sofia Sans Extra Condensed` | typography `font_family` |
+| 15 | `font-ui` | nav, buttons, titles, badges | string | — | `Archivo Narrow` | typography `font_family` |
+| 16 | `font-body` | running text | string | — | `Archivo Narrow` | typography `font_family` |
+| 17 | `font-price` | prices | string | — | `Archivo Narrow` | typography `font_family` |
+| 18 | `font-mono` | labels, codes, counters | string | — | `Space Mono` | typography `font_family` |
+| 19 | `text-display` | h1 / hero | number | device | 168 / 72 | typography `Display` |
+| 20 | `text-h2` | section title | number | device | 112 / 52 | typography `H2` |
+| 21 | `text-h3` | menu item, feature title | number | device | 64 / 40 | typography `H3` |
+| 22 | `text-h4` | card / panel title | number | device | 36 / 26 | typography `H4` |
+| 23 | `text-title` | product name | number | device | 22 / 18 | typography `Title` |
+| 24 | `text-ui` | nav, button, link | number | device | 18 / 16 | typography `UI` |
+| 25 | `text-ui-sm` | footer link, sub-label | number | device | 15 / 14 | typography `UISmall` |
+| 26 | `text-badge` | badge text | number | device | 12 / 11 | typography `Badge` |
+| 27 | `text-label` | category, date, breadcrumb | number | device | 12 / 11 | typography `Label` |
+| 28 | `text-body` | running text | number | device | 16 / 15 | typography `Body` |
+| 29 | `text-price` | price | number | device | 22 / 18 | typography `Price` |
+| 30 | `space-page` | page side margin | number | device | 32 / 16 | `--space-page` |
+| 31 | `space-grid` | gutter between cells | number | — or device | 0 | `--space-grid` |
+| 32 | `space-card` | card inner padding | number | device | 12 / 10 | `--space-card` |
+| 33 | `space-panel` | panel inner padding | number | device | 24 / 16 | `--space-panel` |
+| 34 | `space-xs` | label ↔ title | number | device | 6 / 4 | `--space-xs` |
+| 35 | `space-sm` | small gap | number | device | 12 / 10 | `--space-sm` |
+| 36 | `space-md` | medium gap | number | device | 16 / 12 | `--space-md` |
+| 37 | `space-section` | section vertical spacing | number | device | 120 / 64 | `--space-section` |
+| 38 | `size-header` | header height | number | device | 96 / 88 | `--size-header` |
+| 39 | `size-line` | line thickness | number | — | 2 | `--size-line` |
+| 40 | `size-logo` | logo height | number | device | 28 / 22 | `--size-logo` (Header may expose a NUMBER prop) |
+| 41 | `opacity-inactive` | inactive thumbnails/tabs | number | — | 0.3 | `--opacity-inactive` |
+
+Rules:
+- Every colour has a value for each declared mode, even when equal (accent). Theme-specific extras (e.g. `size-hero`) are allowed but go after the 41 and are listed in plan §3.
+- With the `mode` axis, ikas gets two colour schemes (e.g. `Paper`, `Ink`); the slots above are their slot names.
+- Exact typography global names are set in the globals runbook (`09-handoff.md`); the column shows the default.
+
+**Allowed raw values** (everything else is a variable; `pendev_checks.js` CHK `hardcoded` flags raw fill/fontSize/fontFamily):
+- `#RRGGBBAA` gradient stops, where pen.dev will not take a variable in a stop. The RGB part must equal a core colour (`color-bg`, `color-text`, `color-scrim`).
+- `0` (zero gap/padding, `opacity: 0` for stacked hidden siblings, radius 0).
+- Structural `1` px hairlines (form-field border, `link-line`) when `size-line` is thicker.
+- Geometry (width, height, x, y, rotation) is never tokenised.
+
+## 4. Type-style mapping
+
+| Variables | Family | Weight | Line height | Case |
+|---|---|---|---|---|
+| `text-display`, `text-h2`, `text-h3`, `text-h4` | `$font-display` | theme (usually 700–900) | 0.9–1.0 | upper |
+| `text-title`, `text-ui`, `text-ui-sm`, `text-badge` | `$font-ui` | 700 | 1.1 | upper |
+| `text-label` | `$font-mono` | 400–700 | 1.1 | upper |
+| `text-body` | `$font-body` | 500 | 1.35 | sentence |
+| `text-price` | `$font-price` | 700 | 1.0–1.1 | as written (`1.850 TL`) |
+
+Old price = `text-price` + `$color-muted` + strikethrough. Muted variants are not new styles: same preset + `$color-muted`. A plan may override weight/line-height per theme in plan §3; the variable names never change. Intermediate breakpoints (992–1199, 768–991) are not designed; they become component CSS `@media (max-width: bp(<id>))`.
+
+## 5. Metadata schema
+
+Flat keys only (no nested objects). Metadata can only be written **when the node is created**; instances and overrides drop it, so ids also go in `context`.
+
+```js
+// root frame
+metadata: {type:"<slug>", role:"section", ikas:"HeroSlider", device:"desktop", variant:"P", contract:2,
+           prop:"backgroundColor", propType:"COLOR"}            // prop/propType on section roots only
+// role: "ds" | "sub" | "section" | "overlay" | "page" | "motion"
+
+// text bound to a prop
+metadata: {type:"<slug>", role:"prop", textClass:"prop", prop:"title", propType:"TEXT"}
+// text bound to storefront data
+metadata: {type:"<slug>", textClass:"data", source:"product.name"}
+// text produced by code
+metadata: {type:"<slug>", textClass:"code", code:"slide-counter"}
+// non-text layer bound to a prop
+metadata: {type:"<slug>", role:"prop", prop:"image", propType:"IMAGE"}
+
+// animated layer (prop/data keys may sit in the same object)
+metadata: {type:"<slug>", role:"anim", anim:"P-HERO-02", recipe:"M-07", trigger:"state-change",
+           textClass:"prop", prop:"title", propType:"TEXT"}
+context: "P-HERO-02 · M-07 · başlık slaytla birlikte değişir"
+```
+
+- `role` precedence: `anim` > `prop`. Data/code text without animation carries no `role`.
+- Contract 2: **every text node** has `textClass`; `prop` requires `prop` + `propType`; `data` requires `source`; `code` should name the routine in `code`. Text inside DS and Motion frames is `textClass:"code"`, `code:"ds"`.
+- Multiple targets on one layer: `anim:"P-HERO-01,P-HERO-07"`.
+- `context` is the human note **and** must contain every anim id of the layer.
+- Metadata on a layer inside a reusable flows to its instances; do not re-write it per instance. Instance-level targets live only in `context`.
+
+**Starter `source` vocabulary** (format `group.field`, camelCase; extend with the same shape):
+
+| Group | Sources |
+|---|---|
+| product | `product.name`, `product.brand`, `product.price`, `product.compareAtPrice`, `product.discountPercent`, `product.category`, `product.description`, `product.stockStatus`, `product.badge` |
+| variant | `variant.name`, `variant.value`, `variant.sku`, `variant.stockCount` |
+| cart | `cart.itemCount`, `cart.subtotal`, `cart.shipping`, `cart.total`, `cart.line.title`, `cart.line.variant`, `cart.line.quantity`, `cart.line.price` |
+| order | `order.number`, `order.date`, `order.status`, `order.total`, `order.line.title` |
+| customer | `customer.firstName`, `customer.lastName`, `customer.email`, `customer.address` |
+| category | `category.name`, `category.productCount`, `category.path` |
+| blog | `blog.title`, `blog.date`, `blog.author`, `blog.category`, `blog.summary` |
+| search | `search.query`, `search.resultCount` |
+
+## 6. Tree notation
+
+Plan trees (plan §6.1–§6.2, `components.md`) annotate layers inline:
+
+| Notation | Meaning | Metadata written |
+|---|---|---|
+| `{name:TYPE}` | prop `name` of ikas type `TYPE` (one of the 30) | `role:"prop", prop, propType` (+ `textClass:"prop"` on text) |
+| `{data:source}` | storefront data field | `textClass:"data", source` |
+| `{code:name}` | text computed in code | `textClass:"code", code` |
+
+```
+product-card
+├─ card-images (clip)                {image:IMAGE} image-front + image-back
+├─ card-badges                       {data:product.badge} text-badge
+└─ card-info
+    ├─ card-title                    {data:product.name} text-title
+    ├─ price                         {data:product.price} text-price
+    └─ card-count                    {code:card-index} font-mono "001"
+hero-button (clip)                   {buttonText:TEXT}; top + bottom copy
+```
+
+Contract 2: `lint_plan.py` fails any quoted literal (`"SEARCH"`, `"01 / 03"`) on a tree line that has none of the three markers. Write `{searchText:TEXT}`, not `"SEARCH"`.
+
+## 7. ID scheme
+
+| Kind | Pattern | Example |
+|---|---|---|
+| Section/overlay target | `^P-[A-Z]{2,5}-\d\d$` | `P-HERO-01`, `P-PLP-06` |
+| Sub (component) target | `^P-CMP-\d\d$` | `P-CMP-05` |
+| Combined (lint) | `^P-(CMP\|[A-Z]{2,5})-\d\d$` | |
+| Local recipe | `^P-M-\d\d$` | `P-M-01` |
+| Catalogue recipe | `M-01` … `M-28` | `M-11` (`M-17` forbidden) |
+
+- Each section gets a unique 2–5 letter code (`HDR`, `HERO`, `PLP`, `CRTP`); `CMP` is reserved for subs, numbered across all subs in §6.1 order.
+- Numbers run 01… per section in plandata order. Once building has started, append new targets at the end so existing ids stay stable.
+- Context scan regex: `/P-(?:CMP|[A-Z]{2,5})-\d\d/g` (local recipe ids like `P-M-01` do not match).
+
+## 8. Design-system frames
+
+| Root | Content |
+|---|---|
+| `P/DS/Colors` | swatch + name + hex for every colour variable, per mode; the contrast pairs of §10 rendered as text on fill with their ratio |
+| `P/DS/Typography` | the 11 presets at desktop and mobile size, each with a Turkish sample line ("GÖLGE İÇİNDE ŞIK ÇÖZÜM 1.850 TL") |
+| `P/DS/Spacing` | spacing scale bars; 1440 and 390 grid diagrams (margin, columns, gutter); line thickness |
+| `P/DS/Icons` | every icon at 20×20 (search, account, cart, menu, close, arrow, caret, plus, minus, check) + logo and mark |
+| `P/DS/Motion` | the legend: recipe ids used, one-line description, trigger symbol, as `note` nodes |
+| `P/DS/Imagery` | (contract 2) art direction: 1–2 `Generate("ai"\|"stock")` samples per image role (hero, product on plain ground, lifestyle, category tile, blog), the aspect ratios used (3:4, 16:9 …), treatment notes (grain, frame, crop, colour temperature), logo/wordmark variants from `Generate("svg")` |
+
+Contract 1 has five DS frames (no Imagery); `pendev_checks.js` CHK `ds` expects 5 or 6 by contract.
+
+## 9. Required subs, overlays and states
+
+Each sub is a reusable root; each state is its own root `P/Sub/<Name> — <state>`.
+
+| Sub | States | When |
+|---|---|---|
+| `ProductCard` | varsayılan · hover · stok yok · indirimli · widths per grid | always |
+| `ProductCardSmall` | varsayılan · hover | search, cart, mini lists |
+| `BlogCard` | varsayılan · hover | BLOG in scope |
+| `Button` | varsayılan · hover · pasif · yükleniyor · **eklendi** · **stok yok** | always |
+| `ArrowLink` | varsayılan · hover | always |
+| `Badge` | one frame per type (YENİ · İNDİRİM · ÇOK SATAN …) | always |
+| `Hotspot` | kapalı · açık | shoppable images |
+| `Marquee` | — | any M-14 / ticker |
+| `Breadcrumbs` | — | always |
+| `Tabs` | aktif · pasif · hover | always |
+| `VariantChip` | seçili · pasif · hover · stok yok | always |
+| `FormField` | boş · dolu · odak · **hata (+ mesaj, `$color-danger`)** · pasif | always |
+| `Checkbox` | işaretli · boş | always |
+| `AccordionItem` | açık · kapalı | always |
+| `QuantitySelector` | varsayılan · alt sınır | always |
+| `SectionHeading` | açıklamalı · açıklamasız | always |
+| `IconButton` | varsayılan · hover | always |
+| `Spinner` | — | always |
+
+Theme-specific subs (gizem: `Sticker`, `ScrambleText`) are added by the plan.
+
+Required overlays (`P/Overlay/…`): mobile menu — açık; `CartDrawer` — boş · dolu · yükleniyor; `SearchOverlay` — boş · yazarken · sonuçsuz; **`FilterDrawer@mobile` — açık**; plus any panel the plan defines (size guide, info drawer).
+
+## 10. Contrast gate
+
+WCAG 2.1 ratios, computed on the variable values **in every declared mode**. `lint_plan.py` reports them; contract 2 fails on ERROR rows, contract 1 downgrades them to WARN.
+
+| Pair (text on ground) | Min | Severity (c2) | If it fails, change |
+|---|---|---|---|
+| `color-text` on `color-bg` | 4.5 | ERROR | `color-text` |
+| `color-muted` on `color-bg` | 4.5 | ERROR | `color-muted` (darker in light, lighter in dark) |
+| `color-inverse-text` on `color-inverse-bg` | 4.5 | ERROR | `color-inverse-text` |
+| `color-accent-text` on `color-accent` | 4.5 | ERROR | `color-accent-text` (swap to the other extreme first) |
+| `color-danger` on `color-bg` | 4.5 | ERROR | `color-danger` |
+| `color-text` on `color-surface` | 4.5 | WARN | `color-surface` |
+| `color-muted` on `color-surface` | 4.5 | WARN | `color-surface`, then `color-muted` |
+| `color-success` on `color-bg` | 3.0 | WARN | `color-success` |
+| `color-line` on `color-bg` (non-text) | 3.0 | WARN | `color-line` |
+| `color-accent` on `color-bg` (non-text) | 3.0 | WARN | `color-accent` only if it carries meaning alone |
+
+Fix the foreground variable, keep hue, step lightness until it passes; never move `color-bg` to rescue one pair. Example: gizem muted light `#77736A` on `#EFEBE2` = 3.97 → `#6B675F` = 4.73.

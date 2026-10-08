@@ -1,0 +1,162 @@
+ROOT|C/DS/Colors|n0001|device=-|props=|data=|code=|anims=
+ROOT|C/DS/Typography|n0002|device=-|props=|data=|code=|anims=
+ROOT|C/DS/Spacing|n0003|device=-|props=|data=|code=|anims=
+ROOT|C/DS/Icons|n0004|device=-|props=|data=|code=|anims=
+ROOT|C/DS/Motion|n0005|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/ProductCard|n0006|device=-|props=|data=|code=|anims=C-CMP-01;C-CMP-02
+ROOT|C/Sub/ProductCard — hover|n0007|device=-|props=|data=|code=|anims=C-CMP-01;C-CMP-02
+ROOT|C/Sub/ProductCard — stok yok|n0008|device=-|props=|data=|code=|anims=C-CMP-01;C-CMP-02
+ROOT|C/Sub/ProductCard — indirimli|n0009|device=-|props=|data=|code=|anims=C-CMP-01;C-CMP-02
+ROOT|C/Sub/ProductCardSmall|n0010|device=-|props=|data=|code=|anims=C-CMP-03
+ROOT|C/Sub/ProductCardSmall — hover|n0011|device=-|props=|data=|code=|anims=C-CMP-03
+ROOT|C/Sub/BlogCard|n0012|device=-|props=|data=|code=|anims=C-CMP-04
+ROOT|C/Sub/BlogCard — hover|n0013|device=-|props=|data=|code=|anims=C-CMP-04
+ROOT|C/Sub/Button|n0014|device=-|props=|data=|code=|anims=C-CMP-05
+ROOT|C/Sub/Button — hover|n0015|device=-|props=|data=|code=|anims=C-CMP-05
+ROOT|C/Sub/Button — pasif|n0016|device=-|props=|data=|code=|anims=C-CMP-05
+ROOT|C/Sub/Button — yükleniyor|n0017|device=-|props=|data=|code=|anims=C-CMP-05
+ROOT|C/Sub/ArrowLink|n0018|device=-|props=|data=|code=|anims=C-CMP-06
+ROOT|C/Sub/ArrowLink — hover|n0019|device=-|props=|data=|code=|anims=C-CMP-06
+ROOT|C/Sub/Badge|n0020|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/Badge — SALE|n0021|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/Badge — BEST SELLER|n0022|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/Hotspot|n0023|device=-|props=|data=|code=|anims=C-CMP-07
+ROOT|C/Sub/Hotspot — açık|n0024|device=-|props=|data=|code=|anims=C-CMP-07
+ROOT|C/Sub/Marquee|n0025|device=-|props=|data=|code=|anims=C-CMP-08
+ROOT|C/Sub/Breadcrumbs|n0026|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/Tabs|n0027|device=-|props=|data=|code=|anims=C-CMP-09
+ROOT|C/Sub/Tabs — pasif|n0028|device=-|props=|data=|code=|anims=C-CMP-09
+ROOT|C/Sub/Tabs — hover|n0029|device=-|props=|data=|code=|anims=C-CMP-09
+ROOT|C/Sub/VariantChip|n0030|device=-|props=|data=|code=|anims=C-CMP-10
+ROOT|C/Sub/VariantChip — pasif|n0031|device=-|props=|data=|code=|anims=C-CMP-10
+ROOT|C/Sub/VariantChip — hover|n0032|device=-|props=|data=|code=|anims=C-CMP-10
+ROOT|C/Sub/VariantChip — stok yok|n0033|device=-|props=|data=|code=|anims=C-CMP-10
+ROOT|C/Sub/FormField|n0034|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/FormField — dolu|n0035|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/FormField — odak|n0036|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/FormField — hata|n0037|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/FormField — pasif|n0038|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/Checkbox|n0039|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/Checkbox — boş|n0040|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/AccordionItem|n0041|device=-|props=|data=|code=|anims=C-CMP-11
+ROOT|C/Sub/AccordionItem — kapalı|n0042|device=-|props=|data=|code=|anims=C-CMP-11
+ROOT|C/Sub/QuantitySelector|n0043|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/QuantitySelector — alt sınır|n0044|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/SectionHeading|n0045|device=-|props=|data=|code=|anims=C-CMP-12
+ROOT|C/Sub/SectionHeading — açıklamasız|n0046|device=-|props=|data=|code=|anims=C-CMP-12
+ROOT|C/Sub/IconButton|n0047|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/IconButton — hover|n0048|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/Spinner|n0049|device=-|props=|data=|code=|anims=
+ROOT|C/Sub/Sticker|n0050|device=-|props=|data=|code=|anims=C-CMP-13
+ROOT|C/Sub/Sticker — dönük|n0051|device=-|props=|data=|code=|anims=C-CMP-13
+ROOT|C/Sub/ScrambleText|n0052|device=-|props=|data=|code=|anims=C-CMP-14
+ROOT|C/Sub/ScrambleText — karışık|n0053|device=-|props=|data=|code=|anims=C-CMP-14
+ROOT|C/Section/Header@desktop|n0054|device=desktop|props=text:TEXT;logo:SVG|data=|code=|anims=C-CMP-08;C-HDR-01;C-HDR-02;C-HDR-03
+ROOT|C/Section/Header@mobile|n0055|device=mobile|props=text:TEXT;logo:SVG|data=|code=|anims=C-CMP-08;C-HDR-01;C-HDR-02;C-HDR-03
+ROOT|C/Overlay/MenuOverlay@desktop — açık|n0056|device=desktop|props=|data=|code=|anims=C-MENU-01;C-MENU-02;C-MENU-03;C-MENU-04
+ROOT|C/Overlay/MenuOverlay@mobile — açık|n0057|device=mobile|props=|data=|code=|anims=C-MENU-01;C-MENU-02;C-MENU-03;C-MENU-04
+ROOT|C/Overlay/CartDrawer@desktop — boş|n0058|device=desktop|props=cartTitleText:TEXT;cartEmptyTitle:TEXT;cartEmptyText:TEXT;cartShippingLabel:TEXT;cartShippingNote:TEXT;cartSubtotalLabel:TEXT;checkoutButtonText:TEXT|data=|code=|anims=C-CART-01;C-CART-02;C-CART-03;C-CMP-05
+ROOT|C/Overlay/CartDrawer@desktop — dolu|n0059|device=desktop|props=cartTitleText:TEXT;cartEmptyTitle:TEXT;cartEmptyText:TEXT;cartShippingLabel:TEXT;cartShippingNote:TEXT;cartSubtotalLabel:TEXT;checkoutButtonText:TEXT|data=|code=|anims=C-CART-01;C-CART-02;C-CART-03;C-CMP-05
+ROOT|C/Overlay/CartDrawer@desktop — yükleniyor|n0060|device=desktop|props=cartTitleText:TEXT;cartEmptyTitle:TEXT;cartEmptyText:TEXT;cartShippingLabel:TEXT;cartShippingNote:TEXT;cartSubtotalLabel:TEXT;checkoutButtonText:TEXT|data=|code=|anims=C-CART-01;C-CART-02;C-CART-03;C-CMP-05
+ROOT|C/Overlay/CartDrawer@mobile — boş|n0061|device=mobile|props=cartTitleText:TEXT;cartEmptyTitle:TEXT;cartEmptyText:TEXT;cartShippingLabel:TEXT;cartShippingNote:TEXT;cartSubtotalLabel:TEXT;checkoutButtonText:TEXT|data=|code=|anims=C-CART-01;C-CART-02;C-CART-03;C-CMP-05
+ROOT|C/Overlay/CartDrawer@mobile — dolu|n0062|device=mobile|props=cartTitleText:TEXT;cartEmptyTitle:TEXT;cartEmptyText:TEXT;cartShippingLabel:TEXT;cartShippingNote:TEXT;cartSubtotalLabel:TEXT;checkoutButtonText:TEXT|data=|code=|anims=C-CART-01;C-CART-02;C-CART-03;C-CMP-05
+ROOT|C/Overlay/CartDrawer@mobile — yükleniyor|n0063|device=mobile|props=cartTitleText:TEXT;cartEmptyTitle:TEXT;cartEmptyText:TEXT;cartShippingLabel:TEXT;cartShippingNote:TEXT;cartSubtotalLabel:TEXT;checkoutButtonText:TEXT|data=|code=|anims=C-CART-01;C-CART-02;C-CART-03;C-CMP-05
+ROOT|C/Overlay/SearchOverlay@desktop — boş|n0064|device=desktop|props=searchPlaceholder:TEXT;searchEmptyText:TEXT|data=|code=|anims=C-SRCH-01;C-SRCH-02
+ROOT|C/Overlay/SearchOverlay@desktop — yazarken|n0065|device=desktop|props=searchPlaceholder:TEXT;searchEmptyText:TEXT|data=|code=|anims=C-SRCH-01;C-SRCH-02
+ROOT|C/Overlay/SearchOverlay@desktop — sonuçsuz|n0066|device=desktop|props=searchPlaceholder:TEXT;searchEmptyText:TEXT|data=|code=|anims=C-SRCH-01;C-SRCH-02
+ROOT|C/Overlay/SearchOverlay@mobile — boş|n0067|device=mobile|props=searchPlaceholder:TEXT;searchEmptyText:TEXT|data=|code=|anims=C-SRCH-01;C-SRCH-02
+ROOT|C/Overlay/SearchOverlay@mobile — yazarken|n0068|device=mobile|props=searchPlaceholder:TEXT;searchEmptyText:TEXT|data=|code=|anims=C-SRCH-01;C-SRCH-02
+ROOT|C/Overlay/SearchOverlay@mobile — sonuçsuz|n0069|device=mobile|props=searchPlaceholder:TEXT;searchEmptyText:TEXT|data=|code=|anims=C-SRCH-01;C-SRCH-02
+ROOT|C/Section/Footer@desktop|n0070|device=desktop|props=newsletterTitle:TEXT;wordmarkText:TEXT;copyrightText:TEXT|data=|code=|anims=C-CMP-05;C-FTR-01;C-FTR-02;C-FTR-03
+ROOT|C/Section/Footer@mobile|n0071|device=mobile|props=newsletterTitle:TEXT;wordmarkText:TEXT;copyrightText:TEXT|data=|code=|anims=C-CMP-05;C-FTR-01;C-FTR-02;C-FTR-03
+ROOT|C/Section/HeroSplit@desktop|n0072|device=desktop|props=dropLabel:TEXT;season:TEXT;title:TEXT;buttonText:TEXT;image:IMAGE;stickerText:TEXT|data=|code=|anims=C-CMP-05;C-HERO-01;C-HERO-02;C-HERO-03;C-HERO-04;C-HERO-05;C-HERO-06
+ROOT|C/Section/HeroSplit@mobile|n0073|device=mobile|props=dropLabel:TEXT;season:TEXT;title:TEXT;buttonText:TEXT;image:IMAGE;stickerText:TEXT|data=|code=|anims=C-CMP-05;C-HERO-01;C-HERO-02;C-HERO-03;C-HERO-04;C-HERO-05;C-HERO-06
+ROOT|C/Section/TickerStrip@desktop|n0074|device=desktop|props=text:TEXT|data=|code=|anims=C-CMP-08;C-TICK-01
+ROOT|C/Section/TickerStrip@mobile|n0075|device=mobile|props=text:TEXT|data=|code=|anims=C-CMP-08;C-TICK-01
+ROOT|C/Section/ProductIndex@desktop|n0076|device=desktop|props=productList:PRODUCT_LIST|data=|code=|anims=C-IDX-01;C-IDX-02;C-IDX-03;C-IDX-04
+ROOT|C/Section/ProductIndex@mobile|n0077|device=mobile|props=productList:PRODUCT_LIST|data=|code=|anims=C-IDX-01;C-IDX-02;C-IDX-03;C-IDX-04
+ROOT|C/Section/LookbookScroll@desktop|n0078|device=desktop|props=title:TEXT;image:IMAGE;note:TEXT;product:PRODUCT|data=|code=|anims=C-LOOK-01;C-LOOK-02;C-LOOK-03;C-LOOK-04
+ROOT|C/Section/LookbookScroll@mobile|n0079|device=mobile|props=title:TEXT;image:IMAGE;note:TEXT;product:PRODUCT|data=|code=|anims=C-LOOK-01;C-LOOK-02;C-LOOK-03;C-LOOK-04
+ROOT|C/Section/CategoryMosaic@desktop|n0080|device=desktop|props=image:IMAGE;label:TEXT|data=|code=|anims=C-CMP-08;C-MOS-01;C-MOS-02;C-MOS-03
+ROOT|C/Section/CategoryMosaic@mobile|n0081|device=mobile|props=image:IMAGE;label:TEXT|data=|code=|anims=C-CMP-08;C-MOS-01;C-MOS-02;C-MOS-03
+ROOT|C/Section/DropGrid@desktop|n0082|device=desktop|props=|data=|code=|anims=C-CMP-01;C-CMP-02;C-CMP-12;C-DROP-01;C-DROP-02;C-DROP-03;C-DROP-04
+ROOT|C/Section/DropGrid@mobile|n0083|device=mobile|props=|data=|code=|anims=C-CMP-01;C-CMP-02;C-CMP-12;C-DROP-01;C-DROP-02;C-DROP-03;C-DROP-04
+ROOT|C/Section/Manifesto@desktop|n0084|device=desktop|props=label:TEXT;text:TEXT;signature:TEXT|data=|code=|anims=C-CMP-05;C-MANI-01;C-MANI-02
+ROOT|C/Section/Manifesto@mobile|n0085|device=mobile|props=label:TEXT;text:TEXT;signature:TEXT|data=|code=|anims=C-CMP-05;C-MANI-01;C-MANI-02
+ROOT|C/Section/StickerWall@desktop|n0086|device=desktop|props=title:TEXT;linkText:TEXT;images:IMAGE_LIST|data=|code=|anims=C-CMP-06;C-WALL-01;C-WALL-02;C-WALL-03;C-WALL-04
+ROOT|C/Section/StickerWall@mobile|n0087|device=mobile|props=title:TEXT;linkText:TEXT;images:IMAGE_LIST|data=|code=|anims=C-CMP-06;C-WALL-01;C-WALL-02;C-WALL-03;C-WALL-04
+ROOT|C/Section/JournalRows@desktop|n0088|device=desktop|props=blogList:BLOG_LIST|data=|code=|anims=C-JROW-01;C-JROW-02;C-JROW-03
+ROOT|C/Section/JournalRows@mobile|n0089|device=mobile|props=blogList:BLOG_LIST|data=|code=|anims=C-JROW-01;C-JROW-02;C-JROW-03
+ROOT|C/Section/ProductList@desktop|n0090|device=desktop|props=title:TEXT|data=|code=|anims=C-CMP-01;C-CMP-02;C-PLP-01;C-PLP-02;C-PLP-03;C-PLP-04;C-PLP-05;C-PLP-06
+ROOT|C/Section/ProductList@mobile|n0091|device=mobile|props=title:TEXT|data=|code=|anims=C-CMP-01;C-CMP-02;C-PLP-01;C-PLP-02;C-PLP-03;C-PLP-04;C-PLP-05;C-PLP-06
+ROOT|C/Section/CollectionHero@desktop|n0092|device=desktop|props=backgroundImage:IMAGE;tagline:TEXT;title:TEXT;imageA:IMAGE;description:TEXT;imageB:IMAGE|data=|code=|anims=C-COLL-01;C-COLL-02;C-COLL-03
+ROOT|C/Section/CollectionHero@mobile|n0093|device=mobile|props=backgroundImage:IMAGE;tagline:TEXT;title:TEXT;imageA:IMAGE;description:TEXT;imageB:IMAGE|data=|code=|anims=C-COLL-01;C-COLL-02;C-COLL-03
+ROOT|C/Section/ProductDetail@desktop|n0094|device=desktop|props=sizeGuideText:TEXT|data=|code=|anims=C-CMP-05;C-CMP-10;C-CMP-11;C-PDP-01;C-PDP-02;C-PDP-03;C-PDP-04;C-PDP-05;C-PDP-06
+ROOT|C/Section/ProductDetail@mobile|n0095|device=mobile|props=sizeGuideText:TEXT|data=|code=|anims=C-CMP-05;C-CMP-10;C-CMP-11;C-PDP-01;C-PDP-02;C-PDP-03;C-PDP-04;C-PDP-05;C-PDP-06
+ROOT|C/Section/ProductCarousel@desktop|n0096|device=desktop|props=title:TEXT;linkText:TEXT;productList:PRODUCT_LIST|data=|code=|anims=C-CMP-06;C-CMP-12;C-CRSL-01;C-CRSL-02;C-CRSL-03
+ROOT|C/Section/ProductCarousel@mobile|n0097|device=mobile|props=title:TEXT;linkText:TEXT;productList:PRODUCT_LIST|data=|code=|anims=C-CMP-06;C-CMP-12;C-CRSL-01;C-CRSL-02;C-CRSL-03
+ROOT|C/Section/AboutHero@desktop|n0098|device=desktop|props=backgroundImage:IMAGE;title:TEXT;missionLabel:TEXT;missionText:TEXT|data=|code=|anims=C-ABH-01;C-ABH-02;C-ABH-03
+ROOT|C/Section/AboutHero@mobile|n0099|device=mobile|props=backgroundImage:IMAGE;title:TEXT;missionLabel:TEXT;missionText:TEXT|data=|code=|anims=C-ABH-01;C-ABH-02;C-ABH-03
+ROOT|C/Section/PressSlider@desktop|n0100|device=desktop|props=logo:SVG;quote:TEXT|data=|code=|anims=C-PRS-01
+ROOT|C/Section/PressSlider@mobile|n0101|device=mobile|props=logo:SVG;quote:TEXT|data=|code=|anims=C-PRS-01
+ROOT|C/Section/ValuesStack@desktop|n0102|device=desktop|props=image:IMAGE;introTitle:TEXT;introText:TEXT;title:TEXT;text:TEXT|data=|code=|anims=C-VAL-01;C-VAL-02;C-VAL-03;C-VAL-04
+ROOT|C/Section/ValuesStack@mobile|n0103|device=mobile|props=image:IMAGE;introTitle:TEXT;introText:TEXT;title:TEXT;text:TEXT|data=|code=|anims=C-VAL-01;C-VAL-02;C-VAL-03;C-VAL-04
+ROOT|C/Section/ProcessSteps@desktop|n0104|device=desktop|props=title:TEXT;text:TEXT;image:IMAGE|data=|code=|anims=C-CMP-12;C-PRC-01;C-PRC-02;C-PRC-03
+ROOT|C/Section/ProcessSteps@mobile|n0105|device=mobile|props=title:TEXT;text:TEXT;image:IMAGE|data=|code=|anims=C-CMP-12;C-PRC-01;C-PRC-02;C-PRC-03
+ROOT|C/Section/TeamGrid@desktop|n0106|device=desktop|props=title:TEXT;text:TEXT;image:IMAGE;role:TEXT;name:TEXT|data=|code=|anims=C-CMP-12;C-TEAM-01;C-TEAM-02
+ROOT|C/Section/TeamGrid@mobile|n0107|device=mobile|props=title:TEXT;text:TEXT;image:IMAGE;role:TEXT;name:TEXT|data=|code=|anims=C-CMP-12;C-TEAM-01;C-TEAM-02
+ROOT|C/Section/Timeline@desktop|n0108|device=desktop|props=title:TEXT;year:TEXT;text:TEXT|data=|code=|anims=C-CMP-12;C-TML-01;C-TML-02
+ROOT|C/Section/Timeline@mobile|n0109|device=mobile|props=title:TEXT;year:TEXT;text:TEXT|data=|code=|anims=C-CMP-12;C-TML-01;C-TML-02
+ROOT|C/Section/CtaBanner@desktop|n0110|device=desktop|props=image:IMAGE;title:TEXT;buttonText:TEXT|data=|code=|anims=C-CMP-05;C-CTA-01;C-CTA-02
+ROOT|C/Section/CtaBanner@mobile|n0111|device=mobile|props=image:IMAGE;title:TEXT;buttonText:TEXT|data=|code=|anims=C-CMP-05;C-CTA-01;C-CTA-02
+ROOT|C/Section/AnchorNav@desktop|n0112|device=desktop|props=items:LIST_OF_LINK|data=|code=|anims=C-ANC-01
+ROOT|C/Section/AnchorNav@mobile|n0113|device=mobile|props=items:LIST_OF_LINK|data=|code=|anims=C-ANC-01
+ROOT|C/Section/BlogPost@desktop|n0114|device=desktop|props=nextText:TEXT;relatedProductsTitle:TEXT;relatedProducts:PRODUCT_LIST|data=|code=|anims=C-BLP-01;C-BLP-02;C-BLP-03;C-BLP-04
+ROOT|C/Section/BlogPost@mobile|n0115|device=mobile|props=nextText:TEXT;relatedProductsTitle:TEXT;relatedProducts:PRODUCT_LIST|data=|code=|anims=C-BLP-01;C-BLP-02;C-BLP-03;C-BLP-04
+ROOT|C/Section/MarqueeTitle@desktop|n0116|device=desktop|props=text:TEXT|data=|code=|anims=C-CMP-08;C-MQT-01
+ROOT|C/Section/MarqueeTitle@mobile|n0117|device=mobile|props=text:TEXT|data=|code=|anims=C-CMP-08;C-MQT-01
+ROOT|C/Section/Contact@desktop|n0118|device=desktop|props=infoTitle:TEXT;socialLinks:LIST_OF_LINK;faqTitle:TEXT;faqItems:COMPONENT_LIST;formTitle:TEXT;submitText:TEXT|data=|code=|anims=C-CMP-05;C-CMP-11;C-CNT-01;C-CNT-02;C-CNT-03
+ROOT|C/Section/Contact@mobile|n0119|device=mobile|props=infoTitle:TEXT;socialLinks:LIST_OF_LINK;faqTitle:TEXT;faqItems:COMPONENT_LIST;formTitle:TEXT;submitText:TEXT|data=|code=|anims=C-CMP-05;C-CMP-11;C-CNT-01;C-CNT-02;C-CNT-03
+ROOT|C/Section/SupportContent@desktop|n0120|device=desktop|props=navLinks:LIST_OF_LINK;contactTitle:TEXT;contactText:TEXT;title:TEXT;content:RICH_TEXT|data=|code=|anims=C-SUP-01;C-SUP-02
+ROOT|C/Section/SupportContent@mobile|n0121|device=mobile|props=navLinks:LIST_OF_LINK;contactTitle:TEXT;contactText:TEXT;title:TEXT;content:RICH_TEXT|data=|code=|anims=C-SUP-01;C-SUP-02
+ROOT|C/Section/CartPage@desktop|n0122|device=desktop|props=title:TEXT;emptyTitle:TEXT;emptyText:TEXT|data=|code=|anims=C-CMP-05;C-CRTP-01;C-CRTP-02;C-CRTP-03
+ROOT|C/Section/CartPage@mobile|n0123|device=mobile|props=title:TEXT;emptyTitle:TEXT;emptyText:TEXT|data=|code=|anims=C-CMP-05;C-CRTP-01;C-CRTP-02;C-CRTP-03
+ROOT|C/Section/AuthForms@desktop|n0124|device=desktop|props=image:IMAGE;title:TEXT;submitButtonText:TEXT;switchText:TEXT|data=|code=|anims=C-AUTH-01;C-AUTH-02;C-CMP-05
+ROOT|C/Section/AuthForms@mobile|n0125|device=mobile|props=image:IMAGE;title:TEXT;submitButtonText:TEXT;switchText:TEXT|data=|code=|anims=C-AUTH-01;C-AUTH-02;C-CMP-05
+ROOT|C/Section/Account@desktop|n0126|device=desktop|props=title:TEXT|data=|code=|anims=C-ACC-01;C-ACC-02;C-CMP-09
+ROOT|C/Section/Account@mobile|n0127|device=mobile|props=title:TEXT|data=|code=|anims=C-ACC-01;C-ACC-02;C-CMP-09
+ROOT|C/Section/NotFound@desktop|n0128|device=desktop|props=title:TEXT;text:TEXT;buttonText:TEXT|data=|code=marquee-track|anims=C-CMP-05;C-CMP-08;C-NF-01;C-NF-02
+ROOT|C/Section/NotFound@mobile|n0129|device=mobile|props=title:TEXT;text:TEXT;buttonText:TEXT|data=|code=marquee-track|anims=C-CMP-05;C-CMP-08;C-NF-01;C-NF-02
+ROOT|C/Page/Home@desktop|n0130|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Home@mobile|n0131|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Category@desktop|n0132|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Category@mobile|n0133|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Collection@desktop|n0134|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Collection@mobile|n0135|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Product@desktop|n0136|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Product@mobile|n0137|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/About@desktop|n0138|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/About@mobile|n0139|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Journal@desktop|n0140|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Journal@mobile|n0141|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/JournalPost@desktop|n0142|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/JournalPost@mobile|n0143|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Contact@desktop|n0144|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Contact@mobile|n0145|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Support@desktop|n0146|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Support@mobile|n0147|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Cart@desktop|n0148|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Cart@mobile|n0149|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Login@desktop|n0150|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Login@mobile|n0151|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Register@desktop|n0152|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Register@mobile|n0153|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/ForgotPassword@desktop|n0154|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/ForgotPassword@mobile|n0155|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/RecoverPassword@desktop|n0156|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/RecoverPassword@mobile|n0157|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/Account@desktop|n0158|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/Account@mobile|n0159|device=mobile|props=|data=|code=|anims=
+ROOT|C/Page/NotFound@desktop|n0160|device=desktop|props=|data=|code=|anims=
+ROOT|C/Page/NotFound@mobile|n0161|device=mobile|props=|data=|code=|anims=
+SUMMARY|roots=161|mode=manifest
