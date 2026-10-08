@@ -40,6 +40,7 @@ A reference site rarely shows every page an ikas store needs (gizem's reference 
 | `BLOG_POST` | `blog-post-section` | BlogPost (title, date, image, rich text) · related posts | — | — | ○ |
 | `COLLECTION` | `category-list-section` or custom page | CollectionHero `(özel)` · ProductList | as CATEGORY | as CATEGORY | ○ |
 | `CUSTOMER_EMAIL_VERIFICATION` | `email-verification-section` | EmailVerification | — | verifying (loading) · success · error | ○ |
+| Contact (custom page, `CUSTOM`) | `(özel)` + ikas contact form API: `getContactForm` / `initContactForm`, `setContactFormFirstName` · `LastName` · `Email` · `Phone` · `Message`, `submitContactForm(form) → Promise<boolean>` (model `IkasContactForm`) | ContactForm: heading + short text, contact channels (label beside value, no eyebrow), form with first name, last name, email, optional phone, message, consent checkbox, submit button, result message | — | default · sending · success · field error + submit error | ✓ |
 | custom page | `rich-text-section` or `(özel)` sections | About, Contact, Support/policy, landing pages — whatever the reference shows | — | form: default · sending · success · error | ○ |
 
 Auth pages may share one Section (`AuthForms`) with four variants drawn as separate frames or states; the plan's §6.3 then lists them as `Auth (×4)` (gizem convention). Header and Footer are counted once each in the section total, not per page.
@@ -71,4 +72,4 @@ When the reference lacks a required page (common: cart, auth, account, 404, sear
 
 ## 6. Custom pages
 
-Custom pages (About, Contact, Support, campaign landing) are created by the merchant with `create_page`; they are in scope only when the brief lists them. Each still uses Header + Footer and only Sections. Content-heavy policy pages use one rich-text Section rather than bespoke layouts.
+Custom pages (About, Contact, Support, campaign landing) are created by the merchant with `create_page`. **Contact is in scope by default** (pre-ticked in intake, even when the reference has no contact page): ikas has no `CONTACT` page type or contact section template, but the storefront ships a full contact form API, so every theme designs a `ContactForm` section and a `Contact` page (`pageType: CUSTOM`). Other custom pages are in scope only when the brief lists them. Each still uses Header + Footer and only Sections. Content-heavy policy pages use one rich-text Section rather than bespoke layouts.

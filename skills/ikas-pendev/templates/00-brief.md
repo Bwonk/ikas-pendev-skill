@@ -52,6 +52,7 @@ Bu dosya tüm fazların başlangıç noktasıdır. Her oturum önce bunu okur; e
 | `BLOG` · `BLOG_POST` | [ ] | |
 | `COLLECTION` | [ ] | |
 | `CUSTOMER_EMAIL_VERIFICATION` | [ ] | |
+| İletişim (özel sayfa, `CUSTOM`) | [x] | `ContactForm` section'ı; ikas iletişim formu API'si (`getContactForm`, `submitContactForm`) |
 | Özel sayfalar | [ ] | … |
 
 Zorunlu overlay'ler: CartDrawer · SearchOverlay · MenuOverlay · FilterDrawer@mobile. Header ve Footer her sayfada.

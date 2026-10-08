@@ -162,4 +162,4 @@ Overlays (`P/Overlay/<Name>…`) are not a tier: they port as sub-components ren
 
 The last eight are **patterns**, not sections: cite them next to a section's template (`product-detail-section + variant-selection`).
 
-**`(özel)`**: when no template fits (marquee strip, manifesto, lookbook, timeline, sticker wall, contact form…), the `**ikas:**` line reads `(özel)` — "custom", built from scratch on the generic section skeleton — optionally with a hint after a semicolon: `(özel; SocialFeed yerine)`, `(özel; form-handling rehberi)`. Custom sections still obey §1–§7, including `backgroundColor`.
+**`(özel)`**: when no template fits (marquee strip, manifesto, lookbook, timeline, sticker wall, contact form…), the `**ikas:**` line reads `(özel)` — "custom", built from scratch on the generic section skeleton — optionally with a hint after a semicolon: `(özel; SocialFeed yerine)`, `(özel; form-handling rehberi)`. A contact form section is `(özel; form-handling + getContactForm / submitContactForm)`: no section template exists, but the storefront contact form API does (`06-page-coverage.md` Contact row). Custom sections still obey §1–§7, including `backgroundColor`.
