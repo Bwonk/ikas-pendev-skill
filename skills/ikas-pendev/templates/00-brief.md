@@ -52,7 +52,14 @@ Bu dosya tüm fazların başlangıç noktasıdır. Her oturum önce bunu okur; e
 | `BLOG` · `BLOG_POST` | [ ] | |
 | `COLLECTION` | [ ] | |
 | `CUSTOMER_EMAIL_VERIFICATION` | [ ] | |
-| İletişim (özel sayfa, `CUSTOM`) | [x] | `ContactForm` section'ı; ikas iletişim formu API'si (`getContactForm`, `submitContactForm`) |
+| İletişim (özel sayfa, `CUSTOM`) | [x] | her zaman özel ve geniş: ContactForm + StoreLocator + FaqList; ikas iletişim formu API'si (`getContactForm`, `submitContactForm`) |
+
+ikas hazır sayfalar (06 §2a):
+
+| Grup | Sayfalar | Karar |
+|---|---|---|
+| üyelik | giriş, kayıt, şifremi unuttum, şifre yenile, e-posta doğrulama | ikas hazır / özel tasarım |
+| hesap | hesabım, siparişler, sipariş detayı, adresler, favoriler | ikas hazır / özel tasarım |
 | Özel sayfalar | [ ] | … |
 
 Zorunlu overlay'ler: CartDrawer · SearchOverlay · MenuOverlay · FilterDrawer@mobile. Header ve Footer her sayfada.

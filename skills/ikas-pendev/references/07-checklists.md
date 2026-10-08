@@ -12,9 +12,10 @@
 
 A phase starts only when the previous gate passed; after each gate update the `Durum` row in `docs/00-brief.md` (`Faz | Durum | Dosya | Tarih | Not`; Durum ∈ `bekliyor`, `sürüyor`, `tamam`, `istisna`).
 
-**Phase 0 · intake** — `AskUserQuestion`, Turkish, two rounds of ≤ 4 questions:
+**Phase 0 · intake** — `AskUserQuestion`, Turkish, two or three rounds of ≤ 4 questions:
 - Round 1: (1) inputs — screenshots (each with its viewport width) and/or live URL + paths; (2) brand name → slug `^[a-z0-9-]+$`, sector, three tone adjectives; (3) interpretation strategy (aynı iskelet / yakın klon / serbest yorum) and prefix letter A–Z — check `get_app_state` / root frame names for a collision; (4) reference policy: look-only, no reference images, copy, logo or brand name on the canvas — confirm.
 - Round 2: (5) pages in scope — `06-page-coverage.md` defaults pre-ticked (including the Contact page, which the reference often lacks), optional ones offered; (6) locale, currency format (`1.850 TL`), uppercase policy; (7) palette modes — single palette / inverse sections (`mode: dark` on some sections) / full dark; (8) canvas file + devices (default 1440 / 390) and motion appetite (sade / orta / yoğun).
+- Round 3: (9) ikas ready-made pages — for each group ask "ikas'ın hazır sayfaları mı, özel tasarım mı?": **üyelik** (LOGIN, REGISTER, FORGOT_PASSWORD, RECOVER_PASSWORD, CUSTOMER_EMAIL_VERIFICATION) and **hesap** (ACCOUNT, orders, order detail, addresses, FAVORITES). Explain the trade-off: hazır = rendered by ikas, no section to design, the port only binds logo/palette/labels with `update_ready_made_page_prop` and enables the group with `enable_ready_made_pages`; özel = designed on the canvas like any section (AuthForms, Account) and ported as code. Record the answer per group in the brief (06 §2a). The Contact page is never ready-made in ikas and is always custom (06 Contact row).
 - Gate: `templates/00-brief.md` fully filled (no `…` left), the user says the brief is right; Durum row 0 → `tamam`.
 
 **Phase 1 · analyze** — gate: `lint_plan.py --globals docs/referans/globals.md --components docs/referans/components.md` prints `LINT OK`; every value tagged `[ölçüldü]` or `[tahmini]`; inputs copied to `docs/referans/girdi/` and that folder listed in the project `.gitignore`.
