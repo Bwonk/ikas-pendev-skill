@@ -53,12 +53,12 @@ grep -q "__" "$OUT/checks-all.js" && bad "checks js has no unfilled placeholders
 if command -v node >/dev/null; then node --check "$OUT/checks-all.js" 2>"$OUT/node.log" && ok "checks js parses (node --check)" || bad "checks js parses (node --check)" "$(head -3 "$OUT/node.log")"; fi
 
 # 6. analyze_site on offline fixture
-if [ -d "$FX/site" ]; then
+if [ -f "$FX/site/axm-snapshot.html" ]; then
   python3 -I "$S/analyze_site.py" --fixture "$FX/site" > "$OUT/analyze-axm.txt" 2>"$OUT/analyze.log" && ok "analyze_site fixture runs" || bad "analyze_site fixture runs" "$(tail -3 "$OUT/analyze.log")"
   for v in "#7A7A7A" "#1C1C1C"; do grep -qi "$v" "$OUT/analyze-axm.txt" && ok "analyze finds $v" || bad "analyze finds $v"; done
   diff -q "$OUT/analyze-axm.txt" "$EXP/analyze-axm.txt" >/dev/null && ok "analyze snapshot" || bad "analyze snapshot" "$(diff "$OUT/analyze-axm.txt" "$EXP/analyze-axm.txt" | head -5)"
 else
-  echo "SKIP  analyze_site fixture (tests/fixtures/site missing; run tests/tools/fetch_fixture.sh)"
+  echo "SKIP  analyze_site fixture (axm-snapshot.html not in git; run tests/tools/fetch_fixture.sh to enable)"
 fi
 
 # 7. build_manifest on the synthetic gizem canvas dump
