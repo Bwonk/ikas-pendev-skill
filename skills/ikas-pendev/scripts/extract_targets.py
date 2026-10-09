@@ -17,7 +17,8 @@ Usage:
                overlays, motion).
 --mode-only    embed only the expectations the chosen mode needs (smaller snippet).
 --checks IDS   comma list of CHK ids to run (default: all of the mode). Use when one execute
-               call times out on a large canvas, e.g. --checks anim, then --checks parity.
+               call times out on a large canvas, e.g. --checks anim, then --checks parity. Only the
+               expectations those checks read are embedded, so the snippet stays small.
 --part K/N     node-walk checks (hardcoded, textclass, clip, refassets) visit only every N-th
                root starting at K; run K=1..N and add the counts. With --js manifest it prints
                the ROOT lines of that slice; concatenate the N outputs into canvas-dump.txt.
@@ -55,6 +56,9 @@ def plan_data(plan):
         if rows:
             out[key] = {"need": rows, "known": sorted({r[0] + ":" + r[1] for r in rows})}
     return out
+CHECK_EXP = {"vars": ("vars",), "ds": ("ds",), "overlays": ("overlayDevices",), "pages": ("pages", "pageExpand"),
+             "anim": ("ids", "idOwner"), "parity": ("parity", "overlayDevices"), "props": ("props",),
+             "data": ("data",), "refassets": ("referenceHost",)}
 LAYER_TYPES = ("TEXT", "RICH_TEXT", "IMAGE", "IMAGE_LIST", "VIDEO", "SVG", "SVG_LIST")
 
 
@@ -217,6 +221,10 @@ def main(argv=None):
             if unknown:
                 ap.error("unknown CHK ids: %s (known: %s)" % (", ".join(unknown), " ".join(CHK_IDS)))
             exp["only"] = ids
+            need = {"prefix", "slug", "contract", "unit", "sections", "overlays", "only"}
+            for c in ids:
+                need.update(CHECK_EXP.get(c, ()))
+            exp = {k: v for k, v in exp.items() if k in need}
         if args.part:
             mm = re.match(r"^(\d+)/(\d+)$", args.part)
             if not mm or not (1 <= int(mm.group(1)) <= int(mm.group(2))):
