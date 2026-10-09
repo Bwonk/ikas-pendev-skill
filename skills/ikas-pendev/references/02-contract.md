@@ -29,7 +29,7 @@ Everything is a **separate root frame**. Root names follow a fixed pattern; the 
 | 00 | `P/DS/Colors`, `P/DS/Typography`, `P/DS/Spacing`, `P/DS/Icons`, `P/DS/Motion`, `P/DS/Imagery` | design-system pages | free |
 | 01 | `P/Sub/<Name>` (reusable) and `P/Sub/<Name> — <state>` | components and their states | by content |
 | 02 | `P/Section/<Name>@desktop`, `P/Section/<Name>@mobile` (both reusable) | sections | 1440 / 390 wide |
-| 03 | `P/Page/<Name>@desktop`, `P/Page/<Name>@mobile` | pages (section instances only) | 1440 / 390 |
+| 03 | `P/Page/<Name>@desktop`, `P/Page/<Name>@mobile`; a plandata row with `expand` uses `P/Page/<Row> — <Name>@<device>` (e.g. `Auth — Login@desktop`) | pages (section instances only) | 1440 / 390 |
 | 04 | `P/Overlay/<Name>@desktop — <state>`, `P/Overlay/<Name>@mobile — <state>` | menu, cart, search, panels | 1440×900 / 390×844 |
 | 05 | `P/Motion/<recipe> <section>` | animation frames (start / mid / end) | by content |
 

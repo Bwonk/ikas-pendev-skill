@@ -74,5 +74,8 @@ grep -v '^ROOT|C/Section/Timeline@' "$FX/gizem-canvas-dump.txt" | sed -E 's/C-PD
 python3 "$S/build_manifest.py" --plandata "$EX/plandata.json" --plan "$OUT/plan-C.md" --dump "$OUT/gizem-canvas-dump-broken.txt" -o "$OUT/port-broken" > "$OUT/manifest-broken.log" 2>&1 && bad "build_manifest broken dump exits 1" || ok "build_manifest broken dump exits 1"
 nb="$(grep -c '|BLOCKING$' "$OUT/manifest-broken.log" | tr -d ' ')"; [ "$nb" = "2" ] && ok "build_manifest broken dump has 2 blocking" || bad "build_manifest broken dump has 2 blocking" "got $nb"
 
+python3 "$S/build_manifest.py" --plandata "$EX/plandata.json" --plan "$OUT/plan-C.md" --dump "$FX/gizem-canvas-dump.txt" --globals "$FX/globals-c2.md" -o "$OUT/port-globals" > "$OUT/manifest-globals.log" 2>&1 && ok "build_manifest --globals exit 0" || bad "build_manifest --globals exit 0" "$(tail -3 "$OUT/manifest-globals.log")"
+grep -q '"name": "Gizem / Gece"\|Gece' "$OUT/port-globals/globals-runbook.md" && grep -q '"breakpoints": \[{"breakpoint_id": "<Kırılım / Laptop id>", "font_size": "80px"}' "$OUT/port-globals/globals-runbook.md" && grep -q '"text_transform": "uppercase"' "$OUT/port-globals/globals-runbook.md" && ok "runbook uses globals.md §1a schemes and §2a breakpoints" || bad "runbook uses globals.md §1a schemes and §2a breakpoints"
+
 echo "----"; echo "passed=$pass failed=$fail"
 [ "$fail" = "0" ]

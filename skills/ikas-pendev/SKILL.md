@@ -67,7 +67,7 @@ Order: `ds` → `subs` → each Section in plan §6.2 order (desktop then mobile
 `python3 ${CLAUDE_SKILL_DIR}/scripts/extract_targets.py <plan> --js all` → execute → paste the `CHK|…` lines into `templates/verify-report.md` (if the call times out, split it with `--checks` / `--part`, see 07 §3). Add the two manual checks (Turkish glyph screenshot of `P/DS/Typography`; contrast pairs from 02 §10). Every FAIL either gets fixed or a one-line reasoned exception the user accepts.
 
 ### 5 · handoff
-`extract_targets.py <plan> --js manifest` → execute → save the `ROOT|…` lines to `docs/port/canvas-dump.txt`. Run `python3 ${CLAUDE_SKILL_DIR}/scripts/build_manifest.py --plandata docs/pendev/plandata --plan <plan> --dump docs/port/canvas-dump.txt -o docs/port/`. Read `references/09-handoff.md` §3 for the globals runbook the port will follow. Before starting, ask whether the temp options frame (rule 12) can be deleted; undecided options either go or become open questions. The handoff ends with the open questions list, not with code.
+`extract_targets.py <plan> --js manifest` → execute → save the `ROOT|…` lines to `docs/port/canvas-dump.txt` (large canvas: `--part 1/N` … `N/N`, concatenated). Run `python3 ${CLAUDE_SKILL_DIR}/scripts/build_manifest.py --plandata docs/pendev/plandata --plan <plan> --dump docs/port/canvas-dump.txt --globals docs/referans/globals.md -o docs/port/`. Read `references/09-handoff.md` §3 for the globals runbook the port will follow. Before starting, ask whether the temp options frame (rule 12) can be deleted; undecided options either go or become open questions. The handoff ends with the open questions list, not with code.
 
 ## When to read which reference
 

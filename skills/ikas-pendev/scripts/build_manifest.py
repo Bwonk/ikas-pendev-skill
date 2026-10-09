@@ -246,12 +246,90 @@ def parse_dump(path, P):
             dm = re.match(r'^(.*?)@(desktop|mobile)$', head)
             key = dm.group(1) if dm else head
             dev = dm.group(2) if dm else (r['device'] if r['device'] in ('desktop', 'mobile') else None)
+            sm = re.match(r'^(.*?)@(desktop|mobile)$', state or '') if band == 'Page' else None
+            if sm:  # page variant of an expanded row: `P/Page/Auth — Login@desktop` is page `Login`
+                r['row'] = key.strip()
+                key, dev, state = sm.group(1), sm.group(2), None
             r.update(band=band, key=key.strip(), dev=dev, state=state, line=ln)
             roots.append(r)
     return roots
 
 
+# ---- globals.md §1a / §2a (final colour schemes and breakpoint text styles) -----------------
+
+SLOT_STD = {'background': 'Background', 'text': 'Text', 'button-bg': 'PrimaryButton/Background',
+            'button-text': 'PrimaryButton/Text'}
+
+
+def _md_section(lines, prefix):
+    out, on = [], False
+    for l in lines:
+        if l.startswith('### ') or l.startswith('## '):
+            if on:
+                break
+            on = l.startswith('### ' + prefix)
+            continue
+        if on:
+            out.append(l)
+    return out
+
+
+def _md_table(lines):
+    rows = [l for l in lines if l.startswith('|')]
+    if len(rows) < 3:
+        return None, []
+    cells = lambda l: [c.strip() for c in l.strip().strip('|').split('|')]
+    return cells(rows[0]), [cells(l) for l in rows[2:]]
+
+
+def _tick(s):
+    m = re.search(r'`([^`]+)`', s or '')
+    return m.group(1) if m else (s or '').strip()
+
+
+def parse_globals_md(path):
+    """Final colour schemes (§1a) and text styles (§2a) from docs/referans/globals.md; {} when absent."""
+    with open(path, encoding='utf-8') as f:
+        lines = f.read().split('\n')
+    res = {}
+    sec = _md_section(lines, '1a.')
+    head, rows = _md_table(sec)
+    if head and len(head) > 2 and rows:
+        names = [re.sub(r'\s*\(.*?\)\s*', '', h).strip() for h in head[2:]]
+        schemes = [collections.OrderedDict([('label', n), ('note', (re.search(r'\((.*?)\)', h) or [None, ''])[1]),
+                                            ('slots', [])]) for n, h in zip(names, head[2:])]
+        for r in rows:
+            slot, var = r[0].strip(), _tick(r[1])
+            std = SLOT_STD.get(slot) or ''.join(w.capitalize() for w in slot.split('-'))
+            for i, s in enumerate(schemes):
+                if 2 + i < len(r):
+                    s['slots'].append(collections.OrderedDict([('slot', std), ('var', var), ('value', _tick(r[2 + i]))]))
+        defaults = [l[2:].strip() for l in sec if l.startswith('- **') and any(('**%s:**' % n) in l for n in names)]
+        res['schemes'] = schemes
+        res['schemeDefaults'] = defaults
+    head, rows = _md_table(_md_section(lines, '2a.'))
+    if head and rows:
+        typo = {}
+        for r in rows:
+            if len(r) < 9:
+                continue
+            fam = [x.strip() for x in r[2].split('·')]
+            num = lambda x: float(x) if re.match(r'^[\d.]+$', x) else None
+            sizes = [num(x) for x in r[3:7]]
+            ls = r[8].replace('−', '-').replace('+', '')
+            typo[_tick(r[1])] = dict(label=r[0], family=fam[0], weight=next((x for x in fam[1:] if re.match(r'^\d00$', x)), None),
+                                     transform='uppercase' if any('BÜYÜK' in x.upper() for x in fam[2:]) else None,
+                                     sizes=sizes, lineHeight=r[7], letterSpacing=None if ls in ('0', '') else ls)
+        res['typography'] = typo
+    return res
+
+
 # ---- keyframes -----------------------------------------------------------------------------
+
+def ascii_slug(s):
+    tr = str.maketrans('çğıöşüÇĞİÖŞÜâÂ', 'cgiosuCGIOSUaA')
+    return re.sub(r'[^a-z0-9]+', '-', s.translate(tr).lower()).strip('-') or 'scheme'
+
 
 def split_flow(s):
     s = (s or '').strip()
@@ -308,7 +386,8 @@ def css_styles(flow):
 # ---- builder -------------------------------------------------------------------------------
 
 class Builder:
-    def __init__(self, data, contract, cat, plan, plan_path, roots):
+    def __init__(self, data, contract, cat, plan, plan_path, roots, gmd=None):
+        self.gmd = gmd or {}
         self.d, self.c2, self.cat, self.plan = data, contract == 2, cat, plan
         self.contract = contract
         self.th = data['theme']
@@ -427,9 +506,31 @@ class Builder:
                     ('name', 'Animasyon / %s' % (rec.get('name') or rid)), ('recipe', rid),
                     ('from', t.get('from')), ('to', t.get('to')), ('points', pts), ('usedBy', [])])
             kf[rid]['usedBy'].append(t['id'])
+        if self.gmd.get('schemes'):
+            in_scheme = {x['var']: x['slot'] for x in self.gmd['schemes'][0]['slots']}
+            schemes = []
+            for i, s in enumerate(self.gmd['schemes']):
+                schemes.append(collections.OrderedDict([
+                    ('name', '%s / %s' % (name, s['label'])), ('mode', ascii_slug(s['label'])), ('note', s['note']),
+                    ('default', i == 0), ('slots', s['slots'])]))
+            for c in colors:
+                if c['var'] in in_scheme:
+                    c['ikas'] = dict(kind='colorScheme', slot=in_scheme[c['var']])
+            css = [c for c in css if c['var'] not in in_scheme]
+        for t in typo:
+            g2 = (self.gmd.get('typography') or {}).get(t['var'])
+            if not g2:
+                continue
+            sz = g2['sizes']
+            t.update([('family', g2['family'] or t['family']), ('weight', g2['weight'] or t['weight']),
+                      ('lineHeight', g2['lineHeight'] or t['lineHeight']), ('letterSpacing', g2['letterSpacing']),
+                      ('transform', g2['transform']), ('source', 'globals.md §2a')])
+            if all(x is not None for x in sz):
+                t['sizes'] = collections.OrderedDict([('desktop', sz[0]), ('laptop', sz[1]), ('tablet', sz[2]), ('mobile', sz[3])])
         return collections.OrderedDict([
             ('colors', colors), ('colorSchemes', schemes), ('typography', typo), ('breakpoints', bps),
-            ('keyframes', list(kf.values())), ('globalCss', css), ('globalVariables', gvars)])
+            ('keyframes', list(kf.values())), ('globalCss', css), ('globalVariables', gvars)]
+            + ([('schemeDefaults', self.gmd['schemeDefaults'])] if self.gmd.get('schemeDefaults') else []))
 
     # ---- props / markers for one section or overlay
     def plan_props(self, sec):
@@ -880,12 +981,21 @@ def render_manifest_md(d, m):
         dest = {'colorScheme': 'colorScheme slot `%s`' % ik.get('slot'), 'color': 'color `%s`' % ik.get('name'),
                 'globalCss': '`global.css` `%s`' % ik.get('css')}[ik['kind']]
         out.append('| %s | `%s` | %s | %s |' % (c['name'], c['var'], ' | '.join('`%s`' % x for x in c['values'].values()), dest))
-    out += ['', '### Tipografi', '', '| Ad | pen.dev | Aile | Ağırlık | Satır | Masaüstü | Mobil |',
-            '|---|---|---|---|---|---|---|']
+    four = any('laptop' in t['sizes'] for t in g['typography'])
+    out += ['', '### Tipografi', '', '| Ad | pen.dev | Aile | Ağırlık | Satır | Masaüstü | %sMobil |' % ('Laptop | Tablet | ' if four else ''),
+            '|---|---|---|---|---|---|---|' + ('---|---|' if four else '')]
     for t in g['typography']:
-        out.append('| %s | `%s` | %s | %s | %s | %s | %s |' % (
+        sz = t['sizes']
+        mid = ('%s | %s | ' % (fmt_num(sz.get('laptop', sz['desktop'])), fmt_num(sz.get('tablet', sz['mobile'])))) if four else ''
+        out.append('| %s | `%s` | %s | %s | %s | %s | %s%s |' % (
             t['name'], t['var'], cell(t['family']), cell(t['weight']), cell(t['lineHeight']),
-            fmt_num(t['sizes']['desktop']), fmt_num(t['sizes']['mobile'])))
+            fmt_num(sz['desktop']), mid, fmt_num(sz['mobile'])))
+    if g['colorSchemes'] and g['colorSchemes'][0].get('slots') and 'default' in g['colorSchemes'][0]:
+        out += ['', '### Renk şemaları (`globals.md` §1a)', '',
+                '| Slot | pen.dev | ' + ' | '.join(s['name'] for s in g['colorSchemes']) + ' |',
+                '|---|---|' + '---|' * len(g['colorSchemes'])]
+        for i, x in enumerate(g['colorSchemes'][0]['slots']):
+            out.append('| `%s` | `%s` | %s |' % (x['slot'], x['var'], ' | '.join('`%s`' % s['slots'][i]['value'] for s in g['colorSchemes'])))
     out += ['', '### Kırılımlar', '', '| Ad | Genişlik |', '|---|---|']
     out += ['| %s | %d |' % (b['name'], b['width']) for b in g['breakpoints']]
     out += ['', "### Keyframe'ler", '', '| Ad | Kullanan hedefler |', '|---|---|']
@@ -1002,9 +1112,13 @@ def render_runbook(m):
         rows.append(('colorScheme', s['name'], ', '.join('%s %s' % (x['slot'], x['value']) for x in s['slots']),
                      'mode `%s`: ' % s['mode'] + ', '.join('`%s`' % x['var'] for x in s['slots'])))
     for t in g['typography']:
-        rows.append(('typography', t['name'], '%s · %s · %s / %s (mobil CSS) · satır %s' % (
-            t['family'] or '?', t['weight'] or 'ağırlık ?', px(t['sizes']['desktop']), px(t['sizes']['mobile']),
-            t['lineHeight'] or '?'), '`%s` + `%s`' % (t['var'], t['fontVar'] or '?')))
+        sz = t['sizes']
+        sizes = (' / '.join(px(sz[k]) for k in ('desktop', 'laptop', 'tablet', 'mobile')) + ' (≥1200 / laptop / tablet / mobil)'
+                 if 'laptop' in sz else '%s / %s (mobil CSS)' % (px(sz['desktop']), px(sz['mobile'])))
+        extra = ''.join(' · %s' % x for x in (t.get('letterSpacing') and 'harf ' + t['letterSpacing'], t.get('transform')) if x)
+        rows.append(('typography', t['name'], '%s · %s · %s · satır %s%s' % (
+            t['family'] or '?', t['weight'] or 'ağırlık ?', sizes, t['lineHeight'] or '?', extra),
+            '`%s` + `%s`%s' % (t['var'], t['fontVar'] or '?', ' · ' + t['source'] if t.get('source') else '')))
     for v in g['globalVariables']:
         rows.append(('globalVariable', v['name'], '%s `%s`' % (v['type'], json.dumps(v['value'], ensure_ascii=False)),
                      ', '.join('`%s`' % x for x in v['vars'])))
@@ -1059,6 +1173,15 @@ def render_runbook(m):
             p['font_weight'] = t['weight']
         if t['lineHeight']:
             p['line_height'] = t['lineHeight']
+        if t.get('letterSpacing'):
+            p['letter_spacing'] = t['letterSpacing']
+        if t.get('transform'):
+            p['text_transform'] = t['transform']
+        if 'laptop' in t['sizes']:
+            bpo = [collections.OrderedDict([('breakpoint_id', '<%s id>' % b['name']), ('font_size', px(t['sizes'][b['id']]))])
+                   for b in g['breakpoints'] if b['id'] in t['sizes'] and t['sizes'][b['id']] != t['sizes']['desktop']]
+            if bpo:
+                p['breakpoints'] = bpo
         payloads.append(('typography', p))
     for v in g['globalVariables']:
         payloads.append(('globalVariable', collections.OrderedDict([('kind', 'globalVariable'), ('display_name', v['name']),
@@ -1083,8 +1206,18 @@ def render_runbook(m):
     if modes and len(g['colorSchemes']) > 1:
         notes.append("- `mode` ekseni → palet başına bir renk şeması. İkinci şemadaki `<Slot slotId>` yer tutucuları, "
                      "ilk şemadan sonra yapılan `list_theme_globals` çıktısıyla değiştirilir.")
-    notes.append('- Tipografi token\'ları masaüstü boyutunu taşır; mobil boyutlar bileşen CSS\'inde '
-                 '`@media (max-width: bp(<mobile id>))` ile verilir. `text-transform` token\'a yazılmaz.')
+    if any('laptop' in t['sizes'] for t in g['typography']):
+        notes.append('- Tipografi kırılım boyutları (`globals.md` §2a) `breakpoints` dizisiyle aynı çağrıda yazılır; '
+                     '`<Kırılım / … id>` yer tutucuları kırılımlar oluşturulduktan sonra `list_theme_globals` çıktısıyla değiştirilir.')
+    else:
+        notes.append('- Tipografi token\'ları masaüstü boyutunu taşır; mobil boyutlar bileşen CSS\'inde '
+                     '`@media (max-width: bp(<mobile id>))` ile verilir. `text-transform` token\'a yazılmaz.')
+    dflt = next((s for s in g['colorSchemes'] if s.get('default')), None)
+    if dflt:
+        notes.append('- Varsayılan şema: `%s` → oluşturulduktan sonra `update_theme_color_scheme` `is_default: true`.' % dflt['name'])
+    if g.get('schemeDefaults'):
+        notes.append('- Bölümlerin varsayılan şeması (`globals.md` §1a):')
+        notes += ['  - %s' % x for x in g['schemeDefaults']]
     missing_w = [t['name'] for t in g['typography'] if not t['weight']]
     if missing_w:
         notes.append('- Ağırlığı planda olmayan tipografiler (`font_weight` gönderilmez; kullanıcıya sorulur): ' + ', '.join(missing_w) + '.')
@@ -1150,10 +1283,12 @@ def main(argv=None):
     ap.add_argument('--plandata', required=True, help='plandata directory or single plandata JSON file')
     ap.add_argument('--plan', required=True, help='rendered plan (anim-targets YAML blocks)')
     ap.add_argument('--dump', help='canvas dump with ROOT|... lines (extract_targets.py --js manifest output)')
+    ap.add_argument('--globals', help='docs/referans/globals.md: §1a colour schemes and §2a breakpoint text styles '
+                                      'override the plandata-derived schemes and type sizes')
     ap.add_argument('-o', '--outdir', required=True, help='output directory (docs/port/)')
     ap.add_argument('--json', action='store_true', help='print one JSON summary object instead of text lines')
     a = ap.parse_args(argv)
-    for p in [a.plandata, a.plan] + ([a.dump] if a.dump else []):
+    for p in [a.plandata, a.plan] + ([a.dump] if a.dump else []) + ([a.globals] if a.globals else []):
         if not os.path.exists(p):
             print('build_manifest: %s: not found' % p, file=sys.stderr)
             return 2
@@ -1187,7 +1322,10 @@ def main(argv=None):
         if not roots:
             print('build_manifest: %s: no ROOT|%s/... lines' % (a.dump, data['theme']['prefix']), file=sys.stderr)
             return 2
-    b = Builder(data, contract, cat, plan, a.plan, roots)
+    gmd = parse_globals_md(a.globals) if a.globals else {}
+    if a.globals and not gmd:
+        print('WARN|globals|%s has no §1a / §2a tables; plandata values are used' % a.globals, file=sys.stderr)
+    b = Builder(data, contract, cat, plan, a.plan, roots, gmd)
     m = b.build()
     os.makedirs(a.outdir, exist_ok=True)
     files = []
