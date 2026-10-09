@@ -34,7 +34,7 @@
     },
     {
       "id": "phase-entry-verify",
-      "prompt": "/ikas-pendev verify ~/orca/gizem-theme",
+      "prompt": "/ikas-pendev verify ~/orca/ornek-theme",
       "expect_trigger": true,
       "expected": [
         "Detects contract 1 from the plan (no marker)",

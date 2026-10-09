@@ -12,7 +12,7 @@ with the check id L01..L20), then `LINT OK (n targets)` or
 `LINT FAIL (e errors, w warnings)`. Exit code 1 when any ERROR is reported.
 
 The contract is auto-detected from the `<!-- ikas-pendev contract:2 -->` marker
-(absent -> contract 1, the legacy gizem format). `--contract` overrides it.
+(absent -> contract 1, the legacy format of examples/ornek). `--contract` overrides it.
 
 Checks
   L01 code fences balanced, anim-targets markers paired, no leftover placeholders

@@ -1,4 +1,4 @@
-# Live read-only run of scripts/pendev_checks.js (--js all, contract 1) on the gizem canvas (pencil-new.pen), 2026-10-08.
+# Live read-only run of scripts/pendev_checks.js (--js all, contract 1) on the ornek canvas (pencil-new.pen), 2026-10-08.
 # Baseline for the legacy contract. Numbers come from the canvas; WARN rows are known, accepted exceptions.
 CHK|vars|PASS|37|37/37
 CHK|ds|PASS|5|5/5            (canvas also has C/DS/Imagery; contract 1 expects 5)
@@ -12,5 +12,5 @@ CHK|clip|WARN|128|after roll/hover exclusions; accordion answers, hotspot cards,
 CHK|rootmeta|PASS|201|201/201 (state frames skipped in contract 1)
 CHK|bgprop|PASS|0|skip: contract 1
 CHK|placeholder|PASS|0|none
-CHK|refassets|PASS|0|no reference-host image fills (axm.framer.website)
+CHK|refassets|PASS|0|no reference-host image fills (referans.example)
 SUMMARY|pass=10|fail=0|warn=3|mode=all|roots=201

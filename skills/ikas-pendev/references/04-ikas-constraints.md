@@ -1,6 +1,6 @@
 # 04 · ikas constraints — what a design may contain so the port stays mechanical
 
-Source of truth: the ikas Code Components MCP (`@ikas/code-components-mcp` 2.9.8, offline data `framework.json` topics `prop-types`, `theme-globals`, `sections-vs-components`, `page-composition`, `css-scoping`, `global-css`, `image-handling`, `common-pitfalls`, `real-world-architecture`; `section-templates/`). Where the MCP is silent, rules come from the gizem and geeny theme projects and are marked *(project rule)*. If the live MCP disagrees with this file, the MCP wins — re-check with `get_framework_guide("<topic>")`.
+Source of truth: the ikas Code Components MCP (`@ikas/code-components-mcp` 2.9.8, offline data `framework.json` topics `prop-types`, `theme-globals`, `sections-vs-components`, `page-composition`, `css-scoping`, `global-css`, `image-handling`, `common-pitfalls`, `real-world-architecture`; `section-templates/`). Where the MCP is silent, rules come from the ornek and geeny theme projects and are marked *(project rule)*. If the live MCP disagrees with this file, the MCP wins — re-check with `get_framework_guide("<topic>")`.
 
 ## Contents
 1. Prop types (30)
@@ -121,7 +121,7 @@ Overlays (`P/Overlay/<Name>…`) are not a tier: they port as sub-components ren
 ## 7. Responsive
 
 - Only two widths are designed: `@desktop` (1440) and `@mobile` (390). Laptop and tablet are **not** designed; their values come from the reference ladder (globals.md §2/§4) and are written in component CSS.
-- Breakpoints are theme globals (gizem: `laptop` 1199, `tablet` 991, `mobile` 767). Every `@mobile` difference becomes `@media (max-width: bp(<mobileId>))` in the same component's `styles.css` — one component, two layouts.
+- Breakpoints are theme globals (ornek: `laptop` 1199, `tablet` 991, `mobile` 767). Every `@mobile` difference becomes `@media (max-width: bp(<mobileId>))` in the same component's `styles.css` — one component, two layouts.
 - When the merchant must control the mobile variant independently (different image crop, column count, hidden block), add a duplicate prop with a `mobile` prefix (`mobileImage` IMAGE, `mobileColumns` NUMBER, `showOnMobile` BOOLEAN) and draw it on the `@mobile` frame with that prop name.
 - Device-axis variables (`text-*`, `space-*`, `size-*`) resolve automatically on the `@mobile` frame; never type mobile numbers by hand.
 

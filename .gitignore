@@ -4,4 +4,5 @@ __pycache__/
 tests/out/
 *.local.*
 # third-party page snapshot used only for the local analyze_site regression (see tests/tools/fetch_fixture.sh)
-skills/ikas-pendev/tests/fixtures/site/axm-snapshot.html
+skills/ikas-pendev/tests/fixtures/site/site-snapshot.html
+skills/ikas-pendev/tests/out/

@@ -1,16 +1,16 @@
-# Brief — Gizem
+# Brief — Örnek
 
 Bu dosya tüm fazların başlangıç noktasıdır. Her oturum önce bunu okur; en alttaki **Durum** tablosu ilk açık fazı gösterir. Kaynak sırası: bu brief > canlı .pen dosyası > `docs/` > skill varsayılanları.
 
-> Not: Gizem skill'den önce üretildi; bu brief mevcut `docs/` dosyalarından (README, `referans/globals.md`, `pendev/plan-C-serbest-yorum.md`) **geriye doğru kuruldu**. Sözleşme `contract 1` (37 değişken, `textClass` yok); taşınmaz.
+> Not: Örnek skill'den önce üretildi; bu brief mevcut `docs/` dosyalarından (README, `referans/globals.md`, `pendev/plan-C-serbest-yorum.md`) **geriye doğru kuruldu**. Sözleşme `contract 1` (37 değişken, `textClass` yok); taşınmaz.
 
 ## 1. Girdiler
 
 | Dosya / URL | Sayfa | Viewport genişliği | Not |
 |---|---|---|---|
-| https://axm.framer.website/ | ana sayfa, `/shop/category/*`, `/shop/collections/*`, `/shop/<ürün>`, `/about`, `/journal`, `/journal/<yazı>`, `/contact`, `/support/*` | 1444 / 570 | canlı ölçüm; Framer katman adları (`data-framer-name`) |
+| https://referans.example/ | ana sayfa, `/shop/category/*`, `/shop/collections/*`, `/shop/<ürün>`, `/about`, `/journal`, `/journal/<yazı>`, `/contact`, `/support/*` | 1444 / 570 | canlı ölçüm; Framer katman adları (`data-framer-name`) |
 
-- Canlı referans: https://axm.framer.website/ (Axiom Framer şablonu)
+- Canlı referans: https://referans.example/ (Referans Framer şablonu)
 - Taranacak yollar: `/`, `/shop/category/*`, `/shop/collections/*`, `/shop/<ürün>`, `/about`, `/journal`, `/contact`, `/support/*`
 - Girdi klasörü: `docs/referans/girdi/` (git'e girmez; `.gitignore`'a eklendi: hayır — skill öncesi proje)
 
@@ -18,8 +18,8 @@ Bu dosya tüm fazların başlangıç noktasıdır. Her oturum önce bunu okur; e
 
 | Alan | Değer |
 |---|---|
-| Marka adı | Gizem |
-| Slug | gizem |
+| Marka adı | Örnek |
+| Slug | ornek |
 | Sektör | streetwear (giyim) |
 | Ton (3 sıfat) | ham · gizemli · sert |
 
@@ -36,7 +36,7 @@ Bu dosya tüm fazların başlangıç noktasıdır. Her oturum önce bunu okur; e
 
 - [x] Referans sadece bakmak için: görseli, metni, logosu ve marka adı canvas'a girmez.
 - [x] Görseller `Generate("ai" | "stock")`, logo `Generate("svg")` ile özgün üretilir.
-- Onay: plan-C §0 ve §9 ile sabitlendi. Canvas'taki `axm.framer.website` adlı 8 frame ham import; içinden katman kopyalanmaz, silinmez, değiştirilmez.
+- Onay: plan-C §0 ve §9 ile sabitlendi. Canvas'taki `referans.example` adlı 8 frame ham import; içinden katman kopyalanmaz, silinmez, değiştirilmez.
 
 ## 5. Kapsamdaki sayfalar
 
@@ -77,7 +77,7 @@ Overlay'ler: MenuOverlay · CartDrawer · SearchOverlay (Header içinde). Filter
 
 | Alan | Değer |
 |---|---|
-| .pen dosyası | `pencil-new.pen` (plan önerisi `gizem-C.pen` idi; aynı dosyada `C/` önekiyle çalışıldı) |
+| .pen dosyası | `pencil-new.pen` (plan önerisi `ornek-C.pen` idi; aynı dosyada `C/` önekiyle çalışıldı) |
 | Masaüstü genişliği | 1440 |
 | Mobil genişliği | 390 |
 | Overlay boyutları | 1440×900 · 390×844 |

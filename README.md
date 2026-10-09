@@ -46,7 +46,7 @@ skills/ikas-pendev/
 ├── references/         sözleşme, motion kataloğu, ikas sınırları, pen.dev tuzakları, sayfa kapsamı, kontrol listeleri, kalite, aktarım
 ├── templates/          brief, globals, components, verify-report, port-manifest şablonları; plan prose parçaları; plandata şeması
 ├── scripts/            gen_plan · lint_plan · extract_targets · pendev_checks.js · analyze_site · build_manifest
-├── examples/gizem/     gerçek bir projeden altın örnek (brief, plandata, globals, components, verify-report)
+├── examples/ornek/     anonim örnek tema, contract 1 (brief, plandata, globals, components, verify-report)
 ├── evals/evals.json    tetikleme senaryoları
 └── tests/run.sh        regresyon: gen_plan byte-exact, lint, extract, analyze_site fixture
 ```

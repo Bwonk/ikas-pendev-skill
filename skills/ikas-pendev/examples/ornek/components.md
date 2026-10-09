@@ -1,6 +1,6 @@
 # Components — bileşen envanteri ve ikas eşlemesi
 
-Kaynak: https://axm.framer.website/ katman ağacı (`data-framer-name`) + ekran ölçümleri (1444px / 570px).
+Kaynak: https://referans.example/ katman ağacı (`data-framer-name`) + ekran ölçümleri (1444px / 570px).
 Token adları ve motion tarifleri (`M-xx`) için: [`globals.md`](./globals.md).
 
 Üç seviye:
@@ -65,7 +65,7 @@ Mobil: hamburger sol, logo orta, ikonlar sağ; duyuru ve linkler MobileMenu içi
 | Prop | Tip | Varsayılan | Grup |
 |---|---|---|---|
 | `logo` | SVG | — | Marka |
-| `logoAltText` | TEXT | "Gizem" | Marka |
+| `logoAltText` | TEXT | "Örnek" | Marka |
 | `announcements` | COMPONENT_LIST (`AnnouncementItem`) | 3 öğe | Duyuru |
 | `announcementInterval` | NUMBER | 3 | Duyuru |
 | `navLinks` | LIST_OF_LINK | Shop, About, Journal, Contact | Menü |
@@ -368,7 +368,7 @@ Prop: `navLinks` LIST_OF_LINK · `title` TEXT · `content` RICH_TEXT · `contact
 
 ## 7. ikas'a aktarım kuralları
 
-**Proje:** `gizem/` (Preact + TS). MCP sunucusu `gizem/.mcp.json` içinde tanımlı → Claude Code'u `gizem/` klasöründe başlat; aksi halde MCP araçları bağlanmaz.
+**Proje:** `ornek/` (Preact + TS). MCP sunucusu `ornek/.mcp.json` içinde tanımlı → Claude Code'u `ornek/` klasöründe başlat; aksi halde MCP araçları bağlanmaz.
 
 **MCP ne sağlar** (CLAUDE.md'deki 12 araçtan fazlası var, ~60 araç):
 - Doküman: `get_section_template` (28 şablon), `get_section_child`, `get_framework_guide` (37 konu), `get_model_guide`, `get_function_doc`, `get_prop_types`, `search_docs`. `get_code_example` 2.9.8 sürümünde boş döner — kullanma.

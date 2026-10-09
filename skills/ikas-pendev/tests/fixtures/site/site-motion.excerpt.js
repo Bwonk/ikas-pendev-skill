@@ -1,4 +1,4 @@
-// Motion object literals copied as TEXT from the scripts of https://axm.framer.website/
+// Motion object literals copied as TEXT from the scripts of https://referans.example/
 // (fetched 2026-10-08; analyze_site.py --json -> motion.objects). Not executable; test data only.
 // One literal per line, preceded by its source.
 // / <script#6>

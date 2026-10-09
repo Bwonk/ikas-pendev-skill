@@ -1,7 +1,7 @@
 # Globals — referans token'ları ve motion tarifleri
 
-Kaynak: https://axm.framer.website/ (Axiom Framer şablonu), 1444px ve 570px genişlikte ölçüldü.
-Bu dosya referansın **ölçülen** değerlerini verir. Gizem'in kendi kimlik değerleri her pen.dev planının "Değişkenler" bölümündedir; buradaki **token adları** üç planda da aynıdır, sadece değerler değişir.
+Kaynak: https://referans.example/ (Referans Framer şablonu), 1444px ve 570px genişlikte ölçüldü.
+Bu dosya referansın **ölçülen** değerlerini verir. Örnek'in kendi kimlik değerleri her pen.dev planının "Değişkenler" bölümündedir; buradaki **token adları** üç planda da aynıdır, sadece değerler değişir.
 
 Etiketler: **[ölçüldü]** = siteden/CSS'ten/Framer modülünden okundu · **[tahmini]** = gözlemle kestirildi, aktarımda ayarlanacak.
 

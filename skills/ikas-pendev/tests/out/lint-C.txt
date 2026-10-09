@@ -1,6 +1,0 @@
-globals|INFO|-|L20 core names not mentioned: color-accent-text, font-mono
-§6|WARN|C-CRSL-02:L1669|L08 impl term not in vocabulary: css, scroll-snap
-§3|WARN|space-grid:L93|L12 no device axis (same value on desktop and mobile)
-§3|WARN|color-muted/color-surface@light|L14 contrast 4.19 < 4.5 (#6B675F on #E3DED2)
-§3|WARN|color-accent/color-bg@light|L14 contrast 2.99 < 3.0 (#FF3B1F on #EFEBE2)
-LINT OK (115 targets)

@@ -19,8 +19,8 @@ Top-level keys are fixed; unknown keys are ignored by readers; `schema` bumps on
 ```json
 {
   "schema": 1,
-  "theme": { "slug": "gizem", "name": "Gizem", "prefix": "C", "contract": 1,
-             "reference": "https://axm.framer.website/", "canvas": "gizem-C.pen",
+  "theme": { "slug": "ornek", "name": "Örnek", "prefix": "C", "contract": 1,
+             "reference": "https://referans.example/", "canvas": "ornek-C.pen",
              "plan": "docs/pendev/plan-C-serbest-yorum.md",
              "devices": { "desktop": 1440, "mobile": 390 }, "modes": ["light", "dark"] },
   "globals": {
@@ -98,7 +98,7 @@ Follows the geeny `prompts/00-globals.md` pattern: read → table → **user app
    ```json
    {"kind":"breakpoint","name":"Kırılım / Mobil","width":767}
    {"kind":"color","name":"Renk / Vurgu","value":"#FF3B1F"}
-   {"kind":"colorScheme","name":"Gizem / Kağıt","colors":[{"newSlotName":"Background","value":"#EFEBE2"},{"newSlotName":"Text","value":"#0D0D0D"}]}
+   {"kind":"colorScheme","name":"Örnek / Kağıt","colors":[{"newSlotName":"Background","value":"#EFEBE2"},{"newSlotName":"Text","value":"#0D0D0D"}]}
    {"kind":"typography","name":"Tipografi / Display","font_family":"Sofia Sans Extra Condensed","font_size":"168px","font_weight":"800","line_height":"0.9"}
    {"kind":"globalVariable","display_name":"Çizgi / Varsayılan","type":"BORDER","value":{"width":{"value":2,"unit":"px"},"style":"solid","color":"#0D0D0D"}}
    {"kind":"keyframe","name":"Animasyon / Marquee","points":[{"point":"0%","styles":[{"property":"transform","value":"translateX(0)"}]},{"point":"100%","styles":[{"property":"transform","value":"translateX(-50%)"}]}]}

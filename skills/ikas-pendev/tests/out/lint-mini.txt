@@ -1,5 +1,0 @@
-§3|WARN|space-xs:L94|L12 no device axis (same value on desktop and mobile)
-§3|WARN|space-sm:L95|L12 no device axis (same value on desktop and mobile)
-§3|WARN|color-muted/color-surface@light|L14 contrast 4.46 < 4.5 (#5E615B on #DCD9D2)
-§3|WARN|color-inverse-text,color-text/color-scrim>color-bg@light|L14 contrast 4.40 < 4.5 (#E9E7E2 on #6A6A66)
-LINT OK (10 targets)

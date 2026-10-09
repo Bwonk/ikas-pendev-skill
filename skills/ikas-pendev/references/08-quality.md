@@ -29,7 +29,7 @@ What separates a designed theme from a generated one. Read before writing plan �
 - **Overrides** live only in each section's `**Desktop:**` and `**Mobil:**` lines in plan §6.2 (sizes, column split, what is hidden or reordered on mobile). A section never introduces a new colour, font or radius; if it needs one, change the MASTER and the variables.
 - Inverted sections (dark palette) are declared once in MASTER and marked per section with `mode: "dark"`.
 
-Example (gizem plan C, condensed):
+Example (ornek plan C, condensed):
 
 ```
 MASTER  Konsept "ŞİFRE": sokak fanzini; kağıt zemin, 2px siyah çizgi, bitişik kartlar (gutter 0),
@@ -53,7 +53,7 @@ In every strategy the reference's images, logo, brand name and text are never us
 
 ## 5. One place to spend boldness
 
-Choose **one** signature and make it unmistakable: a single motion recipe (gizem: scramble text), or an extreme type scale, or one structural idea (adjacent cells with 0 gutter). Everything else stays quiet so the signature reads. Two signatures compete; three are noise. Record the choice in MASTER and in `P/DS/Motion`.
+Choose **one** signature and make it unmistakable: a single motion recipe (ornek: scramble text), or an extreme type scale, or one structural idea (adjacent cells with 0 gutter). Everything else stays quiet so the signature reads. Two signatures compete; three are noise. Record the choice in MASTER and in `P/DS/Motion`.
 
 ## 6. Turkish copy rules
 

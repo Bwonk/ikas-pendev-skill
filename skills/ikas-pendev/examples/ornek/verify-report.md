@@ -1,4 +1,4 @@
-# Doğrulama raporu — Gizem (Plan C, contract 1)
+# Doğrulama raporu — Örnek (Plan C, contract 1)
 
 Tarih: 2026-10-08 · Canvas: `pencil-new.pen` · Mod: `all` · Script: `pendev_checks.js` (yalnızca okuma)
 

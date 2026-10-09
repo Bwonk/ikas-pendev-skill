@@ -47,17 +47,17 @@ A unit is one root pair (`@desktop` + `@mobile`), one Sub with its state frames,
 
 ## 3. CHK table
 
-Emitted by `pendev_checks.js` as `CHK|<id>|PASS|FAIL|WARN|<n>|<detail≤200>`, closed by `SUMMARY|pass=..|fail=..|warn=..`. On a large canvas one `execute` can time out (`InternalError: interrupted`): split the run with `extract_targets.py … --checks <ids>` and run the node-walk checks (`hardcoded,textclass,clip,refassets`) as `--part 1/3`, `2/3`, `3/3`; add the counts. `n` = offending count (or `found/expected`). Contract 1 = legacy gizem canvas (37 variables, no `textClass`); contract 2 = all new projects.
+Emitted by `pendev_checks.js` as `CHK|<id>|PASS|FAIL|WARN|<n>|<detail≤200>`, closed by `SUMMARY|pass=..|fail=..|warn=..`. On a large canvas one `execute` can time out (`InternalError: interrupted`): split the run with `extract_targets.py … --checks <ids>` and run the node-walk checks (`hardcoded,textclass,clip,refassets`) as `--part 1/3`, `2/3`, `3/3`; add the counts. `n` = offending count (or `found/expected`). Contract 1 = legacy ornek canvas (37 variables, no `textClass`); contract 2 = all new projects.
 
 | id | What | Pass rule (contract 2) | Contract 1 behaviour |
 |---|---|---|---|
-| `vars` | core variables | `GetVariables()` has all 41 core names; themed ones carry axes `device` and/or `mode` as in `02-contract.md` | expects the 37 gizem names |
+| `vars` | core variables | `GetVariables()` has all 41 core names; themed ones carry axes `device` and/or `mode` as in `02-contract.md` | expects the 37 ornek names |
 | `hardcoded` | raw values | no node under `P/` roots has a literal `#hex` fill/stroke, numeric `fontSize` or literal `fontFamily` (allowlist in `02-contract.md` §3) | same rule |
 | `sections` | section frames | every plan §6.2 Section key has `P/Section/<Key>@desktop` and `@mobile`, both `reusable: true` | same |
 | `pages` | page composition | every plan §6.3 page exists at both devices; children are only `ref`s to `P/Section/*` of the same device | same |
 | `overlays` | overlay frames | every plan overlay × listed state × device has a root `P/Overlay/<Name>@device — <state>` | same |
 | `anim` | animation targets | set of ids from `metadata.anim` ∪ `context` regex over Section/Sub components and every Overlay root (a `resolveInstances: true` pass only while ids are missing) equals the plan's id set, both directions; no Section/Overlay root carries an id the plan gives another key (`foreign`); backdrop refs to other Sections are skipped (02 §5b) | regex `C-[A-Z]{2,}-\d\d` style (prefix-specific), same equality |
-| `textclass` | text classification | 0 text nodes without `textClass`; `prop` has `prop`+`propType` (one of the 30); `data` has `source` | `WARN` with the unmarked count (gizem baseline ≈ 350); never FAIL |
+| `textclass` | text classification | 0 text nodes without `textClass`; `prop` has `prop`+`propType` (one of the 30); `data` has `source` | `WARN` with the unmarked count (ornek baseline ≈ 350); never FAIL |
 | `clip` | clipped content | 0 nodes with `ctx.problems`, excluding descendants of layers named `*mask*`, `*track*`, `marquee`, `ticker`, `*pin*`, `*stage*`, `*curtain*` | same |
 | `rootmeta` | root metadata | every `P/` root has `type`=slug, `role`, `ikas` (section/overlay/sub), `device` (section/page/overlay), `variant`=P, `contract`=2 | `contract` key not required |
 | `bgprop` | section background prop | every Section root has `prop:"backgroundColor", propType:"COLOR"` | skipped → `WARN` "contract 1" |

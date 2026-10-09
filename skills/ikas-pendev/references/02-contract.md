@@ -2,7 +2,7 @@
 
 The fixed agreement between the plan, the pen.dev canvas and the ikas port. Scripts (`gen_plan.py`, `lint_plan.py`, `pendev_checks.js`, `build_manifest.py`) and the downstream ikas port depend on these names; **do not rename anything in this file per project**. Only values change.
 
-`P` below stands for the project's prefix letter (A–Z, chosen in intake, unique on the canvas). Contract 2 is the default for new projects; contract 1 is the legacy gizem form (37 variables, no `textClass`, no Imagery frame) and is only read, never produced.
+`P` below stands for the project's prefix letter (A–Z, chosen in intake, unique on the canvas). Contract 2 is the default for new projects; contract 1 is the legacy ornek form (37 variables, no `textClass`, no Imagery frame) and is only read, never produced.
 
 ## Contents
 
@@ -63,7 +63,7 @@ Layout rules:
 
 ## 3. Core variables (41)
 
-Types: `color`, `string`, `number`. Axes: `mode: light | dark` (colours, only when the brief chose inverted sections or dark mode; a single-palette theme declares scalar colours) and `device: desktop | mobile` (sizes). Fonts and the scalar sizes marked "—" have no axis. Example values are the gizem plan-C values (light / dark, desktop / mobile); the four contract-2 additions show suggested values.
+Types: `color`, `string`, `number`. Axes: `mode: light | dark` (colours, only when the brief chose inverted sections or dark mode; a single-palette theme declares scalar colours) and `device: desktop | mobile` (sizes). Fonts and the scalar sizes marked "—" have no axis. Example values are the ornek plan-C values (light / dark, desktop / mobile); the four contract-2 additions show suggested values.
 
 | # | Variable | Role | Type | Axis | Example | ikas destination |
 |---|---|---|---|---|---|---|
@@ -307,7 +307,7 @@ Each sub is a reusable root; each state is its own root `P/Sub/<Name> — <state
 | `SocialLoginButton` | Google · Facebook · hover | custom auth |
 | `Skeleton` | — | always (loading states) |
 
-Theme-specific subs (gizem: `Sticker`, `ScrambleText`) are added by the plan.
+Theme-specific subs (ornek: `Sticker`, `ScrambleText`) are added by the plan.
 
 Required overlays (`P/Overlay/…`): mobile menu — açık; `CartDrawer` — boş · dolu · yükleniyor; `SearchOverlay` — boş · yazarken · sonuçsuz; **`FilterDrawer@mobile` — açık**; **`QuickBuy` — açık · seçim eksik · ekleniyor** (`@desktop` centred window, `@mobile` bottom sheet; content in `06-page-coverage.md` §3a); plus any panel the plan defines (size guide, info drawer).
 
@@ -332,7 +332,7 @@ WCAG 2.1 ratios, computed on the variable values **in every declared mode**. `li
 | `color-line` on `color-bg` (non-text) | 3.0 | WARN | `color-line` |
 | `color-accent` on `color-bg` (non-text) | 3.0 | WARN | `color-accent` only if it carries meaning alone |
 
-Fix the foreground variable, keep hue, step lightness until it passes; never move `color-bg` to rescue one pair. Example: gizem muted light `#77736A` on `#EFEBE2` = 3.97 → `#6B675F` = 4.73.
+Fix the foreground variable, keep hue, step lightness until it passes; never move `color-bg` to rescue one pair. Example: ornek muted light `#77736A` on `#EFEBE2` = 3.97 → `#6B675F` = 4.73.
 
 ## 11. Theme name and brand placements
 

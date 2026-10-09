@@ -13,7 +13,7 @@ Turns screenshots and/or a live URL into two files: `docs/referans/globals.md` (
 7. Coverage audit
 8. Phase-1 gate
 
-Fill-in skeletons: `templates/globals.md`, `templates/components.md`. Golden output: `examples/gizem/{globals,components}.md`.
+Fill-in skeletons: `templates/globals.md`, `templates/components.md`. Worked example: `examples/ornek/{globals,components}.md` (an anonymised contract 1 theme; where it differs from the current templates and references, those win).
 
 ---
 

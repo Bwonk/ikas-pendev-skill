@@ -34,7 +34,7 @@ Layer names stay as written (kebab-case, they become CSS classes).
 
 ## 2. Motion tokens
 
-Token names are fixed (recipes reference them); values come from the reference measurement in `globals.md` §7.1 and may be re-measured per theme. Defaults below are the gizem reference values.
+Token names are fixed (recipes reference them); values come from the reference measurement in `globals.md` §7.1 and may be re-measured per theme. Defaults below are the ornek reference values.
 
 | Token | Default value | Use |
 |---|---|---|
@@ -167,7 +167,7 @@ Recipes whose motion cannot be read from the end state get one `P/Motion/<recipe
 | M-23 | değer paneli: görsel 10° dönük ve aşağıda → 5° → 0° ve yerinde |
 | M-24 | değer başlığı: tam opak → büyümüş ve yarı saydam → görünmez |
 
-Local recipes supply their own hint in plandata (gizem examples: `metin: tamamen karışık karakterler → yarısı çözülmüş → gerçek metin`; `şerit: baş konum → orta → son kare`).
+Local recipes supply their own hint in plandata (ornek examples: `metin: tamamen karışık karakterler → yarısı çözülmüş → gerçek metin`; `şerit: baş konum → orta → son kare`).
 
 ## 6. Local recipe template
 

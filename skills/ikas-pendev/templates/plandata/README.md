@@ -35,7 +35,7 @@ Either form is accepted:
 | Form | Files |
 |---|---|
 | Directory (default in projects) | `plandata/theme.json` (everything except sections) + `plandata/sections/NN-<Key>.json` (one section or overlay object per file; file-name order = plan order; `<Key>` must equal `key`) |
-| Single file | one JSON object with `sections` inlined (used by `examples/gizem/plandata.json`) |
+| Single file | one JSON object with `sections` inlined (used by `examples/ornek/plandata.json`) |
 
 Default output directory: the parent of a plandata directory, or the directory of a single JSON file. Override with `-o`.
 
@@ -46,7 +46,7 @@ Any long text field (`identity_md`, `tree`, `desktop`, `mobile`, `props`, `struc
 | Key | Type | Req. | Notes |
 |---|---|---|---|
 | `schema` | `1` | yes | |
-| `contract` | `1` \| `2` | yes | 1 = Gizem legacy (byte-exact), 2 = all new projects |
+| `contract` | `1` \| `2` | yes | 1 = Örnek legacy (byte-exact), 2 = all new projects |
 | `contextScan` | bool | no (default `true`) | contract 1 only: render the `context` scan in §8 step 2 and the union wording in §9. Contract 2 always renders it |
 | `theme` | object | yes | see below |
 | `identity_md` | string \| lines | yes | §1 body, Markdown (Turkish) |
@@ -69,16 +69,16 @@ Any long text field (`identity_md`, `tree`, `desktop`, `mobile`, `props`, `struc
 
 | Key | Req. | Example | Used in |
 |---|---|---|---|
-| `slug` | yes | `gizem` | `metadata.type` (kebab-case) |
-| `name`, `sector` | yes | `Gizem`, `streetwear` | header line |
+| `slug` | yes | `ornek` | `metadata.type` (kebab-case) |
+| `name`, `sector` | yes | `Örnek`, `streetwear` | header line |
 | `prefix` | yes | `C` | one letter A–Z; root frame prefix and anim ids `C-HERO-01` |
 | `file` | no | `plan-C-serbest-yorum.md` | default `plan-<prefix>-<slug>.md` |
 | `title`, `lead` | yes | | H1 and lead paragraph |
-| `reference.url` | no | `https://axm.framer.website/` | header line (omitted when empty) |
+| `reference.url` | no | `https://referans.example/` | header line (omitted when empty) |
 | `reference.canvasImportNote` | no | | §0 sentence about imported reference frames |
 | `reference.policy` | no | | contract 2 §9 `CHK refassets` line |
-| `penFile` | yes | `gizem-C.pen` | §0 |
-| `codeDir` | yes | `gizem/src/` | §8 step 3 |
+| `penFile` | yes | `ornek-C.pen` | §0 |
+| `codeDir` | yes | `ornek/src/` | §8 step 3 |
 | `locale`, `currency` | c2 | `tr-TR`, `TRY` | contract 2 header line |
 
 ## Variables
@@ -151,9 +151,9 @@ Component targets get ids `<P>-CMP-NN` (numbered across all components) and sect
 
 ## Contract 1 vs 2
 
-| | Contract 1 (Gizem legacy) | Contract 2 (new projects) |
+| | Contract 1 (Örnek legacy) | Contract 2 (new projects) |
 |---|---|---|
-| Marker | none (byte-exact with the Gizem plans) | `<!-- ikas-pendev contract:2 -->` on line 2, right after the H1 |
+| Marker | none (byte-exact with the Örnek plans) | `<!-- ikas-pendev contract:2 -->` on line 2, right after the H1 |
 | Variables | 37 | 41 (`color-transparent`, `size-logo`, `color-danger`, `color-success`) |
 | §4 | prop metadata | + `textClass` (`prop`/`data`/`code`), `source`, root `contract:2` + `backgroundColor` prop, `context` must carry anim ids, `{data:}`/`{code:}` legend |
 | §6.0 | 5 DS frames | + `P/DS/Imagery` |
@@ -167,8 +167,8 @@ Contract 2 data that lacks the `FilterDrawer` or `QuickBuy` overlay or the Butto
 
 ## Templates
 
-Prose lives in `templates/plan/*.md` (Turkish). Each file is one block of the plan; its last newline is dropped when loaded. Syntax: `{{name}}` value, `{{#name}}…{{/name}}` if truthy, `{{^name}}…{{/name}}` if falsy; a line holding only a section tag disappears with its newline. Context keys include `prefix, slug, name, file, penFile, codeDir, c1, c2, modes, mode_default, mode_alt, dw, dh, mw, mh, contextScan, policy`. An unknown placeholder is an error. Change wording there, not in the script; then rerun `tests/run.sh` (the Gizem plan-C hash must still match for contract 1).
+Prose lives in `templates/plan/*.md` (Turkish). Each file is one block of the plan; its last newline is dropped when loaded. Syntax: `{{name}}` value, `{{#name}}…{{/name}}` if truthy, `{{^name}}…{{/name}}` if falsy; a line holding only a section tag disappears with its newline. Context keys include `prefix, slug, name, file, penFile, codeDir, c1, c2, modes, mode_default, mode_alt, dw, dh, mw, mh, contextScan, policy`. An unknown placeholder is an error. Change wording there, not in the script; then rerun `tests/run.sh` (the Örnek plan-C hash must still match for contract 1).
 
 ## Minimal example
 
-`theme.json` + `sections/00-Example.json` in this folder are a fill-in skeleton (contract 2, Turkish placeholder text). A complete, valid contract 2 dataset is `tests/fixtures/mini-plandata/` (2 sections, 1 overlay, 2 pages, 41 variables, `{data:}`/`{code:}` notation). The full Gizem plan C (contract 1, 31 sections, 3 overlays, 16 pages, 115 targets) is `examples/gizem/plandata.json`.
+`theme.json` + `sections/00-Example.json` in this folder are a fill-in skeleton (contract 2, Turkish placeholder text). A complete, valid contract 2 dataset is `tests/fixtures/mini-plandata/` (2 sections, 1 overlay, 2 pages, 41 variables, `{data:}`/`{code:}` notation). The full Örnek plan C (contract 1, 31 sections, 3 overlays, 16 pages, 115 targets) is `examples/ornek/plandata.json`.

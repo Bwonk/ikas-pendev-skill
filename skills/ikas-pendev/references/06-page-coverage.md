@@ -1,6 +1,6 @@
 # 06 · Page coverage — which pages, sections, overlays and states a theme must design
 
-A reference site rarely shows every page an ikas store needs (gizem's reference had no cart page, auth, account or 404). This file is the floor: intake pre-ticks the default scope, the plan's §6.3 lists every page in scope, and CHK `pages` / `overlays` compare the canvas against it.
+A reference site rarely shows every page an ikas store needs (the reference behind `examples/ornek` had no cart page, auth, account or 404). This file is the floor: intake pre-ticks the default scope, the plan's §6.3 lists every page in scope, and CHK `pages` / `overlays` compare the canvas against it.
 
 ## Contents
 1. Global rules
@@ -43,7 +43,7 @@ A reference site rarely shows every page an ikas store needs (gizem's reference 
 | Contact (custom page, `CUSTOM`) — **always custom, full-width, never a narrow form** | `(özel)` + ikas contact form API: `getContactForm` / `initContactForm`, `setContactFormFirstName` · `LastName` · `Email` · `Phone` · `Message`, `submitContactForm(form) → Promise<boolean>` (model `IkasContactForm`) | Composed of several sections, not one cramped block: **ContactForm** (oversized heading + intro + response-time note; wide form card with topic chips, first/last name, email, optional phone, optional order number, message, consent, submit, result message; beside it a column of channel cards: e-mail, phone, a dark chat/WhatsApp card, social) · **StoreLocator** (featured store image with info card + selectable store list with open status) · **FaqList** (title column + accordion) | — | default · sending · success · field error + submit error | ✓ |
 | custom page | `rich-text-section` or `(özel)` sections | About, Contact, Support/policy, landing pages — whatever the reference shows | — | form: default · sending · success · error | ○ |
 
-Auth pages may share one Section (`AuthForms`) with four variants drawn as separate frames or states; the plan's §6.3 then lists them as `Auth (×4)` (gizem convention). Header and Footer are counted once each in the section total, not per page.
+Auth pages may share one Section (`AuthForms`) with four variants drawn as separate frames or states; the plan's §6.3 then lists them as `Auth (×4)` (ornek convention). Header and Footer are counted once each in the section total, not per page.
 
 ## 2a. ikas ready-made pages (asked in intake)
 
