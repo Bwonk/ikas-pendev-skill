@@ -20,7 +20,8 @@
 // anim scans Section/Sub component roots and every Overlay root (Section state frames only hold refs);
 // the resolveInstances pass runs only when ids are still missing.
 // Large canvases: EXP.only (list of CHK ids) runs a subset; EXP.part = [k, n] limits the node walk
-// of hardcoded/textclass/clip/refassets to every n-th root starting at k (counts add up over parts).
+// of hardcoded/textclass/clip/refassets to every n-th root starting at k (counts add up over parts);
+// in manifest mode it prints ROOT lines for that slice only (concatenate the parts).
 const P = "__PREFIX__", SLUG = "__SLUG__", CONTRACT = __CONTRACT__, EXP = __EXP__, MODE = "__MODE__";
 let pass = 0, fail = 0, warn = 0;
 const cut = s => { s = String(s).replace(/[|\n]/g, "/"); return s.length > 200 ? s.slice(0, 197) + "..." : s; };
@@ -45,7 +46,7 @@ const anims = (m, ctx) => { const s = new Set(); if (m && typeof m.anim === "str
 const scanNode = (n, into) => { anims(n.metadata, n.context).forEach(x => into.add(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; anims(o.metadata, o.context).forEach(x => into.add(x)); }); };
 
 if (MODE === "manifest") {
-  roots.forEach(r => {
+  roots.filter((r, i) => !EXP.part || i % EXP.part[1] === EXP.part[0] - 1).forEach(r => {
     const props = [], data = [], code = [], ids = new Set();
     const add = (a, v) => { if (a.indexOf(v) < 0) a.push(v); };
     Get(r.id, n => {
@@ -60,7 +61,7 @@ if (MODE === "manifest") {
     const dev = devOf(r.name) !== "-" ? devOf(r.name) : ((r.metadata && r.metadata.device) || "-");
     Print(["ROOT", r.name.replace(/\|/g, "/"), r.id, "device=" + dev, "props=" + props.join(";"), "data=" + data.join(";"), "code=" + code.join(";"), "anims=" + Array.from(ids).sort().join(";")].join("|"));
   });
-  Print("SUMMARY|roots=" + roots.length + "|mode=manifest");
+  Print("SUMMARY|roots=" + roots.length + "|mode=manifest" + (EXP.part ? "|part=" + EXP.part.join("/") : ""));
 } else {
   let unit = MODE.indexOf("section:") === 0 ? MODE.slice(8) : null;
   if (unit && ALIAS[unit]) unit = ALIAS[unit];

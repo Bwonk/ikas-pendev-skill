@@ -19,7 +19,8 @@ Usage:
 --checks IDS   comma list of CHK ids to run (default: all of the mode). Use when one execute
                call times out on a large canvas, e.g. --checks anim, then --checks parity.
 --part K/N     node-walk checks (hardcoded, textclass, clip, refassets) visit only every N-th
-               root starting at K; run K=1..N and add the counts.
+               root starting at K; run K=1..N and add the counts. With --js manifest it prints
+               the ROOT lines of that slice; concatenate the N outputs into canvas-dump.txt.
 
 Everything is derived from the plan: variables from the §3 SetVariables keys, sections and
 overlays from the §6.2 `#### Section/X` / `#### Overlay/X` headings, pages from the §6.3 table

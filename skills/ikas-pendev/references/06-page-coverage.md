@@ -78,7 +78,7 @@ QuickBuy is designed on every canvas, whether or not the reference has one. It i
 |---|---|---|
 | Image (4:5 on desktop; small thumbnail on mobile), badge, image counter + arrows | `qb-media` | `getProductVariantMainImage` / variant images; `{code:index}` |
 | Name, price, compare price | `qb-head`, `qb-price` | `product.name`, `getProductVariantFormattedFinalPrice` + `getProductVariantFormattedSellPrice` (compare) |
-| One group per variant type: label + `VariantChip` row; a sold-out value uses the chip's `stok yok` state | `qb-variant-group` | `getDisplayedProductVariantTypes`, `selectVariantValue`, `hasProductVariantStock` |
+| One group per variant type: label + values. Colour/image types use `qb-variant-swatches` → `VariantSwatch`; text types (size) use `qb-variant-row` → `VariantChip`. Never colour chips. A sold-out value uses the `stok yok` state | `qb-variant-group` | `getDisplayedProductVariantTypes`, `selectVariantValue`, `hasProductVariantStock` |
 | Validation message when a required option is missing (`$color-danger`) | `qb-variant-error` | TEXT prop (`chooseOptionText`) |
 | `QuantitySelector` + `Button` (Sepete ekle · Ekleniyor… · Tükendi) + `FavoriteButton` | `qb-actions` | `addItemToCart(variant, product, qty)`, `isAddToCartEnabled`, min/max per cart (`add-to-cart` template's `utils/cartLimits.ts`) |
 | "Hızlı Öde" slot, drawn as a neutral 48 px frame because ikas renders the iframe | `qb-pay` | `PayWithIkas` (renders nothing when the merchant has not enabled it); BOOLEAN prop `showPayWithIkas` |
@@ -86,11 +86,11 @@ QuickBuy is designed on every canvas, whether or not the reference has one. It i
 
 Layout:
 - **`@desktop`:** a centred window of about 960 × 600 on `$color-scrim`, `radius-card`, clipped. The image is on the left (half the width). The details column on the right is padded with `$space-panel`, and the actions are pinned to its bottom.
-- **`@mobile`:** a bottom sheet with a grabber and top corners `radius-card`. The thumbnail, name, price and close button share one row, followed by the chips, actions, pay slot and footer.
+- **`@mobile`:** a bottom sheet with a grabber and top corners `radius-card`. The thumbnail, name, price and close button share one row, followed by the colour swatches, size chips, actions, pay slot and footer.
 
 Behaviour:
 - After a successful add the popup closes and `CartDrawer` opens in its `dolu` state.
-- Motion: the panel uses `M-20`. On desktop the window scales in from 0.96 with opacity; on mobile the sheet slides up with `y 100% → 0`. Chips use `M-28`, the button `M-11` and the link `M-10`.
+- Motion: the panel uses `M-20`. On desktop the window scales in from 0.96 with opacity; on mobile the sheet slides up with `y 100% → 0`. Swatches and chips use `M-28`, the button `M-11` and the link `M-10`.
 - Every label is a TEXT prop with a Turkish default: `addText`, `addingText`, `soldOutText`, `chooseOptionText`, `detailLinkText`, `closeAriaLabel`.
 
 Do not add an eyebrow above the name.

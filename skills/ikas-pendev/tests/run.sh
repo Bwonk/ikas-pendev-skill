@@ -55,6 +55,7 @@ if command -v node >/dev/null; then node --check "$OUT/checks-all.js" 2>"$OUT/no
 python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks parity,clip --part 2/3 > "$OUT/checks-mini-split.js" 2>"$OUT/split.log" && ok "extract --checks/--part renders" || bad "extract --checks/--part renders" "$(cat "$OUT/split.log")"
 grep -q '"parity":{"ProductGrid":{"layers":\["filter-button"\]' "$OUT/checks-mini-split.js" && grep -q '"only":\["parity","clip"\],"part":\[2,3\]' "$OUT/checks-mini-split.js" && ok "checks js carries parity, only and part" || bad "checks js carries parity, only and part"
 if command -v node >/dev/null; then node --check "$OUT/checks-mini-split.js" 2>"$OUT/node2.log" && ok "split checks js parses" || bad "split checks js parses" "$(head -3 "$OUT/node2.log")"; fi
+python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js manifest --part 1/2 > "$OUT/manifest-part.js" && grep -q '"part":\[1,2\]' "$OUT/manifest-part.js" && ok "extract --js manifest --part renders" || bad "extract --js manifest --part renders"
 python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks bogus >/dev/null 2>&1 && bad "extract rejects unknown CHK id" || ok "extract rejects unknown CHK id"
 
 # 6. analyze_site on offline fixture

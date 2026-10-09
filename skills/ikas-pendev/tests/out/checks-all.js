@@ -21,7 +21,7 @@ const ALIAS = { ds: "DS", subs: "Sub", sub: "Sub", pages: "Page", page: "Page", 
 const anims = (m, ctx) => { const s = new Set(); if (m && typeof m.anim === "string") m.anim.split(",").forEach(x => { x = x.trim(); if (x) s.add(x); }); if (typeof ctx === "string") (ctx.match(idRe) || []).forEach(x => s.add(x)); return s; };
 const scanNode = (n, into) => { anims(n.metadata, n.context).forEach(x => into.add(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; anims(o.metadata, o.context).forEach(x => into.add(x)); }); };
 if (MODE === "manifest") {
-roots.forEach(r => {
+roots.filter((r, i) => !EXP.part || i % EXP.part[1] === EXP.part[0] - 1).forEach(r => {
 const props = [], data = [], code = [], ids = new Set();
 const add = (a, v) => { if (a.indexOf(v) < 0) a.push(v); };
 Get(r.id, n => {
@@ -36,7 +36,7 @@ if (band(r) !== "Page") Get(r.id, n => { scanNode(n, ids); return undefined; }, 
 const dev = devOf(r.name) !== "-" ? devOf(r.name) : ((r.metadata && r.metadata.device) || "-");
 Print(["ROOT", r.name.replace(/\|/g, "/"), r.id, "device=" + dev, "props=" + props.join(";"), "data=" + data.join(";"), "code=" + code.join(";"), "anims=" + Array.from(ids).sort().join(";")].join("|"));
 });
-Print("SUMMARY|roots=" + roots.length + "|mode=manifest");
+Print("SUMMARY|roots=" + roots.length + "|mode=manifest" + (EXP.part ? "|part=" + EXP.part.join("/") : ""));
 } else {
 let unit = MODE.indexOf("section:") === 0 ? MODE.slice(8) : null;
 if (unit && ALIAS[unit]) unit = ALIAS[unit];

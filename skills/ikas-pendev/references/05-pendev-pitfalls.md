@@ -3,7 +3,7 @@
 This file only adds what the official pen.dev skill does not say, or says in a place that is easy to miss. It never restates the API: read the official files first (`mcp__pencil__read_skill()` → `SKILL.md`, `pen-schema.md`, `execute.md`; `generate.md` before any `Generate`; `guide/components.md` before building Subs). "Official" lines point to the file and section to open. Items marked *observed* were found on real canvases and are not in the official docs.
 
 ## Contents
-1. Metadata is only kept at creation · 2. `Replace` on a normal layer · 3. Instances drop metadata · 4. Invalid fonts · 5. Translucent colours · 6. `Generate` is async · 7. No wrap · 8. Invisible text · 9. One scope per call · 10. Placement · 11. Failed `execute` · 12. Multiplayer · 13. `fit_content` / `fill_container` loop · 14. Screenshot discipline · 15. Variable opacity · 16. Hidden layers count as clipped
+1. Metadata is only kept at creation · 2. `Replace` on a normal layer · 3. Instances drop metadata · 4. Invalid fonts · 5. Translucent colours · 6. `Generate` is async · 7. No wrap · 8. Invisible text · 9. One scope per call · 10. Placement · 11. Failed `execute` · 12. Multiplayer · 13. `fit_content` / `fill_container` loop · 14. Screenshot discipline · 15. Variable opacity · 16. Hidden layers count as clipped · 17. Copied state frames lose frame props · 18. Transparent and dark-scoped overrides · 19. Opacity-0 empty states · 20. Insert index
 
 ## 1. Metadata is only kept at creation *(observed)*
 - **Symptom:** `Update(id, {metadata:{…}})` returns without error, but a later `Get` shows the old or no metadata; CHK `rootmeta`, `anim` or `textclass` fails on a layer you "fixed".
@@ -95,3 +95,21 @@ This file only adds what the official pen.dev skill does not say, or says in a p
 - **Cause:** a hidden frame with `width: "fill_container"` gets width 0; a hidden `ref` reports the master's absolute position; a hidden child taller than its fit-content parent overflows it.
 - **Fix:** give hidden frames a fallback, `width: "fill_container(<column width>)"`; never hide a `ref` directly, wrap it in a hidden frame and toggle the frame in state overrides; prefer making the taller variant the default and hiding the smaller one; name intentional crops `…-mask` (e.g. a half star).
 
+## 17. Copying a state frame to the other device drops frame-level properties *(observed)*
+- **Symptom:** a new `@mobile — <state>` frame shows its children side by side, or loses the background image of the desktop state (e.g. a transparent header over a hero photo).
+- **Cause:** a script that rebuilds a state frame from the desktop one copies the children and the ref overrides but not the root frame's own `layout`, `clip`, `fill`, `width` and `height`; a frame without `layout` lays its children out horizontally.
+- **Fix:** copy `layout`, `clip`, `fill`, `height` and the device width with the children; after a batch, compare those keys between every `@desktop — s` / `@mobile — s` pair (`Get` the two roots, diff the keys) and screenshot one per section.
+
+## 18. Transparent and dark-scoped overrides *(observed)*
+- **Symptom:** a "transparent header" state still shows the light bar, or its icons and logo turn dark on a dark photo.
+- **Cause:** the section component's root frame has its own `fill: $color-bg`, which an override on an inner frame (`header-main`) does not clear. Inside a node overridden with `theme: {mode: "dark"}`, `$color-inverse-text` resolves to the dark value.
+- **Fix:** also override the ref's own `fill` with `$color-transparent`; colour icons, logo paths and text inside the dark-scoped node with `$color-text` (which is light there), never `$color-inverse-text`.
+
+## 19. Empty states drawn as `opacity: 0` + `layoutPosition: "absolute"` *(observed)*
+- **Symptom:** the `— boş` state frame still shows the filled list; the empty block never appears; CHK passes.
+- **Cause:** the empty block sits in the component at `opacity: 0`, absolutely positioned, and the state override only changed a counter or hid the summary.
+- **Fix:** in the state frame hide the filled list (`enabled: false`) and set the empty block to `{opacity: 1, layoutPosition: "auto"}` so it takes the list's place in the flow. Screenshot every `— boş` state at both devices.
+
+## 20. `Insert(parent, node, index)` may append instead of inserting *(observed)*
+- **Symptom:** a new wrapper (e.g. `order-meta`) lands at the end of the row although index 0 was passed.
+- **Fix:** follow the `Insert` with `Move(id, parent, index)` and check the order with `Get(parent).children` in the **next** call (same-call reads can be stale).

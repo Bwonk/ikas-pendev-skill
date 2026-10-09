@@ -619,6 +619,9 @@ class Builder:
                       ('overlays', [])])
             if s.get('mode'):
                 e['mode'] = s['mode']
+            for f in ('desktopOnly', 'desktopOnlyStates'):
+                if s.get(f):
+                    e[f] = list(s[f])
             sections.append(e)
         by_key = {e['key']: e for e in sections}
 
@@ -643,6 +646,9 @@ class Builder:
                 ('name', o['key']), ('code', o['code']), ('owner', owner), ('devices', devs), ('states', states),
                 ('props', props), ('children', children), ('dataBound', data_bound), ('codeText', code_text),
                 ('anims', anims), ('frames', frames)])
+            for f in ('desktopOnly', 'desktopOnlyStates'):
+                if o.get(f):
+                    oe[f] = list(o[f])
             if owner:
                 by_key[owner]['overlays'].append(oe)
             else:
@@ -925,6 +931,15 @@ def render_manifest_md(d, m):
                 parts.append('`%s` (%s)' % (f['root'], f['nodeId'] or '—'))
         return ' · '.join(parts)
 
+    def desktop_only(e):
+        L3 = []
+        if e.get('desktopOnly'):
+            L3.append('- **Yalnız masaüstü katmanlar:** %s — mobilde render edilmez ya da `@media (max-width: bp(<mobile id>))` '
+                      'altında `display: none`' % ', '.join('`.%s`' % x for x in e['desktopOnly']))
+        if e.get('desktopOnlyStates'):
+            L3.append('- **Yalnız masaüstü durumlar:** %s' % ', '.join('`%s`' % x for x in e['desktopOnlyStates']))
+        return L3
+
     for s in secs:
         fl = [k for k, v in s['flags'].items() if v]
         out += ['### %s' % s['key'], '',
@@ -943,11 +958,12 @@ def render_manifest_md(d, m):
                                                    for x in s['codeText']) or '—'),
                 '- **Animasyonlar:** ' + (', '.join(s['anims']) or '—'),
                 "- **Overlay'ler:** " + (', '.join('`%s` (%s)' % (o['name'], ' · '.join(o['states']) or 'durum yok')
-                                                   for o in s['overlays']) or '—'), '']
+                                                   for o in s['overlays']) or '—')]
+        out += desktop_only(s) + ['']
         for o in s['overlays']:
             out += ['#### %s › Overlay %s' % (s['key'], o['name']), '',
                     "- **Cihazlar:** %s · **Frame'ler:** %s" % (', '.join(o['devices']), frame_list(o['frames'])),
-                    '- **Animasyonlar:** ' + (', '.join(o['anims']) or '—'), '']
+                    '- **Animasyonlar:** ' + (', '.join(o['anims']) or '—')] + desktop_only(o) + ['']
             out += (prop_table(o['props']) if o['props'] else ['_Prop yok._']) + ['']
     out += ['## Sayfalar', '', "| Sayfa | ikas sayfa tipi | Section'lar (sırayla) |", '|---|---|---|']
     for p in pages:

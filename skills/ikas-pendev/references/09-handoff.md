@@ -2,7 +2,7 @@
 
 Phase 5 turns plan + canvas into a package a later port (human or an `ikas-port` skill) can execute without reading the canvas. It writes no ikas code and creates no theme globals: it prepares the runbook and stops at the user-approval step.
 
-Inputs: `docs/pendev/plandata/`, the rendered plan, `docs/port/canvas-dump.txt` (the `ROOT|…` lines from `extract_targets.py <plan> --js manifest`). Command: `python3 ${CLAUDE_SKILL_DIR}/scripts/build_manifest.py --plandata docs/pendev/plandata --plan <plan> --dump docs/port/canvas-dump.txt -o docs/port/`. Outputs: `port-manifest.json`, `port-manifest.md`, `globals-runbook.md`. Exit 1 when a plan section, page or anim target is missing on the canvas.
+Inputs: `docs/pendev/plandata/`, the rendered plan, `docs/port/canvas-dump.txt` (the `ROOT|…` lines from `extract_targets.py <plan> --js manifest`). Command: `python3 ${CLAUDE_SKILL_DIR}/scripts/build_manifest.py --plandata docs/pendev/plandata --plan <plan> --dump docs/port/canvas-dump.txt -o docs/port/`. Outputs: `port-manifest.json`, `port-manifest.md`, `globals-runbook.md`. On a large canvas the manifest `execute` can time out (`InternalError: interrupted`): render it as `--js manifest --part 1/N` … `N/N`, run each, and concatenate every `ROOT|…` line into one `canvas-dump.txt` (drop the per-part `SUMMARY` lines). Sections and overlays carry `desktopOnly` / `desktopOnlyStates` from plandata; the port hides those layers below the mobile breakpoint. Exit 1 when a plan section, page or anim target is missing on the canvas.
 
 ## Contents
 1. `port-manifest.json` schema (schema 1)
