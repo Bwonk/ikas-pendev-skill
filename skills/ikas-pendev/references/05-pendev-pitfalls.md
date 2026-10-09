@@ -3,7 +3,7 @@
 This file only adds what the official pen.dev skill does not say, or says in a place that is easy to miss. It never restates the API: read the official files first (`mcp__pencil__read_skill()` → `SKILL.md`, `pen-schema.md`, `execute.md`; `generate.md` before any `Generate`; `guide/components.md` before building Subs). "Official" lines point to the file and section to open. Items marked *observed* were found on real canvases and are not in the official docs.
 
 ## Contents
-1. Metadata is only kept at creation · 2. `Replace` on a normal layer · 3. Instances drop metadata · 4. Invalid fonts · 5. Translucent colours · 6. `Generate` is async · 7. No wrap · 8. Invisible text · 9. One scope per call · 10. Placement · 11. Failed `execute` · 12. Multiplayer · 13. `fit_content` / `fill_container` loop · 14. Screenshot discipline · 15. Variable opacity · 16. Hidden layers count as clipped · 17. Copied state frames lose frame props · 18. Transparent and dark-scoped overrides · 19. Opacity-0 empty states · 20. Insert index
+1. Metadata is only kept at creation · 2. `Replace` on a normal layer · 3. Instances drop metadata · 4. Invalid fonts · 5. Translucent colours · 6. `Generate` is async · 7. No wrap · 8. Invisible text · 9. One scope per call · 10. Placement · 11. Failed `execute` · 12. Multiplayer · 13. `fit_content` / `fill_container` loop · 14. Screenshot discipline · 15. Variable opacity · 16. Hidden layers count as clipped · 17. Copied state frames lose frame props · 18. Transparent and dark-scoped overrides · 19. Opacity-0 empty states · 20. Insert index · 21. Copied anim ids, backdrop instances
 
 ## 1. Metadata is only kept at creation *(observed)*
 - **Symptom:** `Update(id, {metadata:{…}})` returns without error, but a later `Get` shows the old or no metadata; CHK `rootmeta`, `anim` or `textclass` fails on a layer you "fixed".
@@ -114,3 +114,12 @@ This file only adds what the official pen.dev skill does not say, or says in a p
 ## 20. `Insert(parent, node, index)` may append instead of inserting *(observed)*
 - **Symptom:** a new wrapper (e.g. `order-meta`) lands at the end of the row although index 0 was passed.
 - **Fix:** follow the `Insert` with `Move(id, parent, index)` and check the order with `Get(parent).children` in the **next** call (same-call reads can be stale).
+
+## 21. Copied layers bring their anim ids; backdrop instances leak ids *(observed)*
+- **Symptom:** the port manifest lists `anim-extra-on-canvas`, for example `QuickBuy.I-PDP-03` or `MenuOverlay.I-HDR-01`.
+- **Cause:**
+  - Layers copied from another unit keep the source's ids in `context`.
+  - A Header instance drawn behind an overlay used to be scanned as part of the overlay. In a `resolveInstances` walk the instance comes back as a plain frame with the ref's id, so a `type === "ref"` test alone misses it.
+- **Fix:**
+  - Re-key copied ids to the target unit's own plan ids in the same call.
+  - Leave backdrop refs untouched: CHK `anim` (`foreign`) and the manifest dump skip them by id (02 §5b).

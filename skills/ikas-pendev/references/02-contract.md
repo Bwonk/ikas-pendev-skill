@@ -164,6 +164,15 @@ context: "P-HERO-02 · M-07 · başlık slaytla birlikte değişir"
 - `context` is the human note **and** must contain every anim id of the layer.
 - Metadata on a layer inside a reusable flows to its instances; do not re-write it per instance. Instance-level targets live only in `context`.
 
+### 5b. Anim ids belong to one key; backdrop instances
+
+- Every anim id has one owner: the Section/Overlay its plan target names, or a Sub for `CMP` ids. A Section or Overlay root never carries another key's id.
+- Copying layers from another unit (e.g. QuickBuy variant swatches from ProductDetail) copies their `context` too. Re-key the ids to the target unit's own plan ids in the same call.
+- A ref to another Section's component inside an Overlay or Section root is a **backdrop**, not content. Example: the Header drawn behind a megamenu or a search panel.
+  - Name it after the section (`Header`). Never override anything inside it.
+  - The tools skip it and everything inside it for anims, props and data.
+- CHK `anim` fails a misplaced id as `foreign:<Key>><id>`.
+
 ### 5a. Prop marks in `context`
 
 A prop whose text or image sits where metadata is not kept gets a **prop mark** in the `context` of the node that renders it. That covers:

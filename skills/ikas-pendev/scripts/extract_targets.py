@@ -103,7 +103,9 @@ def build_exp(plan, mode, mode_only):
     exp = dict(prefix=P, slug=slug, contract=contract, referenceHost=plan.reference_host() or "",
                vars=variables, ds=list(L.DS_C2 if contract >= 2 else L.DS_C1),
                sections=sections, overlays=overlays, overlayDevices=odev, pages=pages, pageExpand=page_expand, ids=ids,
-               parity=parity, props=plan_props(plan) if contract >= 2 else {})
+               parity=parity, props=plan_props(plan) if contract >= 2 else {},
+               idOwner={t["id"]: t.get("section") for t in plan.targets if isinstance(t.get("id"), str)
+                        and t.get("section") and not str(t.get("section")).startswith("Sub/")})
     if mode.startswith("section:"):
         key = mode.split(":", 1)[1]
         band = BANDS.get(key)
@@ -120,7 +122,8 @@ def build_exp(plan, mode, mode_only):
             uids = unit_ids(plan, {key})
         exp["unit"] = dict(key=band or key, ids=uids)
         if mode_only:
-            keep = dict(prefix=P, slug=slug, contract=contract, referenceHost=exp["referenceHost"], unit=exp["unit"])
+            keep = dict(prefix=P, slug=slug, contract=contract, referenceHost=exp["referenceHost"], unit=exp["unit"],
+                        idOwner=exp["idOwner"])
             if band == "DS":
                 keep.update(vars=variables, ds=exp["ds"])
             elif band == "Page":

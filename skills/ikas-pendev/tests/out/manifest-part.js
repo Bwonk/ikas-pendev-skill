@@ -1,4 +1,4 @@
-const P = "K", SLUG = "kaya", CONTRACT = 2, EXP = {"prefix":"K","slug":"kaya","contract":2,"referenceHost":"example.com","vars":["color-bg","color-text","color-muted","color-line","color-surface","color-inverse-bg","color-inverse-text","color-accent","color-accent-text","color-scrim","color-transparent","color-danger","color-success","font-display","font-ui","font-body","font-price","font-mono","text-display","text-h2","text-h3","text-h4","text-title","text-ui","text-ui-sm","text-badge","text-label","text-body","text-price","space-page","space-grid","space-card","space-panel","space-xs","space-sm","space-md","space-section","size-header","size-line","opacity-inactive","size-logo"],"ds":["Colors","Typography","Spacing","Icons","Motion","Imagery"],"sections":["HeroBanner","ProductGrid"],"overlays":["FilterDrawer","QuickBuy"],"overlayDevices":{"FilterDrawer":["mobile"],"QuickBuy":["desktop","mobile"]},"pages":{"Home":["HeroBanner","ProductGrid"],"Category":["ProductGrid"]},"pageExpand":{"Home":1,"Category":1},"ids":["K-CMP-01","K-CMP-02","K-HERO-01","K-HERO-02","K-HERO-03","K-GRID-01","K-GRID-02","K-FILT-01","K-FILT-02","K-QB-01"],"parity":{"ProductGrid":{"layers":["filter-button"],"states":[]}},"props":{"HeroBanner":{"need":[["image","IMAGE","hero-image"],["title","TEXT","hero-title"],["buttonText","TEXT","hero-button"]],"known":["backgroundColor","buttonText","image","link","title"]},"ProductGrid":{"need":[["title","TEXT","grid-title"],["filterButtonText","TEXT","filter-button"]],"known":["backgroundColor","filterButtonText","productList","title"]},"FilterDrawer":{"need":[["filterTitle","TEXT","filter-header"],["applyText","TEXT","apply-button"]],"known":["applyText","backgroundColor","filterTitle"]},"QuickBuy":{"need":[["closeAriaLabel","TEXT","qb-head"],["chooseOptionText","TEXT","qb-variant-error"],["addText","TEXT","qb-actions"],["addingText","TEXT","qb-actions"]],"known":["addText","addingText","backgroundColor","chooseOptionText","closeAriaLabel"]}},"part":[1,2]}, MODE = "manifest";
+const P = "K", SLUG = "kaya", CONTRACT = 2, EXP = {"prefix":"K","slug":"kaya","contract":2,"referenceHost":"example.com","vars":["color-bg","color-text","color-muted","color-line","color-surface","color-inverse-bg","color-inverse-text","color-accent","color-accent-text","color-scrim","color-transparent","color-danger","color-success","font-display","font-ui","font-body","font-price","font-mono","text-display","text-h2","text-h3","text-h4","text-title","text-ui","text-ui-sm","text-badge","text-label","text-body","text-price","space-page","space-grid","space-card","space-panel","space-xs","space-sm","space-md","space-section","size-header","size-line","opacity-inactive","size-logo"],"ds":["Colors","Typography","Spacing","Icons","Motion","Imagery"],"sections":["HeroBanner","ProductGrid"],"overlays":["FilterDrawer","QuickBuy"],"overlayDevices":{"FilterDrawer":["mobile"],"QuickBuy":["desktop","mobile"]},"pages":{"Home":["HeroBanner","ProductGrid"],"Category":["ProductGrid"]},"pageExpand":{"Home":1,"Category":1},"ids":["K-CMP-01","K-CMP-02","K-HERO-01","K-HERO-02","K-HERO-03","K-GRID-01","K-GRID-02","K-FILT-01","K-FILT-02","K-QB-01"],"parity":{"ProductGrid":{"layers":["filter-button"],"states":[]}},"props":{"HeroBanner":{"need":[["image","IMAGE","hero-image"],["title","TEXT","hero-title"],["buttonText","TEXT","hero-button"]],"known":["backgroundColor","buttonText","image","link","title"]},"ProductGrid":{"need":[["title","TEXT","grid-title"],["filterButtonText","TEXT","filter-button"]],"known":["backgroundColor","filterButtonText","productList","title"]},"FilterDrawer":{"need":[["filterTitle","TEXT","filter-header"],["applyText","TEXT","apply-button"]],"known":["applyText","backgroundColor","filterTitle"]},"QuickBuy":{"need":[["closeAriaLabel","TEXT","qb-head"],["chooseOptionText","TEXT","qb-variant-error"],["addText","TEXT","qb-actions"],["addingText","TEXT","qb-actions"]],"known":["addText","addingText","backgroundColor","chooseOptionText","closeAriaLabel"]}},"idOwner":{"K-HERO-01":"HeroBanner","K-HERO-02":"HeroBanner","K-HERO-03":"HeroBanner","K-GRID-01":"ProductGrid","K-GRID-02":"ProductGrid","K-FILT-01":"FilterDrawer","K-FILT-02":"FilterDrawer","K-QB-01":"QuickBuy"},"part":[1,2]}, MODE = "manifest";
 let pass = 0, fail = 0, warn = 0;
 const cut = s => { s = String(s).replace(/[|\n]/g, "/"); return s.length > 200 ? s.slice(0, 197) + "..." : s; };
 const chk = (id, st, n, d) => { if (st === "PASS") pass++; else if (st === "FAIL") fail++; else warn++; Print("CHK|" + id + "|" + st + "|" + n + "|" + cut(d || "")); };
@@ -22,19 +22,22 @@ const anims = (m, ctx) => { const s = new Set(); if (m && typeof m.anim === "str
 const propMarks = s => { const out = []; if (typeof s !== "string") return out; s.split("\u00b7").forEach(seg => { const m = /^\s*props?\s+(.+)$/.exec(seg.trim()); if (!m) return; let pend = []; m[1].split(",").forEach(it => { const w = it.trim().split(/\s+/), nm = w[0], ty = w[1] && /^[A-Z_]+$/.test(w[1]) ? w[1] : null; if (!/^[a-z][A-Za-z0-9]*$/.test(nm || "")) return; pend.push(nm); if (ty) { pend.forEach(p => out.push([p, ty])); pend = []; } }); pend.forEach(p => out.push([p, "?"])); }); return out; };
 const nodeProps = n => { const out = []; const m = n.metadata || {}; if (m.prop) out.push([m.prop, m.propType || "?"]); propMarks(n.context).forEach(x => out.push(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; if (o.metadata && o.metadata.prop) out.push([o.metadata.prop, o.metadata.propType || "?"]); propMarks(o.context).forEach(x => out.push(x)); }); return out; };
 const scanNode = (n, into) => { anims(n.metadata, n.context).forEach(x => into.add(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; anims(o.metadata, o.context).forEach(x => into.add(x)); }); };
+const backdrop = (r, n) => { if (n.type !== "ref" || band(r) === "Page") return false; const t = byId[n.ref]; return !!t && band(t) === "Section" && keyOf(t) !== keyOf(r); };
+const bdCache = {};
+const bdIds = r => { if (!bdCache[r.id]) { const s = new Set(); Get(r.id, (n, c) => { if (backdrop(r, n)) { s.add(n.id); c.skipChildren(); } return undefined; }); bdCache[r.id] = s; } return bdCache[r.id]; };
+const walk = (r, fn, opt) => { const bd = bdIds(r); return Get(r.id, (n, c) => { if (bd.has(n.id) || backdrop(r, n)) { c.skipChildren(); return undefined; } fn(n, c); return undefined; }, opt); };
 if (MODE === "manifest") {
 roots.filter((r, i) => !EXP.part || i % EXP.part[1] === EXP.part[0] - 1).forEach(r => {
 const props = [], data = [], code = [], ids = new Set();
 const add = (a, v) => { if (a.indexOf(v) < 0) a.push(v); };
-Get(r.id, n => {
+walk(r, n => {
 const m = n.metadata || {};
 nodeProps(n).forEach(x => add(props, x[0] + ":" + x[1]));
 if (m.textClass === "data") add(data, (n.name || "?") + "=" + (m.source || "?"));
 if (m.textClass === "code") add(code, n.name || "?");
 scanNode(n, ids);
-return undefined;
 });
-if (band(r) !== "Page") Get(r.id, n => { scanNode(n, ids); return undefined; }, { resolveInstances: true });
+if (band(r) !== "Page") walk(r, n => { scanNode(n, ids); }, { resolveInstances: true });
 const dev = devOf(r.name) !== "-" ? devOf(r.name) : ((r.metadata && r.metadata.device) || "-");
 Print(["ROOT", r.name.replace(/\|/g, "/"), r.id, "device=" + dev, "props=" + props.join(";"), "data=" + data.join(";"), "code=" + code.join(";"), "anims=" + Array.from(ids).sort().join(";")].join("|"));
 });
@@ -106,13 +109,14 @@ chk("pages", bad.length ? "FAIL" : (diff.length ? "WARN" : "PASS"), ok, ok + "/"
 }
 if (run("anim")) {
 const want = unit ? ((EXP.unit && EXP.unit.ids) || []) : (EXP.ids || []);
-const found = new Set();
+const found = new Set(), owner = EXP.idOwner || {}, foreign = [];
 const scope = U.filter(r => ["Section", "Overlay", "Sub"].indexOf(band(r)) >= 0 && !(band(r) === "Section" && r.name.indexOf(" \u2014 ") >= 0));
-scope.forEach(r => { Get(r.id, n => { scanNode(n, found); return undefined; }); });
-if (want.some(x => !found.has(x))) scope.filter(r => r.name.indexOf(" \u2014 ") < 0).forEach(r => { Get(r.id, n => { scanNode(n, found); return undefined; }, { resolveInstances: true }); });
+const scanRoot = (r, opt) => { const ids = new Set(); walk(r, n => { scanNode(n, ids); }, opt); ids.forEach(x => { found.add(x); if (owner[x] && owner[x] !== keyOf(r) && foreign.indexOf(keyOf(r) + ">" + x) < 0) foreign.push(keyOf(r) + ">" + x); }); };
+scope.forEach(r => scanRoot(r));
+if (want.some(x => !found.has(x))) scope.filter(r => r.name.indexOf(" \u2014 ") < 0).forEach(r => scanRoot(r, { resolveInstances: true }));
 const miss = want.filter(x => !found.has(x)), extra = Array.from(found).filter(x => want.indexOf(x) < 0);
 const ok = want.length - miss.length;
-chk("anim", miss.length ? "FAIL" : (extra.length && !unit ? "WARN" : "PASS"), ok, ok + "/" + want.length + (miss.length ? " missing:" + miss.join(",") : "") + (extra.length ? " extra:" + extra.join(",") : ""));
+chk("anim", miss.length || foreign.length ? "FAIL" : (extra.length && !unit ? "WARN" : "PASS"), ok, ok + "/" + want.length + (miss.length ? " missing:" + miss.join(",") : "") + (foreign.length ? " foreign:" + foreign.join(",") : "") + (extra.length ? " extra:" + extra.join(",") : ""));
 }
 const W = { hc: { fill: 0, stroke: 0, fontSize: 0, fontFamily: 0 }, hcx: [], texts: 0, tcMiss: 0, tcBad: 0, tcx: [], noProp: 0, clip: 0, clipx: [], ref: 0, refx: [] };
 const lit = f => { if (typeof f === "string") return f[0] === "#"; if (Array.isArray(f)) return f.some(lit); if (f && typeof f === "object") { if (f.type === "color") return typeof f.color === "string" && f.color[0] === "#"; if (f.type === "gradient") return (f.colors || []).some(x => x && typeof x.color === "string" && x.color[0] === "#"); if (f.type === "mesh_gradient") return (f.colors || []).some(x => typeof x === "string" && x[0] === "#"); } return false; };
@@ -210,7 +214,7 @@ keys.forEach(k => {
 const kind = (EXP.sections || []).indexOf(k) >= 0 ? "Section" : "Overlay", pre = P + "/" + kind + "/" + k + "@";
 const rs = roots.filter(r => r.name.indexOf(pre) === 0 && (kind === "Overlay" || r.name.indexOf(" \u2014 ") < 0));
 const got = {};
-rs.forEach(r => Get(r.id, n => { nodeProps(n).forEach(x => { if (!got[x[0]] || got[x[0]] === "?") got[x[0]] = x[1]; }); return undefined; }));
+rs.forEach(r => walk(r, n => { nodeProps(n).forEach(x => { if (!got[x[0]] || got[x[0]] === "?") got[x[0]] = x[1]; }); }));
 PE[k].need.forEach(e => { want++; if (!got[e[0]]) miss.push(k + "." + e[0]); else if (got[e[0]] !== "?" && got[e[0]] !== e[1]) wrong.push(k + "." + e[0] + ":" + got[e[0]] + "\u2260" + e[1]); });
 Object.keys(got).forEach(g => { if (PE[k].known.indexOf(g) < 0) stale.push(k + "." + g); });
 });
