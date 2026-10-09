@@ -38,6 +38,7 @@ A unit is one root pair (`@desktop` + `@mobile`), one Sub with its state frames,
 1. **Read** the unit's block in the plan (§6.0–§6.5) and the tail of `docs/pendev/build-log.md` (resume: re-read listed node ids, `05-pendev-pitfalls.md` §12).
 2. **Placeholder:** `FindEmptySpace` in the right band → `Insert` the root with `placeholder: true`, final name and root metadata.
 3. **Build** the whole tree in that `execute` (one call per root frame): every node named as in the plan tree, flat metadata, `textClass` on every text, anim ids also in `context`, a prop mark (`props a, b TEXT`, 02 §5a) on every Sub instance, override, state alternative or layerless prop and a data mark (`data <source>` / `code <name>`, 02 §5c) on image data, state alternatives and renamed code text in the same `Insert`, values only `$variables`. Polish with `Update` in a follow-up call if needed.
+   DS unit: the first `Insert` that uses each `font-*` variable proves the family. A "Font family … is invalid" warning in that response means change the variable now and add the family to the deny list (`05-pendev-pitfalls.md` §4).
 4. **Check:** `python3 ${CLAUDE_SKILL_DIR}/scripts/extract_targets.py <plan> --js section:<Key>` → run the printed read-only snippet with `execute`. (DS, Subs, pages: run `--js all` and read the relevant CHK lines.)
 5. **Screenshot:** one `TakeScreenshot` of the finished unit (smallest meaningful node).
 6. **Fix** every FAIL in place — never delete-and-rebuild; metadata fixes use `05-pendev-pitfalls.md` §2. Re-run step 4.

@@ -37,8 +37,7 @@
 §3|ERROR|text-price:L39|L11 type string, expected number
 §3|WARN|space-grid:L41|L12 no device axis (same value on desktop and mobile)
 §3|WARN|color-transparent|L12 some colours have no mode axis while others do
-§3|ERROR|font-display:L24|L13 font 'Big Shoulders Display' is invalid in pen.dev
-§3|WARN|font-ui:L25|L13 font 'Inter' not in the tested-valid list; confirm in an execute response
+§3|ERROR|font-display:L24|L13 font 'Big Shoulders Display' is invalid in pen.dev (renders in a fallback face); pick another family
 §3|ERROR|color-muted/color-bg@light|L14 contrast 2.40 < 4.5 (#A09C94 on #F2F0EA)
 §3|WARN|color-muted/color-surface@light|L14 contrast 2.11 < 4.5 (#A09C94 on #E6E2D8)
 §6.2|ERROR|Header:L138|L15 {logo:svg}: svg is not an ikas prop type
@@ -55,4 +54,4 @@
 §6.2|ERROR|Overlay/CartDrawer|L21 tree lacks `coupon-toggle` (ikas block, 06-page-coverage §3b/§3c)
 §6.2|ERROR|Overlay/CartDrawer|L21 tree lacks `drawer-recommend` (ikas block, 06-page-coverage §3b/§3c)
 §6.2|ERROR|Section/Header|L21 tree lacks `announcement-pager` (ikas block, 06-page-coverage §3b/§3c)
-LINT FAIL (47 errors, 10 warnings)
+LINT FAIL (47 errors, 9 warnings)

@@ -27,7 +27,7 @@ Checks
   L10 §6.5 Motion States coverage (WARN)
   L11 §3 core variable set (37 contract 1 / 41 contract 2) and variable types
   L12 §3 theme axes: device on text-*/space-*/size-logo, mode on colours, #RRGGBBAA
-  L13 fonts: known-invalid -> ERROR, not in the tested-valid list -> WARN
+  L13 fonts: a family on the pen.dev deny list (INVALID_FONTS) -> ERROR
   L14 WCAG contrast >= 4.5 (contract 2 ERROR, contract 1 WARN)
   L15 {name:TYPE} notation: camelCase name, TYPE in the 30 ikas prop types
   L16 contract 2: quoted literal on a tree line without {name:TYPE}/{data:}/{code:}
@@ -97,8 +97,8 @@ IMPL_FILLER = {"ya", "da", "veya", "ile", "benzeri", "or", "and", "opsiyonel", "
                "stagger", "timeline", "spring", "+"}
 TRIGGERS = {"load", "inview", "hover", "click", "drag", "auto", "auto-loop", "scroll-scrub",
             "sticky", "state-change", "focus", "scroll"}
-VALID_FONTS = {"Anton", "Antonio", "Archivo Narrow", "Barlow", "Barlow Condensed", "Bebas Neue",
-               "Inter Tight", "JetBrains Mono", "Mona Sans", "Oswald", "Sofia Sans Extra Condensed", "Space Mono"}
+# Families pen.dev rejects ("Font family … is invalid" in an execute response). Grow this list whenever a
+# build hits that warning; any family not listed is allowed and proven by the DS step's first Insert.
 INVALID_FONTS = {"Mona Sans Condensed", "Big Shoulders Display"}
 STATE_RECIPES_DEFAULT = {"M-03", "M-05", "M-06", "M-07", "M-09", "M-11", "M-12", "M-20", "M-21",
                          "M-22", "M-23", "M-24"}
@@ -1082,10 +1082,8 @@ def lint_variables(plan, rep, contract):
             for e in vals:
                 f = e.get("value")
                 if f in INVALID_FONTS:
-                    rep.add("§3", "ERROR", loc_of(name, lines.get(name)), "L13", "font '%s' is invalid in pen.dev" % f)
-                elif isinstance(f, str) and f not in VALID_FONTS:
-                    rep.add("§3", "WARN", loc_of(name, lines.get(name)), "L13",
-                            "font '%s' not in the tested-valid list; confirm in an execute response" % f)
+                    rep.add("§3", "ERROR", loc_of(name, lines.get(name)), "L13",
+                            "font '%s' is invalid in pen.dev (renders in a fallback face); pick another family" % f)
     # L14 contrast
     def colour_at(name, mo, against=None):
         if "|" in name:

@@ -37,7 +37,12 @@ This file only adds what the official pen.dev skill does not say, or says in a p
 ## 4. Invalid fonts *(observed)*
 - **Symptom:** `execute` warns "Font family … is invalid"; text renders in a fallback face.
 - **Cause:** not every Google family name is accepted, despite "All Google fonts are available".
-- **Fix:** change the `font-*` variable value, not individual nodes. Known invalid: `Mona Sans Condensed`, `Big Shoulders Display`. Tested valid: `Anton`, `Antonio`, `Archivo Narrow`, `Barlow`, `Barlow Condensed`, `Bebas Neue`, `JetBrains Mono`, `Mona Sans`, `Oswald`, `Sofia Sans Extra Condensed`, `Space Mono`. Variable-font axes cannot be set; pick a family that is already condensed. Re-check Turkish glyphs (`04-ikas-constraints.md` §4).
+- **Fix:**
+  - Change the `font-*` variable value, not individual nodes.
+  - Add the family to the deny list: `INVALID_FONTS` in `scripts/lint_plan.py`, so lint L13 stops every later plan that picks it.
+  - Variable-font axes cannot be set; pick a family that is already condensed. Re-check Turkish glyphs (`04-ikas-constraints.md` §4).
+- **Deny list, not an allow list:** any Google family is allowed until pen.dev rejects it. The DS step's first `Insert` that uses each `font-*` variable is the proof. Read that response for the warning before building further.
+- **Denied so far:** `Mona Sans Condensed`, `Big Shoulders Display`.
 - **Official:** `SKILL.md` §Style ("All Google fonts are available"); `execute.md` top (fix warnings in the next call).
 
 ## 5. Translucent colours need their own variable
