@@ -697,11 +697,14 @@ class Builder:
                 frames[dev] = [collections.OrderedDict([('root', r['name']), ('state', r['state']),
                                                         ('nodeId', r['nodeId'])]) for r in rs]
             else:
-                r = rs[0] if rs else None
+                r = next((x for x in rs if not x['state']), None)  # the component, never a state frame
                 frames[dev] = collections.OrderedDict([('root', r['name'] if r else self.rname(band, key, dev)),
                                                        ('nodeId', r['nodeId'] if r else None)])
+                sts = [collections.OrderedDict([('state', x['state']), ('nodeId', x['nodeId'])]) for x in rs if x['state']]
+                if sts:
+                    frames[dev]['states'] = sts
         if self.roots is not None:
-            have = {r['dev'] for r in roots}
+            have = {r['dev'] for r in roots if band == 'Overlay' or not r['state']}
             missing = [dv for dv in devices if dv not in have]
             if len(missing) == len(devices):
                 ids = [t['id'] for t in self.targets if t.get('section') == key]
