@@ -136,6 +136,23 @@ def parse_props_line(s):
     return top, children
 
 
+def tree_data_marks(tree, sub_names):
+    """-> [{kind: data|code, value, layer, subs}] for every {data:} / {code:} marker; subs = the Sub names
+    the same tree line mentions (the data may live inside one of those Subs on the canvas)."""
+    marks = [m for m in parse_tree(tree)]
+    out, i = [], 0
+    for line in tree:
+        body = TREE_PREFIX.sub('', line)
+        subs = [w for w in IDENT.findall(body) if w in sub_names]
+        for m in MARKER.finditer(body):
+            mk = marks[i]
+            i += 1
+            if mk['kind'] in ('data', 'code'):
+                out.append(dict(kind=mk['kind'], value=mk['source'] if mk['kind'] == 'data' else mk['name'],
+                                layer=mk['layer'], subs=subs))
+    return out
+
+
 def tree_layers(tree):
     known = set()
     for line in tree:
@@ -620,17 +637,28 @@ class Builder:
                 cp.append(ce)
             out_children.append(collections.OrderedDict([('slot', c['slot']), ('type', c['type']),
                                                          ('components', c['components']), ('props', cp)]))
-        # data / code text
+        # data / code text (found on the key's roots, as a context mark, or inside a Sub the tree line names)
         data_bound, code_text = [], []
+        sub_names = {c['name'] for c in self.d['components']}
+        canvas_sources = {s for _, s in canvas_data}
+        line_subs = {(dm['kind'], dm['value']): dm['subs'] for dm in tree_data_marks(sec.get('tree') or [], sub_names)}
         for m in marks:
             if m['kind'] == 'data':
                 data_bound.append(collections.OrderedDict([('layer', m['layer']), ('source', m['source'])]))
-                if has_canvas and m['source'] not in {s for _, s in canvas_data}:
+                via = [s for s in line_subs.get(('data', m['source']), []) if any(
+                    m['source'] in {x for _, x in r['data']} for r in (self.roots_of('Sub', s) if self.roots is not None else []))]
+                if via:
+                    data_bound[-1]['via'] = via[0]
+                if has_canvas and m['source'] not in canvas_sources and not via:
                     self.q('data-unmarked', '%s.%s' % (where, m['layer']),
                            "Planda {data:%s}, canvas'ta textClass:\"data\" / source yok" % m['source'])
             elif m['kind'] == 'code':
                 code_text.append(collections.OrderedDict([('layer', m['layer']), ('code', m['name'])]))
-                if has_canvas and m['layer'] not in canvas_code:
+                via = [s for s in line_subs.get(('code', m['name']), []) if any(
+                    r['code'] for r in (self.roots_of('Sub', s) if self.roots is not None else []))]
+                if via:
+                    code_text[-1]['via'] = via[0]
+                if has_canvas and m['layer'] not in canvas_code and m['name'] not in canvas_code and not via:
                     self.q('data-unmarked', '%s.%s' % (where, m['layer']),
                            "Planda {code:%s}, canvas'ta textClass:\"code\" yok" % m['name'])
         for lay, src in canvas_data:

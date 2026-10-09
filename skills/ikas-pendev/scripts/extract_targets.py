@@ -40,7 +40,21 @@ sys.path.insert(0, HERE)
 import lint_plan as L  # noqa: E402
 
 CHK_IDS = ("vars", "ds", "sections", "overlays", "pages", "anim", "hardcoded", "textclass", "clip",
-           "rootmeta", "bgprop", "parity", "props", "placeholder", "refassets")
+           "rootmeta", "bgprop", "parity", "props", "data", "placeholder", "refassets")
+
+
+def plan_data(plan):
+    """{key: {"need": [[kind, value, layer, [subs]], ...], "known": ["data:src" | "code:name", ...]}} from the
+    {data:} / {code:} markers of each Section/Overlay tree; subs = Sub names on the same tree line."""
+    import build_manifest as B
+    subs = set(plan.components.keys())
+    out = {}
+    for key, e in plan.entries.items():
+        tree = [t for f in e["trees"] for _ln, t in f["body"]]
+        rows = [[m["kind"], m["value"], m["layer"] or "", m["subs"]] for m in B.tree_data_marks(tree, subs)]
+        if rows:
+            out[key] = {"need": rows, "known": sorted({r[0] + ":" + r[1] for r in rows})}
+    return out
 LAYER_TYPES = ("TEXT", "RICH_TEXT", "IMAGE", "IMAGE_LIST", "VIDEO", "SVG", "SVG_LIST")
 
 
@@ -104,6 +118,7 @@ def build_exp(plan, mode, mode_only):
                vars=variables, ds=list(L.DS_C2 if contract >= 2 else L.DS_C1),
                sections=sections, overlays=overlays, overlayDevices=odev, pages=pages, pageExpand=page_expand, ids=ids,
                parity=parity, props=plan_props(plan) if contract >= 2 else {},
+               data=plan_data(plan) if contract >= 2 else {},
                idOwner={t["id"]: t.get("section") for t in plan.targets if isinstance(t.get("id"), str)
                         and t.get("section") and not str(t.get("section")).startswith("Sub/")})
     if mode.startswith("section:"):
@@ -130,12 +145,14 @@ def build_exp(plan, mode, mode_only):
                 keep.update(pages=pages)
             elif band == "Overlays":
                 keep.update(overlays=overlays, overlayDevices=odev, parity={k: v for k, v in parity.items() if k in overlays},
-                            props={k: v for k, v in exp["props"].items() if k in overlays})
+                            props={k: v for k, v in exp["props"].items() if k in overlays},
+                            data={k: v for k, v in exp["data"].items() if k in overlays})
             elif not band:
                 keep.update(sections=[key] if key in sections else [], overlays=[key] if key in overlays else [],
                             overlayDevices={key: odev[key]} if key in odev else {},
                             parity={key: parity[key]} if key in parity else {},
-                            props={key: exp["props"][key]} if key in exp["props"] else {})
+                            props={key: exp["props"][key]} if key in exp["props"] else {},
+                            data={key: exp["data"][key]} if key in exp["data"] else {})
             exp = keep
     elif mode == "manifest" and mode_only:
         exp = dict(prefix=P, slug=slug, contract=contract)

@@ -23,6 +23,7 @@
 | `bgprop` | … | … | … |
 | `parity` | … | … | … |
 | `props` | … | … | … |
+| `data` | … | … | … |
 | `placeholder` | … | … | … |
 | `refassets` | … | … | … |
 | `ds` | … | … | … |

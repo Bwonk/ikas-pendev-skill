@@ -63,6 +63,11 @@ JS
   echo 'const r = propMarks("I-PDP-04 · M-11 · not · props addToCartText, addingText TEXT, image IMAGE · prop closeAriaLabel TEXT"); if (JSON.stringify(r) !== JSON.stringify([["addToCartText","TEXT"],["addingText","TEXT"],["image","IMAGE"],["closeAriaLabel","TEXT"]])) { console.error(JSON.stringify(r)); process.exit(1); }' >> "$OUT/propmarks.js"
   node "$OUT/propmarks.js" 2>"$OUT/propmarks.log" && ok "prop mark grammar parses" || bad "prop mark grammar parses" "$(cat "$OUT/propmarks.log")"
 fi
+python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks data > "$OUT/checks-mini-data.js" && grep -q '"data":{"[A-Za-z]*":{"need":\[\["\(data\|code\)"' "$OUT/checks-mini-data.js" && ok "checks js carries plan data marks (need/known)" || bad "checks js carries plan data marks (need/known)" "$(grep -o '"data":{[^]]*' "$OUT/checks-mini-data.js" | head -c 200)"
+if command -v node >/dev/null; then sed -n '/^const dataMarks/p' "$OUT/checks-mini-data.js" > "$OUT/datamarks.js"
+  echo 'const r = dataMarks("I-PDP-02 · M-02 · not · data product.image, product.video · code index · props title TEXT"); if (JSON.stringify(r) !== JSON.stringify([["data","product.image"],["data","product.video"],["code","index"]])) { console.error(JSON.stringify(r)); process.exit(1); }' >> "$OUT/datamarks.js"
+  node "$OUT/datamarks.js" 2>"$OUT/datamarks.log" && ok "data mark grammar parses" || bad "data mark grammar parses" "$(cat "$OUT/datamarks.log")"
+fi
 python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks bogus >/dev/null 2>&1 && bad "extract rejects unknown CHK id" || ok "extract rejects unknown CHK id"
 
 # 6. analyze_site on offline fixture

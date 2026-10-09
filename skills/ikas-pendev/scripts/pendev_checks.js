@@ -10,7 +10,10 @@
 //
 // Output: CHK|<id>|PASS|FAIL|WARN|<n>|<detail<=200>  ...  SUMMARY|pass=..|fail=..|warn=..|mode=..
 // CHK ids: vars ds sections overlays pages anim hardcoded textclass clip rootmeta bgprop
-//          parity props placeholder refassets
+//          parity props data placeholder refassets
+// data: every {data:<source>} / {code:<name>} of a key's §6.2 tree is found on its component roots (overlay: any
+// root) as textClass data+source / code (code also by layer name), as a context mark "data <source>" /
+// "code <name>", or inside a Sub the same tree line names; a context mark the plan does not know fails.
 // props: every plan prop of a layer type (TEXT, RICH_TEXT, IMAGE, IMAGE_LIST, VIDEO, SVG, SVG_LIST) that the
 // plan places in a Section/Overlay tree is found on that key's component roots (Overlay: every root) as
 // metadata.prop or as a context mark "prop <name> <TYPE>" / "props <a>, <b> <TYPE>" (one "·" segment;
@@ -54,6 +57,8 @@ const ALIAS = { ds: "DS", subs: "Sub", sub: "Sub", pages: "Page", page: "Page", 
 const anims = (m, ctx) => { const s = new Set(); if (m && typeof m.anim === "string") m.anim.split(",").forEach(x => { x = x.trim(); if (x) s.add(x); }); if (typeof ctx === "string") (ctx.match(idRe) || []).forEach(x => s.add(x)); return s; };
 const propMarks = s => { const out = []; if (typeof s !== "string") return out; s.split("\u00b7").forEach(seg => { const m = /^\s*props?\s+(.+)$/.exec(seg.trim()); if (!m) return; let pend = []; m[1].split(",").forEach(it => { const w = it.trim().split(/\s+/), nm = w[0], ty = w[1] && /^[A-Z_]+$/.test(w[1]) ? w[1] : null; if (!/^[a-z][A-Za-z0-9]*$/.test(nm || "")) return; pend.push(nm); if (ty) { pend.forEach(p => out.push([p, ty])); pend = []; } }); pend.forEach(p => out.push([p, "?"])); }); return out; };
 const nodeProps = n => { const out = []; const m = n.metadata || {}; if (m.prop) out.push([m.prop, m.propType || "?"]); propMarks(n.context).forEach(x => out.push(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; if (o.metadata && o.metadata.prop) out.push([o.metadata.prop, o.metadata.propType || "?"]); propMarks(o.context).forEach(x => out.push(x)); }); return out; };
+const dataMarks = s => { const out = []; if (typeof s !== "string") return out; s.split("\u00b7").forEach(seg => { const m = /^\s*(data|code)\s+(.+)$/.exec(seg.trim()); if (!m) return; m[2].split(",").forEach(v => { v = v.trim().split(/\s+/)[0]; if (/^[A-Za-z][\w.-]*$/.test(v || "")) out.push([m[1], v]); }); }); return out; };
+const nodeData = n => { const out = []; const m = n.metadata || {}; if (m.textClass === "data" && m.source) out.push(["data", m.source, 0]); if (m.textClass === "code") { out.push(["code", n.name || "?", 0]); if (m.code) out.push(["code", m.code, 0]); } dataMarks(n.context).forEach(x => out.push([x[0], x[1], 1])); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { dataMarks((d[k] || {}).context).forEach(x => out.push([x[0], x[1], 1])); }); return out; };
 const scanNode = (n, into) => { anims(n.metadata, n.context).forEach(x => into.add(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; anims(o.metadata, o.context).forEach(x => into.add(x)); }); };
 
 const backdrop = (r, n) => { if (n.type !== "ref" || band(r) === "Page") return false; const t = byId[n.ref]; return !!t && band(t) === "Section" && keyOf(t) !== keyOf(r); };
@@ -68,7 +73,7 @@ if (MODE === "manifest") {
       const m = n.metadata || {};
       nodeProps(n).forEach(x => add(props, x[0] + ":" + x[1]));
       if (m.textClass === "data") add(data, (n.name || "?") + "=" + (m.source || "?"));
-      if (m.textClass === "code") add(code, n.name || "?");
+      nodeData(n).forEach(x => { if (x[0] === "data" && x[2]) add(data, (n.name || "?") + "=" + x[1]); if (x[0] === "code") add(code, x[1]); });
       scanNode(n, ids);
     });
     if (band(r) !== "Page") walk(r, n => { scanNode(n, ids); }, { resolveInstances: true });
@@ -89,7 +94,7 @@ if (MODE === "manifest") {
   };
   const U = roots.filter(inUnit);
   if (unit && !isBand && (EXP.sections || []).indexOf(unit) < 0 && (EXP.overlays || []).indexOf(unit) < 0) chk("sections", "FAIL", 0, "unknown unit key " + unit + " (not a plan Section/Overlay)");
-  const run = id => { if (EXP.only && EXP.only.indexOf(id) < 0) return false; if (!unit) return true; if (unit === "DS") return ["vars", "ds", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Page") return ["pages", "rootmeta", "placeholder"].indexOf(id) >= 0; if (unit === "Motion") return ["hardcoded", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Sub") return ["anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Overlays") return ["overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "parity", "props", "placeholder", "refassets"].indexOf(id) >= 0; return ["sections", "overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "bgprop", "parity", "props", "placeholder", "refassets"].indexOf(id) >= 0; };
+  const run = id => { if (EXP.only && EXP.only.indexOf(id) < 0) return false; if (!unit) return true; if (unit === "DS") return ["vars", "ds", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Page") return ["pages", "rootmeta", "placeholder"].indexOf(id) >= 0; if (unit === "Motion") return ["hardcoded", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Sub") return ["anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Overlays") return ["overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "parity", "props", "data", "placeholder", "refassets"].indexOf(id) >= 0; return ["sections", "overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "bgprop", "parity", "props", "data", "placeholder", "refassets"].indexOf(id) >= 0; };
   const find = nm => roots.find(r => r.name === nm);
   const findPre = pre => roots.filter(r => r.name === pre || r.name.indexOf(pre + " ") === 0);
 
@@ -255,6 +260,22 @@ if (MODE === "manifest") {
     });
     const bad = miss.length + wrong.length + stale.length;
     chk("props", bad ? (CONTRACT < 2 ? "WARN" : "FAIL") : "PASS", want - miss.length - wrong.length, (want - miss.length - wrong.length) + "/" + want + (miss.length ? " unmarked:" + miss.join(",") : "") + (wrong.length ? " type:" + wrong.join(",") : "") + (stale.length ? " not-in-plan:" + stale.join(",") : ""));
+  }
+  if (run("data")) {
+    const DE = EXP.data || {}, keys = unit === "Overlays" ? Object.keys(DE).filter(k => (EXP.overlays || []).indexOf(k) >= 0) : (unit ? (DE[unit] ? [unit] : []) : Object.keys(DE));
+    const subIdx = {};
+    roots.filter(r => band(r) === "Sub").forEach(r => { const s = subIdx[keyOf(r)] = subIdx[keyOf(r)] || new Set(); Get(r.id, n => { nodeData(n).forEach(x => s.add(x[0] + ":" + x[1])); return undefined; }); });
+    const miss = [], stale = []; let want = 0;
+    keys.forEach(k => {
+      const kind = (EXP.sections || []).indexOf(k) >= 0 ? "Section" : "Overlay", pre = P + "/" + kind + "/" + k + "@";
+      const rs = roots.filter(r => r.name.indexOf(pre) === 0 && (kind === "Overlay" || r.name.indexOf(" \u2014 ") < 0));
+      const got = new Set(), marks = new Set();
+      rs.forEach(r => walk(r, n => { nodeData(n).forEach(x => { got.add(x[0] + ":" + x[1]); if (x[2]) marks.add(x[0] + ":" + x[1]); }); }));
+      DE[k].need.forEach(e => { want++; const key = e[0] + ":" + e[1]; const ok = got.has(key) || (e[0] === "code" && got.has("code:" + e[2])) || e[3].some(s => subIdx[s] && (subIdx[s].has(key) || (e[0] === "code" && Array.from(subIdx[s]).some(v => v.indexOf("code:") === 0)))); if (!ok) miss.push(k + "." + e[2] + ":" + key); });
+      marks.forEach(v => { if (DE[k].known.indexOf(v) < 0) stale.push(k + "." + v); });
+    });
+    const bad = miss.length + stale.length;
+    chk("data", bad ? (CONTRACT < 2 ? "WARN" : "FAIL") : "PASS", want - miss.length, (want - miss.length) + "/" + want + (miss.length ? " unmarked:" + miss.join(",") : "") + (stale.length ? " not-in-plan:" + stale.join(",") : ""));
   }
   if (run("placeholder")) {
     const ph = U.filter(r => r.placeholder).map(rest);

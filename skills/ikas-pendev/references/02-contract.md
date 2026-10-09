@@ -164,6 +164,20 @@ context: "P-HERO-02 · M-07 · başlık slaytla birlikte değişir"
 - `context` is the human note **and** must contain every anim id of the layer.
 - Metadata on a layer inside a reusable flows to its instances; do not re-write it per instance. Instance-level targets live only in `context`.
 
+### 5c. Data and code marks in `context`
+
+Every `{data:<source>}` and `{code:<name>}` of a plan tree must be findable on the canvas. Any one of these counts:
+
+1. **On the text node itself:** `textClass:"data"` + `source`, or `textClass:"code"` (+ `code:"<name>"`). A code text also matches by its layer name.
+2. **Inside a Sub the same tree line names.** Example: `ProductCard ×8 · card-title {data:product.name}`, where ProductCard's own `card-title` carries `product.name`. Write the Sub name on the tree line (`Breadcrumbs`, `(VariantChip)`, `(ReviewCard)`); nothing is marked in the section.
+3. **As a context mark** on the node the tree line names: one `·` segment, `data <source>[, <source>]` or `code <name>`. Use it where 1 and 2 cannot apply:
+   - Image data, which has no `textClass`: `data product.image` on the media frame.
+   - State alternatives: `data search.query` on a list title that shows the category name by default.
+   - Composites: `data addressForm.fields` on a form.
+   - Code text drawn under another name: `code index` on a counter.
+
+CHK `data` checks all three. A context mark the plan does not know for that key fails as `not-in-plan`.
+
 ### 5b. Anim ids belong to one key; backdrop instances
 
 - Every anim id has one owner: the Section/Overlay its plan target names, or a Sub for `CMP` ids. A Section or Overlay root never carries another key's id.
