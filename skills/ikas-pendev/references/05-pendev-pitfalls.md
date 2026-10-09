@@ -32,6 +32,7 @@ This file only adds what the official pen.dev skill does not say, or says in a p
 - **Cause:** metadata lives on the component's own nodes; `ref` instances and their overrides do not carry it.
 - **Fix:** every animated layer inside a reusable root also writes its ids in `context` (`"P-HERO-02 · M-07 · …"`). Verification scans the union of `metadata.anim` and the `context` regex, with `resolveInstances: true` (CHK `anim`). Never re-add metadata per instance.
 - **Official:** `guide/components.md` (instances have no children of their own; overrides via `descendants`).
+- **Props too:** a label on a Sub instance (Button, FormField, SectionHeading) or in a state override cannot carry `metadata.prop`; write `props <name> <TYPE>` into the instance's `context` (02 §5a). CHK `props` counts these marks.
 
 ## 4. Invalid fonts *(observed)*
 - **Symptom:** `execute` warns "Font family … is invalid"; text renders in a fallback face.

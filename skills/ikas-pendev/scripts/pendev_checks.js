@@ -10,7 +10,12 @@
 //
 // Output: CHK|<id>|PASS|FAIL|WARN|<n>|<detail<=200>  ...  SUMMARY|pass=..|fail=..|warn=..|mode=..
 // CHK ids: vars ds sections overlays pages anim hardcoded textclass clip rootmeta bgprop
-//          parity placeholder refassets
+//          parity props placeholder refassets
+// props: every plan prop of a layer type (TEXT, RICH_TEXT, IMAGE, IMAGE_LIST, VIDEO, SVG, SVG_LIST) that the
+// plan places in a Section/Overlay tree is found on that key's component roots (Overlay: every root) as
+// metadata.prop or as a context mark "prop <name> <TYPE>" / "props <a>, <b> <TYPE>" (one "·" segment;
+// an untyped name takes the next type). Marks on refs and descendant overrides count: instances drop metadata.
+// A marked name the plan does not know for that key (props line, child components, tree) fails as not-in-plan.
 // parity: every kebab-case layer name of the @desktop component also exists in @mobile, and every
 // "@desktop — <state>" root has its "@mobile — <state>" twin. Exempt: wrappers named *-row,
 // *-column, *-wrap, *-body, *-main; states containing "hover"; the plan's "Yalnız masaüstü" lists
@@ -43,6 +48,8 @@ const keyOf = r => { const m = /^[A-Za-z]+\/([A-Za-z0-9]+)/.exec(rest(r)); retur
 const ROLE = { DS: "ds", Sub: "sub", Section: "section", Overlay: "overlay", Page: "page", Motion: "motion" };
 const ALIAS = { ds: "DS", subs: "Sub", sub: "Sub", pages: "Page", page: "Page", overlays: "Overlays", motion: "Motion" };
 const anims = (m, ctx) => { const s = new Set(); if (m && typeof m.anim === "string") m.anim.split(",").forEach(x => { x = x.trim(); if (x) s.add(x); }); if (typeof ctx === "string") (ctx.match(idRe) || []).forEach(x => s.add(x)); return s; };
+const propMarks = s => { const out = []; if (typeof s !== "string") return out; s.split("\u00b7").forEach(seg => { const m = /^\s*props?\s+(.+)$/.exec(seg.trim()); if (!m) return; let pend = []; m[1].split(",").forEach(it => { const w = it.trim().split(/\s+/), nm = w[0], ty = w[1] && /^[A-Z_]+$/.test(w[1]) ? w[1] : null; if (!/^[a-z][A-Za-z0-9]*$/.test(nm || "")) return; pend.push(nm); if (ty) { pend.forEach(p => out.push([p, ty])); pend = []; } }); pend.forEach(p => out.push([p, "?"])); }); return out; };
+const nodeProps = n => { const out = []; const m = n.metadata || {}; if (m.prop) out.push([m.prop, m.propType || "?"]); propMarks(n.context).forEach(x => out.push(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; if (o.metadata && o.metadata.prop) out.push([o.metadata.prop, o.metadata.propType || "?"]); propMarks(o.context).forEach(x => out.push(x)); }); return out; };
 const scanNode = (n, into) => { anims(n.metadata, n.context).forEach(x => into.add(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; anims(o.metadata, o.context).forEach(x => into.add(x)); }); };
 
 if (MODE === "manifest") {
@@ -51,7 +58,7 @@ if (MODE === "manifest") {
     const add = (a, v) => { if (a.indexOf(v) < 0) a.push(v); };
     Get(r.id, n => {
       const m = n.metadata || {};
-      if (m.prop) add(props, m.prop + ":" + (m.propType || "?"));
+      nodeProps(n).forEach(x => add(props, x[0] + ":" + x[1]));
       if (m.textClass === "data") add(data, (n.name || "?") + "=" + (m.source || "?"));
       if (m.textClass === "code") add(code, n.name || "?");
       scanNode(n, ids);
@@ -75,7 +82,7 @@ if (MODE === "manifest") {
   };
   const U = roots.filter(inUnit);
   if (unit && !isBand && (EXP.sections || []).indexOf(unit) < 0 && (EXP.overlays || []).indexOf(unit) < 0) chk("sections", "FAIL", 0, "unknown unit key " + unit + " (not a plan Section/Overlay)");
-  const run = id => { if (EXP.only && EXP.only.indexOf(id) < 0) return false; if (!unit) return true; if (unit === "DS") return ["vars", "ds", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Page") return ["pages", "rootmeta", "placeholder"].indexOf(id) >= 0; if (unit === "Motion") return ["hardcoded", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Sub") return ["anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Overlays") return ["overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "parity", "placeholder", "refassets"].indexOf(id) >= 0; return ["sections", "overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "bgprop", "parity", "placeholder", "refassets"].indexOf(id) >= 0; };
+  const run = id => { if (EXP.only && EXP.only.indexOf(id) < 0) return false; if (!unit) return true; if (unit === "DS") return ["vars", "ds", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Page") return ["pages", "rootmeta", "placeholder"].indexOf(id) >= 0; if (unit === "Motion") return ["hardcoded", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Sub") return ["anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Overlays") return ["overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "parity", "props", "placeholder", "refassets"].indexOf(id) >= 0; return ["sections", "overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "bgprop", "parity", "props", "placeholder", "refassets"].indexOf(id) >= 0; };
   const find = nm => roots.find(r => r.name === nm);
   const findPre = pre => roots.filter(r => r.name === pre || r.name.indexOf(pre + " ") === 0);
 
@@ -226,6 +233,20 @@ if (MODE === "manifest") {
     });
     const okK = checked - badK.size;
     chk("parity", badK.size ? "FAIL" : "PASS", okK, okK + "/" + checked + (badS.length ? " mobile state missing:" + badS.join(",") : "") + (badL.length ? " desktop-only layers:" + badL.join(",") : ""));
+  }
+  if (run("props")) {
+    const PE = EXP.props || {}, keys = unit === "Overlays" ? Object.keys(PE).filter(k => (EXP.overlays || []).indexOf(k) >= 0) : (unit ? (PE[unit] ? [unit] : []) : Object.keys(PE));
+    const miss = [], wrong = [], stale = []; let want = 0;
+    keys.forEach(k => {
+      const kind = (EXP.sections || []).indexOf(k) >= 0 ? "Section" : "Overlay", pre = P + "/" + kind + "/" + k + "@";
+      const rs = roots.filter(r => r.name.indexOf(pre) === 0 && (kind === "Overlay" || r.name.indexOf(" \u2014 ") < 0));
+      const got = {};
+      rs.forEach(r => Get(r.id, n => { nodeProps(n).forEach(x => { if (!got[x[0]] || got[x[0]] === "?") got[x[0]] = x[1]; }); return undefined; }));
+      PE[k].need.forEach(e => { want++; if (!got[e[0]]) miss.push(k + "." + e[0]); else if (got[e[0]] !== "?" && got[e[0]] !== e[1]) wrong.push(k + "." + e[0] + ":" + got[e[0]] + "\u2260" + e[1]); });
+      Object.keys(got).forEach(g => { if (PE[k].known.indexOf(g) < 0) stale.push(k + "." + g); });
+    });
+    const bad = miss.length + wrong.length + stale.length;
+    chk("props", bad ? (CONTRACT < 2 ? "WARN" : "FAIL") : "PASS", want - miss.length - wrong.length, (want - miss.length - wrong.length) + "/" + want + (miss.length ? " unmarked:" + miss.join(",") : "") + (wrong.length ? " type:" + wrong.join(",") : "") + (stale.length ? " not-in-plan:" + stale.join(",") : ""));
   }
   if (run("placeholder")) {
     const ph = U.filter(r => r.placeholder).map(rest);

@@ -164,6 +164,29 @@ context: "P-HERO-02 · M-07 · başlık slaytla birlikte değişir"
 - `context` is the human note **and** must contain every anim id of the layer.
 - Metadata on a layer inside a reusable flows to its instances; do not re-write it per instance. Instance-level targets live only in `context`.
 
+### 5a. Prop marks in `context`
+
+A prop whose text or image sits where metadata is not kept gets a **prop mark** in the `context` of the node that renders it. That covers:
+- Sub instances: a button label, a FormField label or placeholder, a SectionHeading title.
+- Descendant overrides.
+- State alternatives of one layer: `addingText` next to `addToCartText`.
+- Props without a visible layer: an `aria-label` on an icon button, an image `alt`.
+
+Grammar: one `·`-separated segment of `context`, `prop <name> <TYPE>` or `props <a>, <b> <TYPE>[, <c> <TYPE>]`. An untyped name takes the next type.
+
+```
+context: "I-PDP-04 · M-11 · buton dolgusu ters döner · props addToCartText, addingText, addedText, outOfStockText TEXT"
+context: "props closeAriaLabel TEXT"
+```
+
+- Put the mark on the node the plan tree line names: the ref, or the wrapper the line starts with.
+  - Section: on the `@desktop` and the `@mobile` component.
+  - Overlay: on every state root that contains the layer.
+- Plain layers keep `metadata.prop`. The mark is for places metadata cannot reach, not a second copy.
+- CHK `props` reads both:
+  - Every layer-type prop the plan places in a key's tree must be found.
+  - A marked name the plan does not know for that key fails as `not-in-plan`. Rename or remove a prop in plandata and on the canvas together.
+
 **Starter `source` vocabulary** (format `group.field`, camelCase; extend with the same shape):
 
 | Group | Sources |

@@ -22,6 +22,7 @@
 | `rootmeta` | … | … | … |
 | `bgprop` | … | … | … |
 | `parity` | … | … | … |
+| `props` | … | … | … |
 | `placeholder` | … | … | … |
 | `refassets` | … | … | … |
 | `ds` | … | … | … |

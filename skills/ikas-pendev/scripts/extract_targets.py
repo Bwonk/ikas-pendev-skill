@@ -40,7 +40,30 @@ sys.path.insert(0, HERE)
 import lint_plan as L  # noqa: E402
 
 CHK_IDS = ("vars", "ds", "sections", "overlays", "pages", "anim", "hardcoded", "textclass", "clip",
-           "rootmeta", "bgprop", "parity", "placeholder", "refassets")
+           "rootmeta", "bgprop", "parity", "props", "placeholder", "refassets")
+LAYER_TYPES = ("TEXT", "RICH_TEXT", "IMAGE", "IMAGE_LIST", "VIDEO", "SVG", "SVG_LIST")
+
+
+def plan_props(plan):
+    """{key: {"need": [[name, type, layer], ...], "known": [name, ...]}}. need: layer-type props a Section/Overlay
+    places in its §6.2 tree (a canvas root must carry them as metadata.prop or a context mark); child-component
+    props are excluded. known: every prop name the plan gives the key (props line, child components, tree)."""
+    import build_manifest as B
+    out = {}
+    for key, e in plan.entries.items():
+        line = e["props"][1] if e.get("props") else ""
+        _top, children = B.parse_props_line(re.sub(r"^- \*\*Prop'lar:\*\*\s*", "", line))
+        child = {n for c in children for n, _ in c["props"]}
+        tree = [t for f in e["trees"] for _ln, t in f["body"]]
+        seen, rows = set(), []
+        marks = B.parse_tree(tree)
+        for m in marks:
+            if m["kind"] == "prop" and m["type"] in LAYER_TYPES and m["name"] not in child and m["name"] not in seen:
+                seen.add(m["name"])
+                rows.append([m["name"], m["type"], m["layer"] or ""])
+        known = sorted({n for n, _ in _top} | child | {m["name"] for m in marks if m["kind"] == "prop"} | {"backgroundColor"})
+        out[key] = {"need": rows, "known": known}
+    return out
 BANDS = {"DS": "DS", "ds": "DS", "Sub": "Sub", "sub": "Sub", "subs": "Sub", "Page": "Page",
          "page": "Page", "pages": "Page", "Overlays": "Overlays", "overlays": "Overlays",
          "Motion": "Motion", "motion": "Motion"}
@@ -80,7 +103,7 @@ def build_exp(plan, mode, mode_only):
     exp = dict(prefix=P, slug=slug, contract=contract, referenceHost=plan.reference_host() or "",
                vars=variables, ds=list(L.DS_C2 if contract >= 2 else L.DS_C1),
                sections=sections, overlays=overlays, overlayDevices=odev, pages=pages, pageExpand=page_expand, ids=ids,
-               parity=parity)
+               parity=parity, props=plan_props(plan) if contract >= 2 else {})
     if mode.startswith("section:"):
         key = mode.split(":", 1)[1]
         band = BANDS.get(key)
@@ -103,11 +126,13 @@ def build_exp(plan, mode, mode_only):
             elif band == "Page":
                 keep.update(pages=pages)
             elif band == "Overlays":
-                keep.update(overlays=overlays, overlayDevices=odev, parity={k: v for k, v in parity.items() if k in overlays})
+                keep.update(overlays=overlays, overlayDevices=odev, parity={k: v for k, v in parity.items() if k in overlays},
+                            props={k: v for k, v in exp["props"].items() if k in overlays})
             elif not band:
                 keep.update(sections=[key] if key in sections else [], overlays=[key] if key in overlays else [],
                             overlayDevices={key: odev[key]} if key in odev else {},
-                            parity={key: parity[key]} if key in parity else {})
+                            parity={key: parity[key]} if key in parity else {},
+                            props={key: exp["props"][key]} if key in exp["props"] else {})
             exp = keep
     elif mode == "manifest" and mode_only:
         exp = dict(prefix=P, slug=slug, contract=contract)

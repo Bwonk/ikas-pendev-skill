@@ -37,7 +37,7 @@ A unit is one root pair (`@desktop` + `@mobile`), one Sub with its state frames,
 
 1. **Read** the unit's block in the plan (§6.0–§6.5) and the tail of `docs/pendev/build-log.md` (resume: re-read listed node ids, `05-pendev-pitfalls.md` §12).
 2. **Placeholder:** `FindEmptySpace` in the right band → `Insert` the root with `placeholder: true`, final name and root metadata.
-3. **Build** the whole tree in that `execute` (one call per root frame): every node named as in the plan tree, flat metadata, `textClass` on every text, anim ids also in `context`, values only `$variables`. Polish with `Update` in a follow-up call if needed.
+3. **Build** the whole tree in that `execute` (one call per root frame): every node named as in the plan tree, flat metadata, `textClass` on every text, anim ids also in `context`, a prop mark (`props a, b TEXT`, 02 §5a) on every Sub instance, override, state alternative or layerless prop in the same `Insert`, values only `$variables`. Polish with `Update` in a follow-up call if needed.
 4. **Check:** `python3 ${CLAUDE_SKILL_DIR}/scripts/extract_targets.py <plan> --js section:<Key>` → run the printed read-only snippet with `execute`. (DS, Subs, pages: run `--js all` and read the relevant CHK lines.)
 5. **Screenshot:** one `TakeScreenshot` of the finished unit (smallest meaningful node).
 6. **Fix** every FAIL in place — never delete-and-rebuild; metadata fixes use `05-pendev-pitfalls.md` §2. Re-run step 4.
@@ -61,6 +61,7 @@ Emitted by `pendev_checks.js` as `CHK|<id>|PASS|FAIL|WARN|<n>|<detail≤200>`, c
 | `rootmeta` | root metadata | every `P/` root has `type`=slug, `role`, `ikas` (section/overlay/sub), `device` (section/page/overlay), `variant`=P, `contract`=2 | `contract` key not required |
 | `bgprop` | section background prop | every Section root has `prop:"backgroundColor", propType:"COLOR"` | skipped → `WARN` "contract 1" |
 | `parity` | desktop/mobile parity | every kebab-case layer name in `@desktop` also exists in `@mobile`, and every `@desktop — <state>` root has its `@mobile — <state>` twin. Exempt: wrappers `*-row`, `*-column`, `*-wrap`, `*-body`, `*-main`; states containing `hover`; the plan's `Yalnız masaüstü katmanlar` / `Yalnız masaüstü durumlar` lines (plandata `desktopOnly` / `desktopOnlyStates`; a listed layer exempts its subtree). Overlays without component roots compare their first common state pair | same |
+| `props` | prop placement | every layer-type prop (TEXT, RICH_TEXT, IMAGE, IMAGE_LIST, VIDEO, SVG, SVG_LIST) a key's §6.2 tree places is found on that key's component roots (overlay: any state root) as `metadata.prop` or a context mark (02 §5a), with the same type; no mark names a prop the plan does not give that key (`not-in-plan`) | `WARN` |
 | `placeholder` | unfinished roots | no `P/` root has `placeholder: true` (during build: only the current unit may) | same |
 | `refassets` | reference leakage | no image-fill `url` and no text content contains the reference host or brand name from the brief | same |
 | `ds` | design-system frames | `P/DS/{Colors,Typography,Spacing,Icons,Motion,Imagery}` present (6/6) | 5/5, `Imagery` not required |
@@ -77,6 +78,7 @@ Design side — every item maps to a CHK or a manual check:
 - [ ] Turkish characters (`İ Ş Ğ Ü Ö Ç ı`) render correctly in every chosen font — screenshot of `P/DS/Typography` (manual).
 - [ ] No reference images, copy or logo used; no fill URL from the reference host (`refassets` + manual look).
 - [ ] `P/DS/Colors` shows the colour-scheme cards and `P/DS/Typography` the ikas text-style table with four breakpoints; `globals.md` §1a, §2a and §4a match them.
+- [ ] Every plan prop is on the canvas as metadata or a context mark, and no mark is stale (`props`).
 - [ ] Desktop/mobile parity (`parity`): every ikas block, account panel and confirmation exists in both device components; every desktop state frame has its mobile twin; intended desktop-only layers are declared in plandata `desktopOnly`.
 - [ ] The theme name from the brief sits in every brand placement (`02-contract.md` §11): logo/mark in `P/DS/Icons`, Header and Footer logos, copyright, contact e-mail, legal/e-mail texts. No placeholder brand text (`Marka`, `Logo`, `Brand`) and no other brand name on the canvas.
 - [ ] `P/DS/Imagery` exists with the generated photography direction (`ds`).

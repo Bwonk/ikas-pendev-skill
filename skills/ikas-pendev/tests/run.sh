@@ -56,6 +56,13 @@ python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks parity,cli
 grep -q '"parity":{"ProductGrid":{"layers":\["filter-button"\]' "$OUT/checks-mini-split.js" && grep -q '"only":\["parity","clip"\],"part":\[2,3\]' "$OUT/checks-mini-split.js" && ok "checks js carries parity, only and part" || bad "checks js carries parity, only and part"
 if command -v node >/dev/null; then node --check "$OUT/checks-mini-split.js" 2>"$OUT/node2.log" && ok "split checks js parses" || bad "split checks js parses" "$(head -3 "$OUT/node2.log")"; fi
 python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js manifest --part 1/2 > "$OUT/manifest-part.js" && grep -q '"part":\[1,2\]' "$OUT/manifest-part.js" && ok "extract --js manifest --part renders" || bad "extract --js manifest --part renders"
+python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks props > "$OUT/checks-mini-props.js" && grep -q '"props":{"HeroBanner":{"need":\[\["image","IMAGE"' "$OUT/checks-mini-props.js" && grep -q 'not-in-plan' "$OUT/checks-mini-props.js" && ok "checks js carries plan props (need/known)" || bad "checks js carries plan props (need/known)" "$(grep -o '"props":{[^]]*' "$OUT/checks-mini-props.js" | head -c 200)"
+if command -v node >/dev/null; then cat > "$OUT/propmarks.js" <<'JS'
+JS
+  sed -n '/^const propMarks/p' "$OUT/checks-mini-props.js" >> "$OUT/propmarks.js"
+  echo 'const r = propMarks("I-PDP-04 · M-11 · not · props addToCartText, addingText TEXT, image IMAGE · prop closeAriaLabel TEXT"); if (JSON.stringify(r) !== JSON.stringify([["addToCartText","TEXT"],["addingText","TEXT"],["image","IMAGE"],["closeAriaLabel","TEXT"]])) { console.error(JSON.stringify(r)); process.exit(1); }' >> "$OUT/propmarks.js"
+  node "$OUT/propmarks.js" 2>"$OUT/propmarks.log" && ok "prop mark grammar parses" || bad "prop mark grammar parses" "$(cat "$OUT/propmarks.log")"
+fi
 python3 "$S/extract_targets.py" "$OUT/plan-mini.md" --js all --checks bogus >/dev/null 2>&1 && bad "extract rejects unknown CHK id" || ok "extract rejects unknown CHK id"
 
 # 6. analyze_site on offline fixture

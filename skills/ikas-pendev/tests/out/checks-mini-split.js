@@ -1,4 +1,4 @@
-const P = "K", SLUG = "kaya", CONTRACT = 2, EXP = {"prefix":"K","slug":"kaya","contract":2,"referenceHost":"example.com","vars":["color-bg","color-text","color-muted","color-line","color-surface","color-inverse-bg","color-inverse-text","color-accent","color-accent-text","color-scrim","color-transparent","color-danger","color-success","font-display","font-ui","font-body","font-price","font-mono","text-display","text-h2","text-h3","text-h4","text-title","text-ui","text-ui-sm","text-badge","text-label","text-body","text-price","space-page","space-grid","space-card","space-panel","space-xs","space-sm","space-md","space-section","size-header","size-line","opacity-inactive","size-logo"],"ds":["Colors","Typography","Spacing","Icons","Motion","Imagery"],"sections":["HeroBanner","ProductGrid"],"overlays":["FilterDrawer","QuickBuy"],"overlayDevices":{"FilterDrawer":["mobile"],"QuickBuy":["desktop","mobile"]},"pages":{"Home":["HeroBanner","ProductGrid"],"Category":["ProductGrid"]},"pageExpand":{"Home":1,"Category":1},"ids":["K-CMP-01","K-CMP-02","K-HERO-01","K-HERO-02","K-HERO-03","K-GRID-01","K-GRID-02","K-FILT-01","K-FILT-02","K-QB-01"],"parity":{"ProductGrid":{"layers":["filter-button"],"states":[]}},"only":["parity","clip"],"part":[2,3]}, MODE = "all";
+const P = "K", SLUG = "kaya", CONTRACT = 2, EXP = {"prefix":"K","slug":"kaya","contract":2,"referenceHost":"example.com","vars":["color-bg","color-text","color-muted","color-line","color-surface","color-inverse-bg","color-inverse-text","color-accent","color-accent-text","color-scrim","color-transparent","color-danger","color-success","font-display","font-ui","font-body","font-price","font-mono","text-display","text-h2","text-h3","text-h4","text-title","text-ui","text-ui-sm","text-badge","text-label","text-body","text-price","space-page","space-grid","space-card","space-panel","space-xs","space-sm","space-md","space-section","size-header","size-line","opacity-inactive","size-logo"],"ds":["Colors","Typography","Spacing","Icons","Motion","Imagery"],"sections":["HeroBanner","ProductGrid"],"overlays":["FilterDrawer","QuickBuy"],"overlayDevices":{"FilterDrawer":["mobile"],"QuickBuy":["desktop","mobile"]},"pages":{"Home":["HeroBanner","ProductGrid"],"Category":["ProductGrid"]},"pageExpand":{"Home":1,"Category":1},"ids":["K-CMP-01","K-CMP-02","K-HERO-01","K-HERO-02","K-HERO-03","K-GRID-01","K-GRID-02","K-FILT-01","K-FILT-02","K-QB-01"],"parity":{"ProductGrid":{"layers":["filter-button"],"states":[]}},"props":{"HeroBanner":{"need":[["image","IMAGE","hero-image"],["title","TEXT","hero-title"],["buttonText","TEXT","hero-button"]],"known":["backgroundColor","buttonText","image","link","title"]},"ProductGrid":{"need":[["title","TEXT","grid-title"],["filterButtonText","TEXT","filter-button"]],"known":["backgroundColor","filterButtonText","productList","title"]},"FilterDrawer":{"need":[["filterTitle","TEXT","filter-header"],["applyText","TEXT","apply-button"]],"known":["applyText","backgroundColor","filterTitle"]},"QuickBuy":{"need":[["closeAriaLabel","TEXT","qb-head"],["chooseOptionText","TEXT","qb-variant-error"],["addText","TEXT","qb-actions"],["addingText","TEXT","qb-actions"]],"known":["addText","addingText","backgroundColor","chooseOptionText","closeAriaLabel"]}},"only":["parity","clip"],"part":[2,3]}, MODE = "all";
 let pass = 0, fail = 0, warn = 0;
 const cut = s => { s = String(s).replace(/[|\n]/g, "/"); return s.length > 200 ? s.slice(0, 197) + "..." : s; };
 const chk = (id, st, n, d) => { if (st === "PASS") pass++; else if (st === "FAIL") fail++; else warn++; Print("CHK|" + id + "|" + st + "|" + n + "|" + cut(d || "")); };
@@ -19,6 +19,8 @@ const keyOf = r => { const m = /^[A-Za-z]+\/([A-Za-z0-9]+)/.exec(rest(r)); retur
 const ROLE = { DS: "ds", Sub: "sub", Section: "section", Overlay: "overlay", Page: "page", Motion: "motion" };
 const ALIAS = { ds: "DS", subs: "Sub", sub: "Sub", pages: "Page", page: "Page", overlays: "Overlays", motion: "Motion" };
 const anims = (m, ctx) => { const s = new Set(); if (m && typeof m.anim === "string") m.anim.split(",").forEach(x => { x = x.trim(); if (x) s.add(x); }); if (typeof ctx === "string") (ctx.match(idRe) || []).forEach(x => s.add(x)); return s; };
+const propMarks = s => { const out = []; if (typeof s !== "string") return out; s.split("\u00b7").forEach(seg => { const m = /^\s*props?\s+(.+)$/.exec(seg.trim()); if (!m) return; let pend = []; m[1].split(",").forEach(it => { const w = it.trim().split(/\s+/), nm = w[0], ty = w[1] && /^[A-Z_]+$/.test(w[1]) ? w[1] : null; if (!/^[a-z][A-Za-z0-9]*$/.test(nm || "")) return; pend.push(nm); if (ty) { pend.forEach(p => out.push([p, ty])); pend = []; } }); pend.forEach(p => out.push([p, "?"])); }); return out; };
+const nodeProps = n => { const out = []; const m = n.metadata || {}; if (m.prop) out.push([m.prop, m.propType || "?"]); propMarks(n.context).forEach(x => out.push(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; if (o.metadata && o.metadata.prop) out.push([o.metadata.prop, o.metadata.propType || "?"]); propMarks(o.context).forEach(x => out.push(x)); }); return out; };
 const scanNode = (n, into) => { anims(n.metadata, n.context).forEach(x => into.add(x)); const d = n.descendants; if (d && typeof d === "object") Object.keys(d).forEach(k => { const o = d[k] || {}; anims(o.metadata, o.context).forEach(x => into.add(x)); }); };
 if (MODE === "manifest") {
 roots.filter((r, i) => !EXP.part || i % EXP.part[1] === EXP.part[0] - 1).forEach(r => {
@@ -26,7 +28,7 @@ const props = [], data = [], code = [], ids = new Set();
 const add = (a, v) => { if (a.indexOf(v) < 0) a.push(v); };
 Get(r.id, n => {
 const m = n.metadata || {};
-if (m.prop) add(props, m.prop + ":" + (m.propType || "?"));
+nodeProps(n).forEach(x => add(props, x[0] + ":" + x[1]));
 if (m.textClass === "data") add(data, (n.name || "?") + "=" + (m.source || "?"));
 if (m.textClass === "code") add(code, n.name || "?");
 scanNode(n, ids);
@@ -50,7 +52,7 @@ return (b === "Section" || b === "Overlay") && keyOf(r) === unit;
 };
 const U = roots.filter(inUnit);
 if (unit && !isBand && (EXP.sections || []).indexOf(unit) < 0 && (EXP.overlays || []).indexOf(unit) < 0) chk("sections", "FAIL", 0, "unknown unit key " + unit + " (not a plan Section/Overlay)");
-const run = id => { if (EXP.only && EXP.only.indexOf(id) < 0) return false; if (!unit) return true; if (unit === "DS") return ["vars", "ds", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Page") return ["pages", "rootmeta", "placeholder"].indexOf(id) >= 0; if (unit === "Motion") return ["hardcoded", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Sub") return ["anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Overlays") return ["overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "parity", "placeholder", "refassets"].indexOf(id) >= 0; return ["sections", "overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "bgprop", "parity", "placeholder", "refassets"].indexOf(id) >= 0; };
+const run = id => { if (EXP.only && EXP.only.indexOf(id) < 0) return false; if (!unit) return true; if (unit === "DS") return ["vars", "ds", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Page") return ["pages", "rootmeta", "placeholder"].indexOf(id) >= 0; if (unit === "Motion") return ["hardcoded", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Sub") return ["anim", "hardcoded", "textclass", "clip", "rootmeta", "placeholder", "refassets"].indexOf(id) >= 0; if (unit === "Overlays") return ["overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "parity", "props", "placeholder", "refassets"].indexOf(id) >= 0; return ["sections", "overlays", "anim", "hardcoded", "textclass", "clip", "rootmeta", "bgprop", "parity", "props", "placeholder", "refassets"].indexOf(id) >= 0; };
 const find = nm => roots.find(r => r.name === nm);
 const findPre = pre => roots.filter(r => r.name === pre || r.name.indexOf(pre + " ") === 0);
 if (run("vars")) {
@@ -200,6 +202,20 @@ dsk.forEach(r => { const st = r.name.slice((pre + "desktop \u2014 ").length); if
 });
 const okK = checked - badK.size;
 chk("parity", badK.size ? "FAIL" : "PASS", okK, okK + "/" + checked + (badS.length ? " mobile state missing:" + badS.join(",") : "") + (badL.length ? " desktop-only layers:" + badL.join(",") : ""));
+}
+if (run("props")) {
+const PE = EXP.props || {}, keys = unit === "Overlays" ? Object.keys(PE).filter(k => (EXP.overlays || []).indexOf(k) >= 0) : (unit ? (PE[unit] ? [unit] : []) : Object.keys(PE));
+const miss = [], wrong = [], stale = []; let want = 0;
+keys.forEach(k => {
+const kind = (EXP.sections || []).indexOf(k) >= 0 ? "Section" : "Overlay", pre = P + "/" + kind + "/" + k + "@";
+const rs = roots.filter(r => r.name.indexOf(pre) === 0 && (kind === "Overlay" || r.name.indexOf(" \u2014 ") < 0));
+const got = {};
+rs.forEach(r => Get(r.id, n => { nodeProps(n).forEach(x => { if (!got[x[0]] || got[x[0]] === "?") got[x[0]] = x[1]; }); return undefined; }));
+PE[k].need.forEach(e => { want++; if (!got[e[0]]) miss.push(k + "." + e[0]); else if (got[e[0]] !== "?" && got[e[0]] !== e[1]) wrong.push(k + "." + e[0] + ":" + got[e[0]] + "\u2260" + e[1]); });
+Object.keys(got).forEach(g => { if (PE[k].known.indexOf(g) < 0) stale.push(k + "." + g); });
+});
+const bad = miss.length + wrong.length + stale.length;
+chk("props", bad ? (CONTRACT < 2 ? "WARN" : "FAIL") : "PASS", want - miss.length - wrong.length, (want - miss.length - wrong.length) + "/" + want + (miss.length ? " unmarked:" + miss.join(",") : "") + (wrong.length ? " type:" + wrong.join(",") : "") + (stale.length ? " not-in-plan:" + stale.join(",") : ""));
 }
 if (run("placeholder")) {
 const ph = U.filter(r => r.placeholder).map(rest);
