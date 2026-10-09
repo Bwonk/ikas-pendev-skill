@@ -1146,7 +1146,7 @@ def render_runbook(m):
         sz = t['sizes']
         sizes = (' / '.join(px(sz[k]) for k in ('desktop', 'laptop', 'tablet', 'mobile')) + ' (≥1200 / laptop / tablet / mobil)'
                  if 'laptop' in sz else '%s / %s (mobil CSS)' % (px(sz['desktop']), px(sz['mobile'])))
-        extra = ''.join(' · %s' % x for x in (t.get('letterSpacing') and 'harf ' + t['letterSpacing'], t.get('transform')) if x)
+        extra = ' · harf %s' % t['letterSpacing'] if t.get('letterSpacing') else ''
         rows.append(('typography', t['name'], '%s · %s · %s · satır %s%s' % (
             t['family'] or '?', t['weight'] or 'ağırlık ?', sizes, t['lineHeight'] or '?', extra),
             '`%s` + `%s`%s' % (t['var'], t['fontVar'] or '?', ' · ' + t['source'] if t.get('source') else '')))
@@ -1206,8 +1206,6 @@ def render_runbook(m):
             p['line_height'] = t['lineHeight']
         if t.get('letterSpacing'):
             p['letter_spacing'] = t['letterSpacing']
-        if t.get('transform'):
-            p['text_transform'] = t['transform']
         if 'laptop' in t['sizes']:
             bpo = [collections.OrderedDict([('breakpoint_id', '<%s id>' % b['name']), ('font_size', px(t['sizes'][b['id']]))])
                    for b in g['breakpoints'] if b['id'] in t['sizes'] and t['sizes'][b['id']] != t['sizes']['desktop']]
@@ -1249,6 +1247,11 @@ def render_runbook(m):
     if g.get('schemeDefaults'):
         notes.append('- Bölümlerin varsayılan şeması (`globals.md` §1a):')
         notes += ['  - %s' % x for x in g['schemeDefaults']]
+    upper = [t['name'] for t in g['typography'] if t.get('transform')]
+    if upper:
+        # 04-ikas-constraints §4: text styles never carry text-transform; the copy itself is upper-case (lang="tr").
+        notes.append('- Büyük harf stilleri (' + ', '.join(upper) + '): metin stiline `text_transform` yazılmaz; '
+                     'varsayılan metinler büyük harfle girilir, dinamik veri kodda `toLocaleUpperCase("tr-TR")` ile çevrilir.')
     missing_w = [t['name'] for t in g['typography'] if not t['weight']]
     if missing_w:
         notes.append('- Ağırlığı planda olmayan tipografiler (`font_weight` gönderilmez; kullanıcıya sorulur): ' + ', '.join(missing_w) + '.')

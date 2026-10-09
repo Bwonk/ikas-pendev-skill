@@ -75,7 +75,8 @@ python3 "$S/build_manifest.py" --plandata "$EX/plandata.json" --plan "$OUT/plan-
 nb="$(grep -c '|BLOCKING$' "$OUT/manifest-broken.log" | tr -d ' ')"; [ "$nb" = "2" ] && ok "build_manifest broken dump has 2 blocking" || bad "build_manifest broken dump has 2 blocking" "got $nb"
 
 python3 "$S/build_manifest.py" --plandata "$EX/plandata.json" --plan "$OUT/plan-C.md" --dump "$FX/ornek-canvas-dump.txt" --globals "$FX/globals-c2.md" -o "$OUT/port-globals" > "$OUT/manifest-globals.log" 2>&1 && ok "build_manifest --globals exit 0" || bad "build_manifest --globals exit 0" "$(tail -3 "$OUT/manifest-globals.log")"
-grep -q '"name": "Örnek / Gece"\|Gece' "$OUT/port-globals/globals-runbook.md" && grep -q '"breakpoints": \[{"breakpoint_id": "<Kırılım / Laptop id>", "font_size": "80px"}' "$OUT/port-globals/globals-runbook.md" && grep -q '"text_transform": "uppercase"' "$OUT/port-globals/globals-runbook.md" && ok "runbook uses globals.md §1a schemes and §2a breakpoints" || bad "runbook uses globals.md §1a schemes and §2a breakpoints"
+grep -q '"name": "Örnek / Gece"\|Gece' "$OUT/port-globals/globals-runbook.md" && grep -q '"breakpoints": \[{"breakpoint_id": "<Kırılım / Laptop id>", "font_size": "80px"}' "$OUT/port-globals/globals-runbook.md" && ok "runbook uses globals.md §1a schemes and §2a breakpoints" || bad "runbook uses globals.md §1a schemes and §2a breakpoints"
+! grep -q '"text_transform"\|· uppercase' "$OUT/port-globals/globals-runbook.md" && grep -q 'Büyük harf stilleri' "$OUT/port-globals/globals-runbook.md" && ok "runbook: no text_transform on text styles, uppercase note instead (04 §4)" || bad "runbook: no text_transform on text styles, uppercase note instead (04 §4)"
 
 echo "----"; echo "passed=$pass failed=$fail"
 [ "$fail" = "0" ]
