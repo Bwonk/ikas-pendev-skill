@@ -98,7 +98,7 @@ IMPL_FILLER = {"ya", "da", "veya", "ile", "benzeri", "or", "and", "opsiyonel", "
 TRIGGERS = {"load", "inview", "hover", "click", "drag", "auto", "auto-loop", "scroll-scrub",
             "sticky", "state-change", "focus", "scroll"}
 VALID_FONTS = {"Anton", "Antonio", "Archivo Narrow", "Barlow", "Barlow Condensed", "Bebas Neue",
-               "JetBrains Mono", "Mona Sans", "Oswald", "Sofia Sans Extra Condensed", "Space Mono"}
+               "Inter Tight", "JetBrains Mono", "Mona Sans", "Oswald", "Sofia Sans Extra Condensed", "Space Mono"}
 INVALID_FONTS = {"Mona Sans Condensed", "Big Shoulders Display"}
 STATE_RECIPES_DEFAULT = {"M-03", "M-05", "M-06", "M-07", "M-09", "M-11", "M-12", "M-20", "M-21",
                          "M-22", "M-23", "M-24"}
